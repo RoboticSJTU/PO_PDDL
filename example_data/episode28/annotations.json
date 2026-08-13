@@ -1,0 +1,26 @@
+{
+  "episode_name": "episode28",
+  "task_group": "close_drawer_constrained",
+  "fps": 10,
+  "total_frames": 229,
+  "total_duration_sec": 22.9,
+  "instruction": "close the yellow drawer on the left",
+  "steps": [
+    {
+      "step_index": 0,
+      "start_time_sec": null,
+      "end_time_sec": null,
+      "action_text": null,
+      "extra_info": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 0.0,
+      "end_time_sec": 22.9,
+      "action_text": "close the yellow drawer on the left",
+      "extra_info": null
+    }
+  ]
+}

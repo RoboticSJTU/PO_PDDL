@@ -1,0 +1,13 @@
+# Core domain and problem generation
+numpy>=1.26,<3
+openai>=1.30,<3
+opencv-python-headless>=4.9,<5
+Pillow>=10,<13
+
+# Native terminal planner bindings
+pybind11>=2.12,<4
+
+# Development and verification
+pytest>=8,<10
+ruff>=0.6,<1
+setuptools>=69

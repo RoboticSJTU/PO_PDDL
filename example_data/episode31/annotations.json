@@ -1,0 +1,62 @@
+{
+  "episode_name": "episode31",
+  "task_group": "open_drawers_pick_and_place_constrained",
+  "fps": 10,
+  "total_frames": 1207,
+  "total_duration_sec": 120.7,
+  "instruction": "pick the blue block from the yellow drawer on the left and place it into the the green drawer on the right",
+  "steps": [
+    {
+      "step_index": 0,
+      "start_time_sec": null,
+      "end_time_sec": null,
+      "action_text": null,
+      "extra_info": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 0.0,
+      "end_time_sec": 24.1,
+      "action_text": "open the green drawer on the right",
+      "extra_info": null
+    },
+    {
+      "step_index": 2,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 24.1,
+      "end_time_sec": 50.6,
+      "action_text": "open the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 3,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 50.6,
+      "end_time_sec": 73.4,
+      "action_text": "pick up the blue block in the yellow drawer on the left",
+      "extra_info": "failure"
+    },
+    {
+      "step_index": 4,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 73.4,
+      "end_time_sec": 98.1,
+      "action_text": "pick up the blue block in the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 5,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 98.1,
+      "end_time_sec": 120.7,
+      "action_text": "place the blue block into the green drawer on the right",
+      "extra_info": null
+    }
+  ]
+}

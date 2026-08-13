@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "description": "Rule-based mapping from grounded POMDPDDL actions to executor task strings for all_tasks problems.",
+  "object_aliases": {
+    "yellow_drawer": "yellow drawer",
+    "green_drawer": "green drawer",
+    "pink_cup": "pink cup",
+    "green_cup": "green cup",
+    "black_box": "block box",
+    "blue_block": "blue block",
+    "yellow_block": "yellow block",
+    "green_block": "green block",
+    "red_block": "red block"
+  },
+  "action_rules": {
+    "open_object_on_left": {
+      "task_template": "open the {arg0}"
+    },
+    "open_object_on_right": {
+      "task_template": "open the {arg0}"
+    },
+    "close_object_on_left": {
+      "task_template": "close the {arg0}"
+    },
+    "close_object_on_right": {
+      "task_template": "close the {arg0}"
+    },
+    "look_into_object_in_front_of_object_on_left": {
+      "task_template": "look into the cup on the left"
+    },
+    "look_into_object_in_front_of_object_on_right": {
+      "task_template": "look into the cup on the right"
+    },
+    "look_into_object_on_left": {
+      "task_template": "look into the {arg0} on the left"
+    },
+    "look_into_object_on_right": {
+      "task_template": "look into the {arg0} on the right"
+    },
+    "pick_up_object_in_front_of_object_on_left": {
+      "task_template": "pick up the {arg0} on the left of the table"
+    },
+    "pick_up_object_in_front_of_object_on_right": {
+      "task_template": "pick up the {arg0} on the right of the table"
+    },
+    "pick_up_object_in_object_on_left": {
+      "task_template": "pick up the {arg0} in the {arg1}"
+    },
+    "pick_up_object_in_object_on_right": {
+      "task_template": "pick up the {arg0} in the {arg1}"
+    },
+    "place_object_into_object_on_left": {
+      "task_template": "place the {arg0} into the {arg1}"
+    },
+    "place_object_into_object_on_right": {
+      "task_template": "place the {arg0} into the {arg1}"
+    },
+    "place_object_on_top_of_object_on_left": {
+      "task_template": "place the {arg0} on the top of the {arg1}"
+    },
+    "place_object_on_top_of_object_on_right": {
+      "task_template": "place the {arg0} on the top of the {arg1}"
+    },
+    "push_object_on_object_on_right_to_object_on_left": {
+      "task_template": "push the {arg0} on the {arg1} to the {arg2}"
+    }
+  }
+}

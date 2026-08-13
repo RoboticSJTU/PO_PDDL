@@ -1,0 +1,53 @@
+{
+  "episode_name": "episode19",
+  "task_group": "open_drawers_pick_and_place_constrained",
+  "fps": 10,
+  "total_frames": 943,
+  "total_duration_sec": 94.3,
+  "instruction": "pick the red block from the green drwer and place it into the the yellow drawer on the left",
+  "steps": [
+    {
+      "step_index": 0,
+      "start_time_sec": null,
+      "end_time_sec": null,
+      "action_text": null,
+      "extra_info": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 0.0,
+      "end_time_sec": 25.7,
+      "action_text": "open the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 2,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 25.7,
+      "end_time_sec": 50.3,
+      "action_text": "open the green drawer on the right",
+      "extra_info": null
+    },
+    {
+      "step_index": 3,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 50.3,
+      "end_time_sec": 73.7,
+      "action_text": "pick up the red block in the green drawer on the right",
+      "extra_info": null
+    },
+    {
+      "step_index": 4,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 73.7,
+      "end_time_sec": 94.3,
+      "action_text": "place the red block into the yellow drawer on the left",
+      "extra_info": null
+    }
+  ]
+}

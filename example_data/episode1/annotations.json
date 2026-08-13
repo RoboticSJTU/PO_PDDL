@@ -1,0 +1,44 @@
+{
+  "episode_name": "episode1",
+  "task_group": "push_block_and_place_cup_constrained",
+  "fps": 10,
+  "total_frames": 675,
+  "total_duration_sec": 67.5,
+  "instruction": "push the black box to the yellow drawer on the left, and place the green cup on the top of the green drawer on the right",
+  "steps": [
+    {
+      "step_index": 0,
+      "start_time_sec": null,
+      "end_time_sec": null,
+      "action_text": null,
+      "extra_info": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 0.0,
+      "end_time_sec": 21.7,
+      "action_text": "push the black box on the green drawer on the right to the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 2,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 21.7,
+      "end_time_sec": 43.8,
+      "action_text": "pick up the green cup in front of the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 3,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 43.8,
+      "end_time_sec": 67.5,
+      "action_text": "place the green cup on the top of the green drawer on the right",
+      "extra_info": null
+    }
+  ]
+}

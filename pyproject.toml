@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "po-pddl"
+version = "0.1.0"
+description = "Learn PO-PDDL domains from demonstrations and generate scene-conditioned problems."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "Wenjing Tang"}]
+dependencies = [
+  "numpy>=1.26",
+  "openai>=1.30",
+  "opencv-python-headless>=4.9",
+  "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+runtime = ["pybind11>=2.12"]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+po-pddl-learn-domain = "po_pddl.domain_generation.pipeline.cli:main"
+po-pddl-extend-domain = "po_pddl.domain_generation.extension.cli:main"
+po-pddl-generate-problem = "po_pddl.problem_generation.cli:main"
+po-pddl-run-terminal = "po_pddl.runtime.terminal.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+po_pddl = ["prompts/**/*.md"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+extend-exclude = ["outputs", "data", "src/po_pddl/runtime/planning"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]

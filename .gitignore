@@ -1,0 +1,43 @@
+# Python bytecode and package metadata
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Test, lint, and coverage artifacts
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build products and native extensions
+build/
+dist/
+*.so
+*.dylib
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+
+# Local environments and editor files
+.venv/
+venv/
+env/
+.conda/
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
+
+# Credentials and machine-local model settings
+large_model_config.json
+large_model_config.private.json
+*.private.json
+
+# Generated experiments
+outputs/
+example_problem/problem_online.pddl
+*.log

@@ -1,0 +1,53 @@
+{
+  "episode_name": "episode24",
+  "task_group": "open_drawers_pick_and_place_constrained",
+  "fps": 10,
+  "total_frames": 850,
+  "total_duration_sec": 85.0,
+  "instruction": "pick up the blue block and place the blue block on the top of the yellow drawer on the left",
+  "steps": [
+    {
+      "step_index": 0,
+      "start_time_sec": null,
+      "end_time_sec": null,
+      "action_text": null,
+      "extra_info": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 0.0,
+      "end_time_sec": 24.9,
+      "action_text": "open the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 2,
+      "step_name": "observe",
+      "task_index": null,
+      "start_time_sec": 24.9,
+      "end_time_sec": 39.9,
+      "action_text": "look into the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 3,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 39.9,
+      "end_time_sec": 64.5,
+      "action_text": "pick up the blue block in the yellow drawer on the left",
+      "extra_info": null
+    },
+    {
+      "step_index": 4,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 64.5,
+      "end_time_sec": 85.0,
+      "action_text": "place the blue block on the top of the yellow drawer on the left",
+      "extra_info": null
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "episode_name": "episode14",
+  "task_group": "pick_cup_and_open_drawer_constrained",
+  "fps": 10,
+  "total_frames": 716,
+  "total_duration_sec": 71.6,
+  "instruction": "place the pink cup on the top of the green drawer on the right, and open the green drawer on the right",
+  "steps": [
+    {
+      "step_index": 0,
+      "start_time_sec": null,
+      "end_time_sec": null,
+      "action_text": null,
+      "extra_info": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 0.0,
+      "end_time_sec": 22.4,
+      "action_text": "pick up the pink cup in front of the green drawer on the right",
+      "extra_info": null
+    },
+    {
+      "step_index": 2,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 22.4,
+      "end_time_sec": 46.8,
+      "action_text": "place the pink cup on the top of the green drawer on the right",
+      "extra_info": null
+    },
+    {
+      "step_index": 3,
+      "step_name": "manipulation",
+      "task_index": null,
+      "start_time_sec": 46.8,
+      "end_time_sec": 71.6,
+      "action_text": "open the green drawer on the right",
+      "extra_info": null
+    }
+  ]
+}

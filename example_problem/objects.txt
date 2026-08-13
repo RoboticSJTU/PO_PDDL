@@ -1,0 +1,1 @@
+blue_block red_block green_drawer yellow_drawer pink_cup green_cup black_box

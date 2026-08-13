@@ -1,0 +1,33 @@
+# DESPOT Hyperparameters (hot-reloadable)
+# Edit values below and they will be picked up at each planning step.
+
+# Model rewards
+goal_reward: 1000.0
+enable_report_goal_action: true
+report_goal_failure_penalty: -1000
+action_invalid_penalty: -100
+action_no_change_penalty: -200
+dead_end_penalty: -1000
+
+# Default policy
+dp_exploit_prob: 0.7
+
+# DESPOT planner config
+time_per_move: 2.0
+# Optional split budgets for executor-backed planning.
+# If omitted, both fall back to `time_per_move`.
+prefetch_time_per_move: 8.0
+realtime_time_per_move: 2.0
+num_scenarios: 500
+search_depth: 10
+max_policy_sim_len: 30
+sim_len: 30
+discount: 0.95
+pruning_constant: 0.0
+xi: 0.95
+root_seed: 42
+silence: true
+
+
+#simulator config
+max_steps: 20
