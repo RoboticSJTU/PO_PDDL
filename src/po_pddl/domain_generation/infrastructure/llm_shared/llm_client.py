@@ -200,11 +200,7 @@ def make_client(
     api_key: Optional[str] = None,
     base_url: Optional[str] = None,
 ):
-    """Create an OpenAI API client or locally authenticated Codex CLI adapter."""
-    from .codex_cli_client import CodexCLIClient, is_codex_cli_base_url
-
-    if is_codex_cli_base_url(base_url):
-        return CodexCLIClient()
+    """Create an OpenAI-compatible API client."""
     try:
         from openai import OpenAI
     except ImportError:
@@ -562,24 +558,6 @@ def safe_chat(
                     backoff *= 2
                     continue
             raise
-
-        except Exception as exc:
-            from .codex_cli_client import CodexCLIError
-
-            if not isinstance(exc, CodexCLIError):
-                raise
-            last_exc = exc
-            if not exc.retryable or attempt >= max_retries:
-                raise
-            logger.warning(
-                "Codex CLI transient error on attempt %d/%d: %s. Waiting %.1f s before retry ...",
-                attempt,
-                max_retries,
-                exc,
-                backoff,
-            )
-            _sleep_with_jitter(backoff)
-            backoff *= 2
 
     # Should not be reached, but just in case
     if last_exc is not None:

@@ -54,25 +54,24 @@ def test_problem_cli_accepts_initial_state_hint(tmp_path: Path) -> None:
     assert args.initial_state_hint == "All containers are closed."
 
 
-def test_codex_profile_selects_local_cli_transport(tmp_path: Path, monkeypatch) -> None:
+def test_named_api_profile_selects_its_endpoint(tmp_path: Path, monkeypatch) -> None:
     config_path = tmp_path / "models.json"
     config_path.write_text(
-        '{"codex_config": {"provider": "codex_cli", "model": "gpt-5.6-sol"}}',
+        '{"alternate_api": {"base_url": "https://api.example.test/v1", "model": "example-model"}}',
         encoding="utf-8",
     )
 
-    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.invalid/v1")
-    config = load_llm_config(str(config_path), "codex_config")
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://environment.example.test/v1")
+    config = load_llm_config(str(config_path), "alternate_api")
 
-    assert config["provider"] == "codex_cli"
-    assert config["base_url"] == "codex-cli://local"
-    assert config["model"] == "gpt-5.6-sol"
+    assert config["base_url"] == "https://api.example.test/v1"
+    assert config["model"] == "example-model"
 
 
 def test_llm_settings_passes_profile_to_domain_runner() -> None:
-    settings = LLMSettings(config_name="codex_config")
+    settings = LLMSettings(config_name="alternate_api")
 
-    assert settings.runner_kwargs()["config_name"] == "codex_config"
+    assert settings.runner_kwargs()["config_name"] == "alternate_api"
 
 
 def test_domain_cli_accepts_named_model_profile(tmp_path: Path) -> None:
@@ -83,11 +82,11 @@ def test_domain_cli_accepts_named_model_profile(tmp_path: Path) -> None:
             "--output-dir",
             str(tmp_path / "output"),
             "--config-name",
-            "codex_config",
+            "alternate_api",
         ]
     )
 
-    assert args.config_name == "codex_config"
+    assert args.config_name == "alternate_api"
 
 
 def test_extension_cli_accepts_named_model_profile(tmp_path: Path) -> None:
@@ -100,8 +99,8 @@ def test_extension_cli_accepts_named_model_profile(tmp_path: Path) -> None:
             "--output-dir",
             str(tmp_path / "output"),
             "--config-name",
-            "codex_config",
+            "alternate_api",
         ]
     )
 
-    assert args.config_name == "codex_config"
+    assert args.config_name == "alternate_api"
