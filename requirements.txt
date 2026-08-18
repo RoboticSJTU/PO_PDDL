@@ -4,7 +4,7 @@ openai>=1.30,<3
 opencv-python-headless>=4.9,<5
 Pillow>=10,<13
 
-# Native terminal planner bindings
+# Native terminal planner bindings (installed in the active Python environment)
 pybind11>=2.12,<4
 
 # Development and verification

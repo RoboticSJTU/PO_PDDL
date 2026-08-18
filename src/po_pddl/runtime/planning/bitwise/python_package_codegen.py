@@ -151,7 +151,7 @@ def _write_model_module(
     append("")
     append("from pathlib import Path")
     append("")
-    append("from POMDPDDL.bitwise import POMDPModelBase")
+    append("from po_pddl.runtime.planning.bitwise import POMDPModelBase")
     append("")
     append("from .shared import (")
     append("    GOAL_REWARD,")
@@ -406,7 +406,7 @@ def _emit_group_module_header() -> list[str]:
         "",
         "from __future__ import annotations",
         "",
-        "from POMDPDDL.bitwise import POMDPModelBase",
+        "from po_pddl.runtime.planning.bitwise import POMDPModelBase",
         "",
     ]
 

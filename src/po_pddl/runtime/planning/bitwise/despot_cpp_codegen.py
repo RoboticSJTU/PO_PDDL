@@ -3811,20 +3811,23 @@ def _gen_build_script() -> str:
 
         PYTHON_BIN="${PYTHON_BIN:-python3}"
 
-        # Auto-detect pybind11 cmake dir from Python
-        PYBIND11_DIR=$("$PYTHON_BIN" -c "import pybind11; print(pybind11.get_cmake_dir())" 2>/dev/null || true)
-        CMAKE_EXTRA=""
-        if [ -n "$PYBIND11_DIR" ]; then
-            CMAKE_EXTRA="-Dpybind11_DIR=$PYBIND11_DIR"
+        # Bind against the pybind11 installed for this exact interpreter. Falling
+        # back to a system CMake package can silently select an incompatible ABI.
+        if ! PYBIND11_DIR=$("$PYTHON_BIN" -c "import pybind11; print(pybind11.get_cmake_dir())"); then
+            echo "ERROR: pybind11>=2.12 is required in $PYTHON_BIN." >&2
+            echo "Install it with: $PYTHON_BIN -m pip install 'pybind11>=2.12,<4'" >&2
+            exit 1
         fi
+        CMAKE_ARGS=(
+            "-DPython_EXECUTABLE=$PYTHON_BIN"
+            "-Dpybind11_DIR=$PYBIND11_DIR"
+        )
         if [ -n "${DESPOT_CORE_LIB:-}" ]; then
-            CMAKE_EXTRA="$CMAKE_EXTRA -DDESPOT_PREBUILT_CORE_LIB=$DESPOT_CORE_LIB"
+            CMAKE_ARGS+=("-DDESPOT_PREBUILT_CORE_LIB=$DESPOT_CORE_LIB")
         fi
 
         cmake -S . -B build \
-            -DPython3_EXECUTABLE="$PYTHON_BIN" \
-            -DPython_EXECUTABLE="$PYTHON_BIN" \
-            $CMAKE_EXTRA
+            "${CMAKE_ARGS[@]}"
         cmake --build build -j$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1)
 
         SO_FILE=$(find build -maxdepth 1 -name 'despot_planner*.so' -o -name 'despot_planner*.dylib' | head -1)
@@ -3850,7 +3853,7 @@ def _gen_pybind_cmakelists(despot_root_str: str) -> str:
     L.append("")
     L.append("set(PYBIND11_FINDPYTHON ON)")
     L.append("find_package(Python COMPONENTS Interpreter Development REQUIRED)")
-    L.append("find_package(pybind11 REQUIRED)")
+    L.append("find_package(pybind11 2.12 CONFIG REQUIRED)")
     L.append("")
     L.append("pybind11_add_module(despot_planner")
     L.append("    bitwise_pomdp_model.cpp")

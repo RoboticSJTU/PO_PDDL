@@ -173,7 +173,7 @@ def _write_shared_module(
     append("")
     append("from __future__ import annotations")
     append("")
-    append("from POMDPDDL.data_structures import (")
+    append("from po_pddl.runtime.planning.data_structures import (")
     append("    Predicate,")
     append("    Observable,")
     append("    Action,")
@@ -226,8 +226,8 @@ def _write_model_module(
     append("")
     append("from __future__ import annotations")
     append("")
-    append("from POMDPDDL.base import POMDPModelBase")
-    append("from POMDPDDL.data_structures import (")
+    append("from po_pddl.runtime.planning.base import POMDPModelBase")
+    append("from po_pddl.runtime.planning.data_structures import (")
     append("    Action,")
     append("    Observable,")
     append("    ObservationRule,")
@@ -546,8 +546,8 @@ def _emit_group_module_header() -> list[str]:
         "",
         "from __future__ import annotations",
         "",
-        "from POMDPDDL.base import POMDPModelBase",
-        "from POMDPDDL.data_structures import (",
+        "from po_pddl.runtime.planning.base import POMDPModelBase",
+        "from po_pddl.runtime.planning.data_structures import (",
         "    Predicate,",
         "    Observable,",
         "    Action,",

@@ -105,10 +105,21 @@ python -m pip install -e . --no-deps
 ```
 
 Video processing requires FFmpeg. The interactive planner additionally
-requires a C++ toolchain, CMake, and a DESPOT source checkout:
+requires the Python-environment copy of pybind11 2.12 or later, a C++
+toolchain, CMake, and a DESPOT source checkout:
 
 ```bash
 sudo apt-get install build-essential cmake ffmpeg
+python -c "import pybind11; print(pybind11.__version__, pybind11.get_cmake_dir())"
+```
+
+Do not install or rely on the distribution's `pybind11-dev` package for the
+runtime binding. PO-PDDL passes the CMake package from the active Python
+environment explicitly, which keeps pybind11 and the interpreter ABI aligned.
+If installing without `requirements.txt`, use:
+
+```bash
+python -m pip install -e '.[runtime]'
 ```
 
 Verify the installation:
@@ -252,6 +263,14 @@ folder:
 
 ```bash
 export PO_PDDL_DESPOT_ROOT=/path/to/despot-parent
+```
+
+The build always uses `pybind11` from the Python interpreter running
+`po-pddl-run-terminal`. If it is missing, install the runtime extra in that
+same environment:
+
+```bash
+python -m pip install -e '.[runtime]'
 ```
 
 Run the generated example problem:

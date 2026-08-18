@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-runtime = ["pybind11>=2.12"]
+runtime = ["pybind11>=2.12,<4"]
 dev = [
   "pytest>=8.0",
   "ruff>=0.6",
