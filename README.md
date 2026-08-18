@@ -39,8 +39,8 @@ incremental domain extension.
 
 ## Model Configuration
 
-All language and vision calls use the model profile selected with
-`--config-name` through an OpenAI-compatible API.
+PO-PDDL supports an OpenAI-compatible API and a repository-scoped Codex skill
+workflow. Both routes execute the same deterministic pipeline stages.
 
 ### OpenAI-Compatible API
 
@@ -65,6 +65,29 @@ Select this backend in generation commands with:
 --config large_model_config.private.json --config-name openai_config
 ```
 
+### Codex Skills
+
+The `feature/codex-skill` variant can use an authenticated Codex session
+instead of an API key. From the repository root, invoke
+`$learn-po-pddl-domain` for domain learning or extension and
+`$generate-po-pddl-problem` for problem generation. The skills drive the
+pipeline through a resumable filesystem protocol: Python retains all parsing,
+statistics, probability estimation, rendering, and validation, while Codex
+answers independent language and vision judgments with parallel subagents.
+
+The underlying resumable command is also available directly:
+
+```bash
+po-pddl-agent --help
+```
+
+Code-level workers retain the original dependency structure. The skills maintain a
+pool of up to ten Codex workers across all stages, assign several independent tasks
+to each worker in bounded waves, and resume the same agent IDs instead of paying the
+startup cost for every task. Workers submit through a process-safe journal while the
+parent only advances and validates the workflow. This route remains slower than the
+API pipeline and is intended primarily for agent-native use.
+
 ## Installation
 
 Python 3.10 or later is required. We recommend installing the project in a
@@ -79,10 +102,21 @@ python -m pip install -e . --no-deps
 ```
 
 Video processing requires FFmpeg. The interactive planner additionally
-requires a C++ toolchain, CMake, and a DESPOT source checkout:
+requires the Python-environment copy of pybind11 2.12 or later, a C++
+toolchain, CMake, and a DESPOT source checkout:
 
 ```bash
 sudo apt-get install build-essential cmake ffmpeg
+python -c "import pybind11; print(pybind11.__version__, pybind11.get_cmake_dir())"
+```
+
+Do not install or rely on the distribution's `pybind11-dev` package for the
+runtime binding. PO-PDDL passes the CMake package from the active Python
+environment explicitly, which keeps pybind11 and the interpreter ABI aligned.
+If installing without `requirements.txt`, use:
+
+```bash
+python -m pip install -e '.[runtime]'
 ```
 
 Verify the installation:
@@ -94,6 +128,7 @@ po-pddl-learn-domain --help
 po-pddl-extend-domain --help
 po-pddl-generate-problem --help
 po-pddl-run-terminal --help
+po-pddl-agent --help
 ```
 
 ## Repository Structure
@@ -101,12 +136,14 @@ po-pddl-run-terminal --help
 ```text
 PO_PDDL/
 |-- src/po_pddl/
+|   |-- agent/                # Resumable Codex skill task protocol
 |   |-- domain_generation/    # From-scratch and incremental domain learning
 |   |-- problem_generation/   # Initial-belief and goal generation
 |   |-- runtime/              # POMDPDDL conversion and terminal execution
 |   `-- prompts/              # Prompts grouped by pipeline stage
 |-- example_data/             # Demonstration episodes
 |-- example_problem/          # Initial scene and task specification
+|-- .agents/skills/           # Repository-scoped Codex workflows
 |-- docs/                     # Architecture and data-format documentation
 |-- tests/                    # Unit and regression tests
 |-- config/                   # Non-secret runtime hyperparameters
@@ -191,9 +228,10 @@ pipeline validates scene objects, estimates the deterministic initial state and
 factorized initial belief, infers the symbolic goal, and renders a POMDPDDL
 problem.
 
-The default `batch` strategy evaluates deterministic predicates and candidate
-goal assignments in set-level model calls. The alternative `parallel` strategy
-evaluates individual candidates concurrently with `--max-workers`.
+Deterministic predicates and candidate goal assignments are grouped into
+set-level calls of at most `--inference-batch-size` items (default 20). The
+default `batch` strategy processes chunks sequentially; `parallel` processes
+independent chunks concurrently with `--max-workers`.
 
 ```bash
 BUNDLE=outputs/example_domain/7_final_bundle
@@ -203,9 +241,11 @@ po-pddl-generate-problem \
   example_problem/camera_high.jpg \
   "$(cat example_problem/instruction.txt)" \
   --final-bundle-dir "$BUNDLE" \
+  --objects-file example_problem/objects.txt \
   --config large_model_config.private.json \
   --config-name openai_config \
   --inference-strategy batch \
+  --inference-batch-size 20 \
   --max-workers 8 \
   --close-domain \
   --output example_problem/problem_online.pddl
@@ -226,6 +266,14 @@ folder:
 
 ```bash
 export PO_PDDL_DESPOT_ROOT=/path/to/despot-parent
+```
+
+The build always uses `pybind11` from the Python interpreter running
+`po-pddl-run-terminal`. If it is missing, install the runtime extra in that
+same environment:
+
+```bash
+python -m pip install -e '.[runtime]'
 ```
 
 Run the generated example problem:

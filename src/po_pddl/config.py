@@ -94,11 +94,13 @@ class ProblemGenerationConfig:
     initial_state_hint: str | None = None
     output_file: Path | None = None
     final_bundle_dir: Path | None = None
+    objects_file: Path | None = None
     reuse_problem_file: Path | None = None
     problem_name: str | None = None
     llm: LLMSettings = field(default_factory=lambda: LLMSettings(max_tokens=4096))
     max_workers: int = 8
     inference_strategy: Literal["batch", "parallel"] = "batch"
+    inference_batch_size: int = 20
     prior_data_confidence: float = 0.0
     close_domain: bool = False
     skip_init_observation: bool = False
@@ -106,6 +108,7 @@ class ProblemGenerationConfig:
 
     def __post_init__(self) -> None:
         _positive(self.max_workers, "max_workers")
+        _positive(self.inference_batch_size, "inference_batch_size")
         if self.inference_strategy not in {"batch", "parallel"}:
             raise ValueError("inference_strategy must be 'batch' or 'parallel'")
         if not self.instruction.strip():

@@ -57,10 +57,14 @@ class ProblemGenerator:
     @staticmethod
     def _load_close_domain_object_allowlist(
         domain_file: str | Path | None,
+        objects_file: str | Path | None = None,
     ) -> set[str] | None:
-        if domain_file is None:
+        if objects_file is not None:
+            allowlist_path = Path(objects_file).resolve()
+        elif domain_file is not None:
+            allowlist_path = Path(domain_file).resolve().parent / "objects.txt"
+        else:
             return None
-        allowlist_path = Path(domain_file).resolve().parent / "objects.txt"
         if not allowlist_path.exists() or not allowlist_path.is_file():
             return None
         tokens = allowlist_path.read_text(encoding="utf-8").split()
@@ -364,6 +368,7 @@ class ProblemGenerator:
         instruction: str,
         initial_state_hint: str | None = None,
         final_bundle_dir: str | Path | None = None,
+        objects_file: str | Path | None = None,
         reuse_problem_file: str | Path | None = None,
         problem_name: str | None = None,
         output_path: str | Path | None = None,
@@ -454,7 +459,7 @@ class ProblemGenerator:
                         "Pass `--final-bundle-dir`, place `4_problem_grounding_all` next to the image directory, "
                         "or choose an output path under the learning pipeline root."
                     )
-                allowed_object_names = self._load_close_domain_object_allowlist(domain_file)
+                allowed_object_names = self._load_close_domain_object_allowlist(domain_file, objects_file)
                 if allowed_object_names is None:
                     self._log("No objects.txt next to domain file; using full close-domain object inventory")
                 else:
@@ -524,7 +529,7 @@ class ProblemGenerator:
                 object_source = "close_domain_historical_grounding"
             else:
                 self._log("Inferring task-relevant objects")
-                allowed_object_names = self._load_close_domain_object_allowlist(domain_file)
+                allowed_object_names = self._load_close_domain_object_allowlist(domain_file, objects_file)
                 if allowed_object_names is not None:
                     self._log(
                         "Applying strict object allowlist from objects.txt: "
@@ -713,6 +718,7 @@ class ProblemGenerator:
         instruction: str,
         initial_state_hint: str | None = None,
         final_bundle_dir: str | Path | None = None,
+        objects_file: str | Path | None = None,
         reuse_problem_file: str | Path | None = None,
         problem_name: str | None = None,
         output_path: str | Path | None = None,
@@ -728,6 +734,7 @@ class ProblemGenerator:
             instruction=instruction,
             initial_state_hint=initial_state_hint,
             final_bundle_dir=final_bundle_dir,
+            objects_file=objects_file,
             reuse_problem_file=reuse_problem_file,
             problem_name=problem_name,
             output_path=output_path,

@@ -201,6 +201,11 @@ def make_client(
     base_url: Optional[str] = None,
 ):
     """Create an OpenAI-compatible API client."""
+    from po_pddl.agent.task_client import AgentTaskClient, configured_agent_run_dir
+
+    agent_run_dir = configured_agent_run_dir()
+    if agent_run_dir is not None:
+        return AgentTaskClient(agent_run_dir)
     try:
         from openai import OpenAI
     except ImportError:
@@ -415,12 +420,20 @@ def safe_chat(
             RateLimitError,
         )
     except ImportError:
-        # Minimal fallback – the client constructor would have already
-        # failed, so this path is only theoretical.
-        APIConnectionError = Exception
-        APIStatusError = Exception
-        APITimeoutError = Exception
-        RateLimitError = Exception
+        # The filesystem-backed agent client does not require the OpenAI SDK.
+        # Keep distinct placeholders so its AgentTaskPending control-flow
+        # exception is not mistaken for every API error category.
+        class APIConnectionError(Exception):
+            pass
+
+        class APIStatusError(Exception):
+            pass
+
+        class APITimeoutError(Exception):
+            pass
+
+        class RateLimitError(Exception):
+            pass
 
     last_exc: Optional[Exception] = None
     backoff = initial_backoff

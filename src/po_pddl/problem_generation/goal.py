@@ -168,6 +168,7 @@ class GoalInferenceAgent:
         max_tokens: int = 4096,
         verbose: bool = False,
         inference_strategy: Literal["batch", "parallel"] = "batch",
+        inference_batch_size: int = 20,
         config_path: str | None = None,
         config_name: str | None = None,
     ) -> None:
@@ -189,7 +190,10 @@ class GoalInferenceAgent:
         self.verbose = verbose
         if inference_strategy not in {"batch", "parallel"}:
             raise ValueError("inference_strategy must be 'batch' or 'parallel'")
+        if inference_batch_size <= 0:
+            raise ValueError("inference_batch_size must be positive")
         self.inference_strategy = inference_strategy
+        self.inference_batch_size = inference_batch_size
         self._predicate_prompt = _load_prompt("relevant_predicates.md")
         self._ground_atoms_prompt = _load_prompt("relevant_ground_atoms.md")
         self._mutex_groups_prompt = _load_prompt("mutex_groups.md")
@@ -555,14 +559,7 @@ class GoalInferenceAgent:
         assignments: list[dict[Predicate, bool]],
         max_workers: int,
     ) -> list[GoalAssignmentEvaluation]:
-        if self.inference_strategy == "batch":
-            return self._evaluate_goal_assignments_batch(
-                domain_analysis=domain_analysis,
-                instruction=instruction,
-                objects=objects,
-                assignments=assignments,
-            )
-        return self._evaluate_goal_assignments_parallel(
+        return self._evaluate_goal_assignments_in_chunks(
             domain_analysis=domain_analysis,
             instruction=instruction,
             objects=objects,
@@ -570,29 +567,7 @@ class GoalInferenceAgent:
             max_workers=max_workers,
         )
 
-    def _evaluate_goal_assignments_batch(
-        self,
-        *,
-        domain_analysis: DomainAnalysisResult,
-        instruction: str,
-        objects: list[ObjectDeclaration],
-        assignments: list[dict[Predicate, bool]],
-    ) -> list[GoalAssignmentEvaluation]:
-        total = len(assignments)
-        if total == 0:
-            return []
-        indexed_assignments = [
-            (f"assignment_{index + 1:04d}", assignment) for index, assignment in enumerate(assignments)
-        ]
-        self._log(f"Evaluating {total} goal assignments in one batch call")
-        return self._request_goal_assignment_evaluations(
-            domain_analysis=domain_analysis,
-            instruction=instruction,
-            objects=objects,
-            indexed_assignments=indexed_assignments,
-        )
-
-    def _evaluate_goal_assignments_parallel(
+    def _evaluate_goal_assignments_in_chunks(
         self,
         *,
         domain_analysis: DomainAnalysisResult,
@@ -606,21 +581,31 @@ class GoalInferenceAgent:
         ]
         if not indexed_assignments:
             return []
+        chunks = [
+            indexed_assignments[index : index + self.inference_batch_size]
+            for index in range(0, len(indexed_assignments), self.inference_batch_size)
+        ]
         self._log(
-            f"Evaluating {len(indexed_assignments)} goal assignments independently "
-            f"with max_workers={max_workers}"
+            f"Evaluating {len(indexed_assignments)} goal assignments in {len(chunks)} "
+            f"chunk(s) of at most {self.inference_batch_size} using {self.inference_strategy} scheduling"
         )
 
-        def _evaluate(item: tuple[str, dict[Predicate, bool]]) -> GoalAssignmentEvaluation:
+        def _evaluate(
+            chunk: list[tuple[str, dict[Predicate, bool]]],
+        ) -> list[GoalAssignmentEvaluation]:
             return self._request_goal_assignment_evaluations(
                 domain_analysis=domain_analysis,
                 instruction=instruction,
                 objects=objects,
-                indexed_assignments=[item],
-            )[0]
+                indexed_assignments=chunk,
+            )
 
-        with ThreadPoolExecutor(max_workers=min(max_workers, len(indexed_assignments))) as executor:
-            return list(executor.map(_evaluate, indexed_assignments))
+        if self.inference_strategy == "batch" or len(chunks) == 1:
+            chunk_results = [_evaluate(chunk) for chunk in chunks]
+        else:
+            with ThreadPoolExecutor(max_workers=min(max_workers, len(chunks))) as executor:
+                chunk_results = list(executor.map(_evaluate, chunks))
+        return [evaluation for chunk in chunk_results for evaluation in chunk]
 
     def _request_goal_assignment_evaluations(
         self,

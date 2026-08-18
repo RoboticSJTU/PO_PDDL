@@ -13,6 +13,7 @@ def test_goal_assignments_are_evaluated_in_one_batch_and_returned_in_order(monke
     agent.temperature = 0.0
     agent.max_tokens = 1024
     agent.inference_strategy = "batch"
+    agent.inference_batch_size = 20
     agent._goal_state_prompt = "test prompt"
     calls: list[object] = []
 
@@ -71,7 +72,7 @@ def test_goal_assignments_are_evaluated_in_one_batch_and_returned_in_order(monke
     assert [item.satisfies_instruction for item in results] == [False, True, False, True]
 
 
-def test_goal_assignments_can_be_evaluated_independently_in_parallel(monkeypatch) -> None:
+def test_goal_assignment_chunks_can_be_evaluated_in_parallel(monkeypatch) -> None:
     agent = object.__new__(GoalInferenceAgent)
     agent.verbose = False
     agent.model = "test-model"
@@ -80,6 +81,7 @@ def test_goal_assignments_can_be_evaluated_independently_in_parallel(monkeypatch
     agent.temperature = 0.0
     agent.max_tokens = 1024
     agent.inference_strategy = "parallel"
+    agent.inference_batch_size = 2
     agent._goal_state_prompt = "test prompt"
     calls: list[object] = []
 
@@ -89,15 +91,16 @@ def test_goal_assignments_can_be_evaluated_independently_in_parallel(monkeypatch
         content = kwargs.get("user_content", args[2] if len(args) > 2 else None)
         calls.append(content)
         payload = json.loads(content)
-        assignment_id = payload["assignments"][0]["assignment_id"]
         return json.dumps(
             {
                 "assignment_evaluations": [
                     {
-                        "assignment_id": assignment_id,
-                        "reasoning": "independent evaluation",
-                        "satisfies_instruction": assignment_id in {"assignment_0002", "assignment_0004"},
+                        "assignment_id": item["assignment_id"],
+                        "reasoning": "batched evaluation",
+                        "satisfies_instruction": item["assignment_id"]
+                        in {"assignment_0002", "assignment_0004"},
                     }
+                    for item in payload["assignments"]
                 ]
             }
         )
@@ -132,6 +135,6 @@ def test_goal_assignments_can_be_evaluated_independently_in_parallel(monkeypatch
         max_workers=2,
     )
 
-    assert len(calls) == 4
+    assert len(calls) == 2
     assert [item.assignment_id for item in results] == [f"assignment_{index:04d}" for index in range(1, 5)]
     assert [item.satisfies_instruction for item in results] == [False, True, False, True]

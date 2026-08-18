@@ -10,6 +10,7 @@ from typing import Any
 
 from po_pddl.domain_generation.infrastructure.artifact_io import load_json, load_json_object, load_jsonl
 from po_pddl.domain_generation.infrastructure.fact_utils import parse_symbolic_literal
+from po_pddl.domain_generation.infrastructure.type_hierarchy import build_type_parent_map
 from po_pddl.domain_generation.stages.last_action_markers import (
     last_action_constant_name,
     last_action_predicate_name,
@@ -37,10 +38,6 @@ logger = logging.getLogger(__name__)
 
 
 EXCLUDED_ACTIVE_OBSERVATION_PREDICATES = {"gripper_empty", "gripper_holding"}
-
-
-def _predicate_name(literal: str) -> str:
-    return parse_symbolic_literal(literal)[1]
 
 
 def _normalize_discovered_observation_predicate(
@@ -625,20 +622,28 @@ class ActiveObservationLearner:
             action_binding = {argument: f"?arg{index}" for index, argument in enumerate(example.action_arguments)}
             binding = {**action_binding, **extra_binding}
             for fact in example.current_state:
-                predicate_name = _predicate_name(fact)
+                negated, predicate_name, literal_arguments = parse_symbolic_literal(fact)
                 if predicate_name == example.predicate_name:
                     continue
-                literal_arguments = _literal_arguments(fact)
                 if not example.extra_arguments:
                     continue
                 if not any(argument in example.extra_arguments for argument in literal_arguments):
                     continue
                 if not all(argument in binding for argument in literal_arguments):
                     continue
+                templated_arguments = [binding[argument] for argument in literal_arguments]
+                if len(templated_arguments) == len(target_argument_templates) and set(
+                    templated_arguments
+                ) == set(target_argument_templates):
+                    # Relations over exactly the target entities are commonly
+                    # mutually exclusive state alternatives, not visibility conditions.
+                    continue
                 templated = _instantiate_template(
                     predicate_name,
-                    [binding[argument] for argument in literal_arguments],
+                    templated_arguments,
                 )
+                if negated:
+                    templated = f"not {templated}"
                 candidate_literals.add(templated)
             intersections = (
                 candidate_literals if intersections is None else intersections.intersection(candidate_literals)
@@ -934,11 +939,7 @@ def load_active_observation_inputs(
     predicate_comments = dict(load_json_object(artifact_path / "predicate_comments.json"))
     camera_order_by_episode = _load_camera_order_by_episode(scene_root)
     object_type_rows = load_json(artifact_path / "object_types.json")
-    parent_by_type = {
-        str(row["type_name"]): str(row.get("parent_type") or "")
-        for row in object_type_rows
-        if isinstance(row, dict) and row.get("parent_type")
-    }
+    parent_by_type = build_type_parent_map(object_type_rows)
     raw_steps = {
         (item.episode_name, item.step_index): item
         for item in load_raw_trajectory_steps(scene_root)

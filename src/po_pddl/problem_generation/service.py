@@ -44,10 +44,12 @@ def generate_problem(
         init_belief_agent=InitialBeliefGenerator(
             **common_agent_kwargs,
             inference_strategy=config.inference_strategy,
+            inference_batch_size=config.inference_batch_size,
         ),
         goal_agent=GoalInferenceAgent(
             **common_agent_kwargs,
             inference_strategy=config.inference_strategy,
+            inference_batch_size=config.inference_batch_size,
         ),
         logger=logger,
     )
@@ -57,6 +59,7 @@ def generate_problem(
         instruction=config.instruction,
         initial_state_hint=config.initial_state_hint,
         final_bundle_dir=config.final_bundle_dir,
+        objects_file=config.objects_file,
         reuse_problem_file=config.reuse_problem_file,
         problem_name=config.problem_name,
         output_path=config.resolved_output_file,

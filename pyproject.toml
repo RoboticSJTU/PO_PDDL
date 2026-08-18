@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-runtime = ["pybind11>=2.12"]
+runtime = ["pybind11>=2.12,<4"]
 dev = [
   "pytest>=8.0",
   "ruff>=0.6",
@@ -29,6 +29,7 @@ po-pddl-learn-domain = "po_pddl.domain_generation.pipeline.cli:main"
 po-pddl-extend-domain = "po_pddl.domain_generation.extension.cli:main"
 po-pddl-generate-problem = "po_pddl.problem_generation.cli:main"
 po-pddl-run-terminal = "po_pddl.runtime.terminal.cli:main"
+po-pddl-agent = "po_pddl.agent.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

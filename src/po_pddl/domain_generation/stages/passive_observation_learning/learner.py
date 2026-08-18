@@ -15,6 +15,7 @@ from po_pddl.core.conventions import (
 )
 from po_pddl.domain_generation.infrastructure.artifact_io import load_json, load_json_object, load_jsonl
 from po_pddl.domain_generation.infrastructure.fact_utils import parse_symbolic_literal
+from po_pddl.domain_generation.infrastructure.type_hierarchy import build_type_parent_map
 from po_pddl.domain_generation.stages.last_action_markers import (
     last_action_constant_name,
     last_action_predicate_name,
@@ -43,6 +44,8 @@ from .modules import (
     VLMContradictionConfirmationModule,
 )
 from .renderer import render_passive_observation_module
+
+MIN_GENERIC_OBSERVATION_RECORD_SUPPORT = 2
 
 EXCLUDED_OBSERVATION_PREDICATES = {"gripper_empty", "gripper_holding"}
 logger = logging.getLogger(__name__)
@@ -317,6 +320,26 @@ class PassiveObservationLearner:
                         example.predicate_name,
                     )
                 ].append(example)
+
+        supported_group_keys = {
+            group_key
+            for group_key, examples in grouped_seed_examples.items()
+            if len({(item.episode_name, item.step_index) for item in examples})
+            >= MIN_GENERIC_OBSERVATION_RECORD_SUPPORT
+        }
+        grouped_seed_examples = defaultdict(
+            list,
+            {
+                group_key: examples
+                for group_key, examples in grouped_seed_examples.items()
+                if group_key in supported_group_keys
+            },
+        )
+        seed_examples = [
+            item
+            for item in seed_examples
+            if (item.canonical_action_name, item.effect_bucket, item.predicate_name) in supported_group_keys
+        ]
 
         for variant_key, variant_records in records_by_variant.items():
             summary = review_results_by_variant.setdefault(
@@ -1113,11 +1136,7 @@ def load_passive_observation_inputs(
     predicate_comments = dict(load_json_object(artifact_path / "predicate_comments.json"))
     camera_order_by_episode = _load_camera_order_by_episode(scene_root)
     object_type_rows = load_json(artifact_path / "object_types.json")
-    parent_by_type = {
-        str(row["type_name"]): str(row.get("parent_type") or "")
-        for row in object_type_rows
-        if isinstance(row, dict) and row.get("parent_type")
-    }
+    parent_by_type = build_type_parent_map(object_type_rows)
     raw_steps = {
         (item.episode_name, item.step_index): item
         for item in load_raw_trajectory_steps(scene_root)

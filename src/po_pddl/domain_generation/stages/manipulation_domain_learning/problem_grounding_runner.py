@@ -10,6 +10,10 @@ from typing import Any
 from po_pddl.core.conventions import containment_arguments
 from po_pddl.core.parser import parse_domain, parse_problem
 from po_pddl.domain_generation.infrastructure.artifact_io import load_episode_payload, load_json, load_jsonl
+from po_pddl.domain_generation.infrastructure.fact_utils import (
+    format_symbolic_literal,
+    parse_symbolic_literal,
+)
 from po_pddl.domain_generation.stages.problem_grounding.models import (
     GroundedTrajectoryStep,
     ObjectDeclaration,
@@ -257,10 +261,8 @@ def _load_stored_episode_grounding_row(
 
 
 def _fact_predicate_name(fact: str) -> str:
-    stripped = str(fact).strip()
-    if "(" not in stripped:
-        return stripped.rstrip(")").strip()
-    return stripped.split("(", 1)[0].strip()
+    _negated, predicate_name, _arguments = parse_symbolic_literal(str(fact).strip())
+    return predicate_name
 
 
 def _split_fact_arguments(fact: str) -> tuple[str, list[str]]:
@@ -278,19 +280,19 @@ def _canonicalize_fact(
     *,
     object_type_by_name: dict[str, str],
 ) -> str:
-    predicate_name, arguments = _split_fact_arguments(fact)
+    negated, predicate_name, arguments = parse_symbolic_literal(str(fact).strip())
     if predicate_name != "in" or len(arguments) != 2:
-        return str(fact).strip()
+        return format_symbolic_literal(predicate_name, arguments, negated=negated)
     left_name, right_name = arguments
     left_type = object_type_by_name.get(left_name, "").strip()
     right_type = object_type_by_name.get(right_name, "").strip()
     if left_type == "drawer" and right_type and right_type != "drawer":
         movable_name, container_name = containment_arguments(right_name, left_name)
-        return f"in({movable_name},{container_name})"
+        return format_symbolic_literal("in", [movable_name, container_name], negated=negated)
     if right_type == "drawer" and left_type and left_type != "drawer":
         movable_name, container_name = containment_arguments(left_name, right_name)
-        return f"in({movable_name},{container_name})"
-    return str(fact).strip()
+        return format_symbolic_literal("in", [movable_name, container_name], negated=negated)
+    return format_symbolic_literal(predicate_name, arguments, negated=negated)
 
 
 def _canonicalize_fact_set(
@@ -309,9 +311,32 @@ def _overlay_predicate_facts(
 ) -> set[str]:
     if not predicate_names:
         return set(base_facts)
-    kept = {fact for fact in base_facts if _fact_predicate_name(fact) not in predicate_names}
-    kept.update(fact for fact in replacement_facts if _fact_predicate_name(fact) in predicate_names)
-    return kept
+    overlaid = set(base_facts)
+    for replacement in sorted(replacement_facts):
+        negated, predicate_name, arguments = parse_symbolic_literal(replacement)
+        if predicate_name not in predicate_names:
+            continue
+        positive = format_symbolic_literal(predicate_name, arguments)
+        negative = format_symbolic_literal(predicate_name, arguments, negated=True)
+        overlaid.discard(positive)
+        overlaid.discard(negative)
+        overlaid.add(negative if negated else positive)
+    return overlaid
+
+
+def _set_fact_value(state: set[str], fact: str, *, value: bool) -> None:
+    _negated, predicate_name, arguments = parse_symbolic_literal(fact)
+    positive = format_symbolic_literal(predicate_name, arguments)
+    negative = format_symbolic_literal(predicate_name, arguments, negated=True)
+    state.discard(positive)
+    state.discard(negative)
+    state.add(positive if value else negative)
+
+
+def _goal_fact_holds(state: set[str], goal_fact: str) -> bool:
+    negated, predicate_name, arguments = parse_symbolic_literal(goal_fact)
+    positive = format_symbolic_literal(predicate_name, arguments)
+    return positive not in state if negated else positive in state
 
 
 def _problem_grounding_result_from_summary_row(row: dict[str, Any]) -> ProblemGroundingResult:
@@ -411,7 +436,7 @@ def reverse_effects_to_reconstruct_states(
     current_state = _overlay_predicate_facts(
         base_facts=current_state,
         replacement_facts=_canonicalize_fact_set(
-            current_state | set(result.problem_spec.goal_facts),
+            set(result.problem_spec.goal_facts),
             object_type_by_name=object_type_by_name,
         ),
         predicate_names={_fact_predicate_name(fact) for fact in result.problem_spec.goal_facts},
@@ -441,9 +466,11 @@ def reverse_effects_to_reconstruct_states(
         )
         if grounded_step is not None:
             for fact in grounded_step.delta_add:
-                previous_state.discard(_canonicalize_fact(str(fact), object_type_by_name=object_type_by_name))
+                canonical_fact = _canonicalize_fact(str(fact), object_type_by_name=object_type_by_name)
+                _set_fact_value(previous_state, canonical_fact, value=False)
             for fact in grounded_step.delta_del:
-                previous_state.add(_canonicalize_fact(str(fact), object_type_by_name=object_type_by_name))
+                canonical_fact = _canonicalize_fact(str(fact), object_type_by_name=object_type_by_name)
+                _set_fact_value(previous_state, canonical_fact, value=True)
         original_state_before = _canonicalize_fact_set(
             set(report.state_before),
             object_type_by_name=object_type_by_name,
@@ -810,7 +837,7 @@ class ManipulationIntegratedProblemGroundingLearner:
                 break
             state = next_state
 
-        goal_satisfied = all(goal_fact in state for goal_fact in problem_spec.goal_facts)
+        goal_satisfied = all(_goal_fact_holds(state, goal_fact) for goal_fact in problem_spec.goal_facts)
         return ProblemGroundingResult(
             problem_spec=problem_spec,
             problem_pddl=render_problem_pddl(problem_spec),

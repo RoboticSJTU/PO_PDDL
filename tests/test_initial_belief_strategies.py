@@ -79,7 +79,7 @@ def test_deterministic_predicates_are_judged_in_one_batch(tmp_path: Path, monkey
     }
 
 
-def test_deterministic_predicates_can_be_judged_independently_in_parallel(
+def test_deterministic_predicate_chunks_can_be_judged_in_parallel(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
@@ -110,16 +110,31 @@ def test_deterministic_predicates_can_be_judged_independently_in_parallel(
         calls.append(content)
         text_block = next(block for block in content if block["type"] == "text")
         payload = json.loads(text_block["text"])
-        predicate = payload["target_predicate"]
+        predicates = payload["candidate_predicates"]
         return json.dumps(
             {
-                "truth_value": "true" if predicate.startswith("(in_front_of") else "false",
-                "justification": "independent image judgment",
+                "scene_reasoning": {
+                    "object_identity_and_views": "one cup and drawer",
+                    "spatial_relations": "jointly evaluated",
+                    "consistency_check": "one predicate in this chunk",
+                },
+                "predicate_judgments": [
+                    {
+                        "predicate": predicate,
+                        "truth_value": "true" if predicate.startswith("(in_front_of") else "false",
+                        "justification": "chunked image judgment",
+                    }
+                    for predicate in predicates
+                ],
             }
         )
 
     monkeypatch.setattr("po_pddl.problem_generation.initial_belief.safe_chat", fake_safe_chat)
-    agent = InitialBeliefGenerator(model="test-model", inference_strategy="parallel")
+    agent = InitialBeliefGenerator(
+        model="test-model",
+        inference_strategy="parallel",
+        inference_batch_size=1,
+    )
     judgments = agent._judge_deterministic_predicates(
         domain_analysis=analysis,
         image_path=image_path,
@@ -139,3 +154,48 @@ def test_deterministic_predicates_can_be_judged_independently_in_parallel(
         predicates[0]: True,
         predicates[1]: False,
     }
+
+
+def test_parallel_location_visibility_does_not_relabel_inventory_only_objects(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    image_path = tmp_path / "scene.jpg"
+    image_path.write_bytes(b"test-image")
+    analysis = analyze_domain(
+        """
+        (define (domain test)
+          (:requirements :strips :typing)
+          (:types movable_item surface - object)
+          (:predicates (on_top_of ?item - movable_item ?surface - surface)))
+        """
+    )
+    objects = [
+        ObjectDeclaration(name="black_box", type_name="movable_item"),
+        ObjectDeclaration(name="blue_block", type_name="movable_item"),
+        ObjectDeclaration(name="drawer", type_name="surface"),
+    ]
+    calls: list[str] = []
+    agent = InitialBeliefGenerator(model="test-model", inference_strategy="parallel")
+    agent.set_current_visible_object_names({"black_box", "drawer"})
+
+    def fake_visibility(**kwargs) -> bool:
+        calls.append(kwargs["target_object_name"])
+        return True
+
+    monkeypatch.setattr(agent, "_is_object_location_visually_resolved", fake_visibility)
+    results = agent._classify_object_location_visibility(
+        domain_analysis=analysis,
+        image_path=image_path,
+        image_input_note="single view",
+        instruction="Move the objects.",
+        objects=objects,
+        grouped_location_predicates={
+            "black_box": [Predicate("on_top_of", ["black_box", "drawer"])],
+            "blue_block": [Predicate("on_top_of", ["blue_block", "drawer"])],
+        },
+        max_workers=2,
+    )
+
+    assert calls == ["black_box"]
+    assert results == [("black_box", True), ("blue_block", False)]

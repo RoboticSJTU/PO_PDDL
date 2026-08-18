@@ -31,6 +31,12 @@ Vocabulary rules:
   binary relation already names its reference entity, an action's direction, side, source, or
   destination qualifier normally belongs to the action schema or to a separate property of that
   reference entity, not to a duplicate relation predicate.
+- Preserve qualifiers that determine action applicability. If otherwise similar action families
+  are distinguished by a region, side, orientation, mode, or status that cannot be recovered from
+  their parameter values or parameter types, represent that distinction with a reusable predicate.
+  Use a unary predicate on the qualified entity when appropriate, and mark it as a static feature
+  only when the demonstrations never change it. Without such a predicate, differently qualified
+  schemas would be incorrectly applicable to the same grounded objects.
 - Split a relation into variants only when the variants denote independently different world
   states that cannot be recovered from the relation arguments and other predicates.
 - Choose predicate arity from the state being represented: unary for an intrinsic/object state,

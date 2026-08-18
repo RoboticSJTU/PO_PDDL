@@ -1,0 +1,4 @@
+interface:
+  display_name: "Generate PO-PDDL Problem"
+  short_description: "Generate and validate a PO-PDDL problem"
+  default_prompt: "Use $generate-po-pddl-problem to generate and validate a scene-conditioned problem."

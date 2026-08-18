@@ -29,6 +29,11 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help="Optional path to the offline learning final bundle directory.",
     )
     parser.add_argument(
+        "--objects-file",
+        default=None,
+        help="Optional explicit objects.txt allowlist; overrides lookup next to the domain file.",
+    )
+    parser.add_argument(
         "--reuse-problem-file",
         default=None,
         help=(
@@ -78,9 +83,15 @@ def build_arg_parser() -> argparse.ArgumentParser:
         choices=("batch", "parallel"),
         default="batch",
         help=(
-            "LLM call granularity for predicate and goal-assignment judgments. "
-            "The default 'batch' evaluates each complete set in one call."
+            "Scheduling for batched predicate and goal-assignment judgments. "
+            "The default 'batch' processes chunks sequentially; 'parallel' processes chunks concurrently."
         ),
+    )
+    parser.add_argument(
+        "--inference-batch-size",
+        type=int,
+        default=20,
+        help="Maximum deterministic predicates or goal assignments included in one model call.",
     )
     parser.add_argument(
         "--prior-data-confidence",
@@ -125,6 +136,7 @@ def main(argv: list[str] | None = None) -> int:
         initial_state_hint=args.initial_state_hint,
         output_file=Path(args.output) if args.output else None,
         final_bundle_dir=Path(args.final_bundle_dir) if args.final_bundle_dir else None,
+        objects_file=Path(args.objects_file) if args.objects_file else None,
         reuse_problem_file=Path(args.reuse_problem_file) if args.reuse_problem_file else None,
         problem_name=args.problem_name,
         llm=LLMSettings(
@@ -138,6 +150,7 @@ def main(argv: list[str] | None = None) -> int:
         ),
         max_workers=args.max_workers,
         inference_strategy=args.inference_strategy,
+        inference_batch_size=args.inference_batch_size,
         prior_data_confidence=args.prior_data_confidence,
         close_domain=args.close_domain,
         skip_init_observation=args.skip_init_observation,

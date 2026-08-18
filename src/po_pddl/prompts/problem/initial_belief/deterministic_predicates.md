@@ -16,8 +16,10 @@ Reasoning procedure:
    Apply explicit `initial_state_hint` facts to the initial predicates, but never turn them into goals.
 5. Check all judgments jointly. Mutually exclusive locations for one object cannot both be true,
    and every predicate's signature and argument order must be respected.
-6. Be conservative when the image does not establish a fact. Do not infer that a container is open
-   unless its open state is visibly clear.
+6. Treat openness as an operational state. A container is open only when its opening is visibly
+   large enough to access or manipulate objects inside. Count a slightly ajar, incompletely
+   latched, narrowly gapped, or merely misaligned closure as closed. Be conservative whenever the
+   accessible interior is unclear.
 
 Output rules:
 - Return JSON only.

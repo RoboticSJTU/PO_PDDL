@@ -9,7 +9,11 @@ from typing import Protocol
 
 from po_pddl.config import DEFAULT_MODEL
 from po_pddl.core.parser import parse_domain, parse_problem
-from po_pddl.domain_generation.infrastructure.fact_utils import format_symbolic_literal, parse_positive_symbolic_fact
+from po_pddl.domain_generation.infrastructure.fact_utils import (
+    format_symbolic_literal,
+    parse_positive_symbolic_fact,
+    parse_symbolic_literal,
+)
 from po_pddl.domain_generation.stages.problem_grounding.models import (
     GroundedTrajectoryStep,
     ProblemSpec,
@@ -1467,10 +1471,25 @@ def _render_ground_action_pddl(action_name: str, arguments: list[str]) -> str:
 def _apply_effects_to_state(state: set[str], delta_add: list[str], delta_del: list[str]) -> set[str]:
     next_state = {normalize_fact_key(fact) for fact in state}
     for fact in delta_del:
-        next_state.discard(normalize_fact_key(fact))
+        _set_fact_value(next_state, normalize_fact_key(fact), value=False)
     for fact in delta_add:
-        next_state.add(normalize_fact_key(fact))
+        _set_fact_value(next_state, normalize_fact_key(fact), value=True)
     return next_state
+
+
+def _set_fact_value(state: set[str], fact: str, *, value: bool) -> None:
+    _negated, predicate_name, arguments = parse_symbolic_literal(fact)
+    positive = format_symbolic_literal(predicate_name, arguments)
+    negative = format_symbolic_literal(predicate_name, arguments, negated=True)
+    state.discard(positive)
+    state.discard(negative)
+    state.add(positive if value else negative)
+
+
+def _goal_fact_holds(state: set[str], goal_fact: str) -> bool:
+    negated, predicate_name, arguments = parse_symbolic_literal(goal_fact)
+    positive = format_symbolic_literal(predicate_name, arguments)
+    return positive not in state if negated else positive in state
 
 
 def _replay_episode_records(
@@ -1534,7 +1553,7 @@ def _replay_episode_records(
             issues.append(issue)
         state = continued_state
 
-    goal_satisfied = all(goal_fact in state for goal_fact in problem_spec.goal_facts)
+    goal_satisfied = all(_goal_fact_holds(state, goal_fact) for goal_fact in problem_spec.goal_facts)
     return grounded_steps, reports, issues, goal_satisfied, state
 
 

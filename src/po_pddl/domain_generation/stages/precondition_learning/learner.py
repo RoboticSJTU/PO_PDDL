@@ -729,11 +729,6 @@ class PreconditionLearningLearner:
         parsed_domain = parse_domain(domain_text)
         action_schemas = load_action_schemas(artifact_path / "action_schemas.json")
         predicate_inventory = _load_predicate_inventory(artifact_path)
-        feature_predicate_names = {
-            item.predicate_name
-            for item in predicate_inventory
-            if str(item.predicate_kind or "").strip().lower() == "feature" or item.is_static_feature
-        }
         zero_arity_predicates = sorted(
             predicate.name
             for predicate in parsed_domain.predicates
@@ -743,7 +738,6 @@ class PreconditionLearningLearner:
             episode_grounding_pairs=episode_grounding_pairs,
             parsed_domain=parsed_domain,
             zero_arity_predicates=zero_arity_predicates,
-            excluded_predicate_names=feature_predicate_names,
         )
         schema_map = {schema.canonical_action_name: schema for schema in action_schemas}
 
