@@ -201,6 +201,11 @@ def make_client(
     base_url: Optional[str] = None,
 ):
     """Create an OpenAI-compatible API client."""
+    from po_pddl.agent.task_client import AgentTaskClient, configured_agent_run_dir
+
+    agent_run_dir = configured_agent_run_dir()
+    if agent_run_dir is not None:
+        return AgentTaskClient(agent_run_dir)
     try:
         from openai import OpenAI
     except ImportError:

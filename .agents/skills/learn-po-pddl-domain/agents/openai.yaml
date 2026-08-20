@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn PO-PDDL Domain"
+  short_description: "Learn and validate a PO-PDDL domain"
+  default_prompt: "Use $learn-po-pddl-domain to learn and validate a domain from demonstration episodes."

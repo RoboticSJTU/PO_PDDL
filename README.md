@@ -39,8 +39,10 @@ incremental domain extension.
 
 ## Model Configuration
 
-Language and vision calls use an OpenAI-compatible API profile selected with
-`--config-name`.
+PO-PDDL supports an OpenAI-compatible API and a repository-scoped Codex skill
+workflow. Both routes execute the same deterministic pipeline stages.
+
+### OpenAI-Compatible API
 
 Create a private configuration from the provided template:
 
@@ -62,6 +64,55 @@ Select this backend in generation commands with:
 ```bash
 --config large_model_config.private.json --config-name openai_config
 ```
+
+### Codex Account
+
+Codex can replace API calls with an authenticated ChatGPT session. Install the
+Codex CLI on macOS or Linux, open it once, and choose **Sign in with ChatGPT**:
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+codex
+codex login status
+```
+
+See the [official Codex CLI documentation](https://developers.openai.com/codex/cli/)
+for other installation and authentication options. Codex mode does not use an
+API key or `large_model_config.private.json`; the selected Codex account must
+have access to the requested model.
+
+Codex runs the same Python pipeline through a resumable task protocol. Initialize
+one workflow with `--no-start`, then execute it with a persistent worker pool:
+
+```bash
+po-pddl-agent run-pool \
+  --run-dir <agent-run> \
+  --workers 10 \
+  --tasks-per-worker 4 \
+  --task-timeout-seconds 300
+```
+
+The main Codex parameters are:
+
+- `--run-dir`: durable workflow journal, task requests, responses, and recovery state.
+- `--model`: Codex model used for language and vision judgments.
+- `--max-workers`: maximum independent model tasks exposed by the pipeline.
+- `--workers`: maximum persistent `codex app-server` processes used by `run-pool`.
+- `--tasks-per-worker`: assignment balancing limit for each scheduling wave.
+- `--task-timeout-seconds`: timeout for one Codex task; the default is 300 seconds.
+- `--no-start`: initialize without launching work, allowing `run-pool` to own all execution.
+- `--replace`: explicitly replace an existing run journal when starting over.
+
+Each model task uses a fresh ephemeral Codex thread, while the expensive
+app-server processes remain alive across stages. Python continues to own
+parsing, statistics, probability estimation, rendering, and validation. The
+filesystem journal can be inspected with `status` and recovered with
+`dispatch`, `submit`, or `reopen`. Codex mode remains slower than direct API
+access and is intended primarily for agent-native use.
+
+Repository-scoped skills provide the same workflow inside Codex: use
+`$learn-po-pddl-domain` for domain learning or extension and
+`$generate-po-pddl-problem` for problem generation.
 
 ## Installation
 
@@ -103,6 +154,7 @@ po-pddl-learn-domain --help
 po-pddl-extend-domain --help
 po-pddl-generate-problem --help
 po-pddl-run-terminal --help
+po-pddl-agent --help
 ```
 
 ## Repository Structure
@@ -110,12 +162,14 @@ po-pddl-run-terminal --help
 ```text
 PO_PDDL/
 |-- src/po_pddl/
+|   |-- agent/                # Resumable Codex skill task protocol
 |   |-- domain_generation/    # From-scratch and incremental domain learning
 |   |-- problem_generation/   # Initial-belief and goal generation
 |   |-- runtime/              # POMDPDDL conversion and terminal execution
 |   `-- prompts/              # Prompts grouped by pipeline stage
 |-- example_data/             # Demonstration episodes
 |-- example_problem/          # Initial scene and task specification
+|-- .agents/skills/           # Repository-scoped Codex workflows
 |-- docs/                     # Architecture and data-format documentation
 |-- tests/                    # Unit and regression tests
 |-- config/                   # Non-secret runtime hyperparameters
@@ -147,6 +201,8 @@ interpretation, symbolic trajectory construction, action dynamics,
 preconditions, passive/init/active observations, domain assembly, and final
 bundling.
 
+**API**
+
 ```bash
 po-pddl-learn-domain \
   --input-dir example_data \
@@ -157,6 +213,26 @@ po-pddl-learn-domain \
   --annotation-fps 0.5 \
   --max-workers 8 \
   --max-iterations 3
+```
+
+**Codex**
+
+```bash
+po-pddl-agent init-domain \
+  --input-dir example_data \
+  --output-dir outputs/example_domain_codex \
+  --run-dir outputs/example_domain_codex/agent \
+  --model gpt-5.6-sol \
+  --annotation-video-types cam_high right \
+  --annotation-fps 0.5 \
+  --max-workers 10 \
+  --no-start
+
+po-pddl-agent run-pool \
+  --run-dir outputs/example_domain_codex/agent \
+  --workers 10 \
+  --tasks-per-worker 4 \
+  --task-timeout-seconds 300
 ```
 
 The principal outputs are:
@@ -179,6 +255,8 @@ statistics with the new evidence, and learns previously unseen schemas through
 the same components used by from-scratch generation. The source bundle is
 never modified.
 
+**API**
+
 ```bash
 po-pddl-extend-domain \
   --bundle-dir /path/to/existing_run/7_final_bundle \
@@ -189,6 +267,26 @@ po-pddl-extend-domain \
   --annotation-fps 2.0 \
   --max-workers 8 \
   --max-iterations 3
+```
+
+**Codex**
+
+```bash
+po-pddl-agent init-extension \
+  --bundle-dir /path/to/existing_run/7_final_bundle \
+  --input-dir /path/to/additional_demonstrations \
+  --output-dir /path/to/extended_run_codex \
+  --run-dir /path/to/extended_run_codex/agent \
+  --model gpt-5.6-sol \
+  --annotation-fps 2.0 \
+  --max-workers 10 \
+  --no-start
+
+po-pddl-agent run-pool \
+  --run-dir /path/to/extended_run_codex/agent \
+  --workers 10 \
+  --tasks-per-worker 4 \
+  --task-timeout-seconds 300
 ```
 
 The command reports the location of the extended final bundle and its manifest.
@@ -211,6 +309,8 @@ object group may exceed the target capacity. In `--close-domain` mode, object
 names and types come from the historical grounding bundle and `objects.txt`,
 so the pipeline skips a separate image-based object extraction call.
 
+**API**
+
 ```bash
 BUNDLE=outputs/example_domain/7_final_bundle
 
@@ -228,6 +328,34 @@ po-pddl-generate-problem \
   --max-workers 8 \
   --close-domain \
   --output example_problem/problem_online.pddl
+```
+
+**Codex**
+
+```bash
+BUNDLE=outputs/example_domain_codex/7_final_bundle
+
+po-pddl-agent init-problem \
+  "$BUNDLE/final_merged_domain.pddl" \
+  example_problem/camera_high.jpg \
+  "$(cat example_problem/instruction.txt)" \
+  --output-file outputs/example_problem_codex/problem_online.pddl \
+  --run-dir outputs/example_problem_codex/agent \
+  --final-bundle-dir "$BUNDLE" \
+  --objects-file example_problem/objects.txt \
+  --model gpt-5.6-sol \
+  --max-workers 10 \
+  --inference-strategy parallel \
+  --inference-batch-size 20 \
+  --location-visibility-batch-size 30 \
+  --close-domain \
+  --no-start
+
+po-pddl-agent run-pool \
+  --run-dir outputs/example_problem_codex/agent \
+  --workers 10 \
+  --tasks-per-worker 4 \
+  --task-timeout-seconds 300
 ```
 
 For a standalone smoke test, use `example_problem/domain.pddl` as the first
