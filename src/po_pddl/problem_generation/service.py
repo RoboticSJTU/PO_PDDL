@@ -45,6 +45,7 @@ def generate_problem(
             **common_agent_kwargs,
             inference_strategy=config.inference_strategy,
             inference_batch_size=config.inference_batch_size,
+            location_visibility_batch_size=config.location_visibility_batch_size,
         ),
         goal_agent=GoalInferenceAgent(
             **common_agent_kwargs,
@@ -67,4 +68,5 @@ def generate_problem(
         prior_data_confidence=config.prior_data_confidence,
         close_domain=config.close_domain,
         skip_init_observation=config.skip_init_observation,
+        concurrent_inference_branches=config.concurrent_inference_branches,
     )

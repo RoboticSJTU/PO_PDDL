@@ -102,6 +102,7 @@ class InitialBeliefGenerator:
         deterministic_collapse_threshold: float = 0.95,
         inference_strategy: Literal["batch", "parallel"] = "batch",
         inference_batch_size: int = 20,
+        location_visibility_batch_size: int = 30,
         config_path: str | None = None,
         config_name: str | None = None,
     ) -> None:
@@ -126,11 +127,13 @@ class InitialBeliefGenerator:
             raise ValueError("inference_strategy must be 'batch' or 'parallel'")
         if inference_batch_size <= 0:
             raise ValueError("inference_batch_size must be positive")
+        if location_visibility_batch_size <= 0:
+            raise ValueError("location_visibility_batch_size must be positive")
         self.inference_strategy = inference_strategy
         self.inference_batch_size = inference_batch_size
+        self.location_visibility_batch_size = location_visibility_batch_size
         self._deterministic_batch_prompt = _load_prompt("deterministic_predicates.md")
         self._location_predicate_prompt = _load_prompt("location_predicates.md")
-        self._object_location_visibility_prompt = _load_prompt("object_location_visibility.md")
         self._object_location_visibility_batch_prompt = _load_prompt("object_location_visibilities.md")
         self._uncertain_grouping_prompt = _load_prompt("uncertain_groups.md")
         self._observable_judgment_prompt = _load_prompt("observable.md")
@@ -1259,40 +1262,64 @@ class InitialBeliefGenerator:
         }
         resolved_by_name = {object_name: False for object_name in unresolved_inventory_names}
 
-        if self.inference_strategy == "batch":
-            if candidate_groups:
-                resolved_by_name.update(
-                    self._classify_object_location_visibility_batch(
-                        domain_analysis=domain_analysis,
-                        image_path=image_path,
-                        image_input_note=image_input_note,
-                        instruction=instruction,
-                        objects=objects,
-                        grouped_location_predicates=candidate_groups,
-                    )
-                )
-            return [(object_name, resolved_by_name[object_name]) for object_name, _predicates in ordered_groups]
+        chunks = self._chunk_location_visibility_groups(candidate_groups)
+        self._log(
+            "Judging location visibility globally in "
+            f"{len(chunks)} object-preserving chunk(s) with target capacity "
+            f"{self.location_visibility_batch_size} grounded predicates"
+        )
 
-        def _classify(item: tuple[str, list[Predicate]]) -> tuple[str, bool]:
-            object_name, predicates = item
-            return (
-                object_name,
-                self._is_object_location_visually_resolved(
-                    domain_analysis=domain_analysis,
-                    image_path=image_path,
-                    image_input_note=image_input_note,
-                    instruction=instruction,
-                    objects=objects,
-                    target_object_name=object_name,
-                    candidate_predicates=predicates,
-                ),
+        def _classify(chunk: dict[str, list[Predicate]]) -> list[tuple[str, bool]]:
+            return self._classify_object_location_visibility_batch(
+                domain_analysis=domain_analysis,
+                image_path=image_path,
+                image_input_note=image_input_note,
+                instruction=instruction,
+                objects=objects,
+                grouped_location_predicates=chunk,
             )
 
-        candidate_items = sorted(candidate_groups.items())
-        if candidate_items:
-            with ThreadPoolExecutor(max_workers=min(max_workers, len(candidate_items))) as executor:
-                resolved_by_name.update(executor.map(_classify, candidate_items))
+        if self.inference_strategy == "parallel" and len(chunks) > 1:
+            with ThreadPoolExecutor(max_workers=min(max_workers, len(chunks))) as executor:
+                chunk_results = list(executor.map(_classify, chunks))
+        else:
+            chunk_results = [_classify(chunk) for chunk in chunks]
+
+        judgments_by_name: dict[str, list[bool]] = {}
+        for chunk_result in chunk_results:
+            for object_name, is_resolved in chunk_result:
+                judgments_by_name.setdefault(object_name, []).append(is_resolved)
+        resolved_by_name.update(
+            {
+                object_name: all(judgments)
+                for object_name, judgments in judgments_by_name.items()
+            }
+        )
         return [(object_name, resolved_by_name[object_name]) for object_name, _predicates in ordered_groups]
+
+    def _chunk_location_visibility_groups(
+        self,
+        grouped_location_predicates: dict[str, list[Predicate]],
+    ) -> list[dict[str, list[Predicate]]]:
+        chunks: list[dict[str, list[Predicate]]] = []
+        current: dict[str, list[Predicate]] = {}
+        current_size = 0
+        limit = self.location_visibility_batch_size
+        for object_name, predicates in sorted(grouped_location_predicates.items()):
+            if current and current_size + len(predicates) > limit:
+                chunks.append(current)
+                current = {}
+                current_size = 0
+            current[object_name] = list(predicates)
+            current_size += len(predicates)
+            # An oversized object group remains intact and occupies its own chunk.
+            if current_size >= limit:
+                chunks.append(current)
+                current = {}
+                current_size = 0
+        if current:
+            chunks.append(current)
+        return chunks
 
     def _classify_object_location_visibility_batch(
         self,
@@ -1384,54 +1411,6 @@ class InitialBeliefGenerator:
             "contained_in",
             "enclosed_in",
         }
-
-    def _is_object_location_visually_resolved(
-        self,
-        *,
-        domain_analysis: DomainAnalysisResult,
-        image_path: str | Path,
-        image_input_note: str | None,
-        instruction: str,
-        objects: list[ObjectDeclaration],
-        target_object_name: str,
-        candidate_predicates: list[Predicate],
-    ) -> bool:
-        object_types = {item.name: item.type_name for item in objects}
-        payload = {
-            "domain_summary": domain_analysis.render_summary(),
-            "instruction": instruction.strip(),
-            "initial_state_hint": self._initial_state_hint,
-            "image_input_note": image_input_note
-            or "The provided image is a single-view snapshot of the initial scene.",
-            "objects": [{"name": item.name, "type_name": item.type_name} for item in objects],
-            "target_object": {
-                "name": target_object_name,
-                "type_name": object_types.get(target_object_name, "object"),
-            },
-            "candidate_location_predicates": [predicate.to_pddl_str() for predicate in candidate_predicates],
-        }
-        user_content = build_user_content(
-            text=json.dumps(payload, ensure_ascii=False, indent=2),
-            image_path=str(image_path),
-        )
-        client = make_client(api_key=self.api_key, base_url=self.base_url)
-        reply = safe_chat(
-            client,
-            self._object_location_visibility_prompt,
-            user_content,
-            model=self.model,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            verbose=self.verbose,
-        )
-        data = extract_json_object(reply)
-        value = data.get("visually_resolved")
-        if isinstance(value, bool):
-            return value
-        normalized = str(value).strip().lower()
-        if normalized not in {"true", "false"}:
-            raise ValueError("Object location visibility judgment must return visually_resolved=true/false.")
-        return normalized == "true"
 
     def _build_historical_prior_judgments(
         self,

@@ -94,6 +94,15 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help="Maximum deterministic predicates or goal assignments included in one model call.",
     )
     parser.add_argument(
+        "--location-visibility-batch-size",
+        type=int,
+        default=30,
+        help=(
+            "Target number of grounded location predicates in one global visibility call; "
+            "all predicates for one object remain in the same call."
+        ),
+    )
+    parser.add_argument(
         "--prior-data-confidence",
         type=float,
         default=0.0,
@@ -151,6 +160,7 @@ def main(argv: list[str] | None = None) -> int:
         max_workers=args.max_workers,
         inference_strategy=args.inference_strategy,
         inference_batch_size=args.inference_batch_size,
+        location_visibility_batch_size=args.location_visibility_batch_size,
         prior_data_confidence=args.prior_data_confidence,
         close_domain=args.close_domain,
         skip_init_observation=args.skip_init_observation,

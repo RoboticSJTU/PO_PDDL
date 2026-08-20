@@ -138,8 +138,10 @@ def _validate_effect_literals_against_inventory(
     delta_del: list[str],
     allowed_predicates: set[str],
     predicate_arities: dict[str, int],
+    immutable_predicates: set[str] | None = None,
     context: str,
 ) -> None:
+    immutable_predicates = immutable_predicates or set()
     for literal in [*delta_add, *delta_del]:
         predicate_name, arguments = parse_positive_symbolic_fact(literal)
         if allowed_predicates and predicate_name not in allowed_predicates:
@@ -152,6 +154,10 @@ def _validate_effect_literals_against_inventory(
                 f"{context}: predicate `{predicate_name}` expects {expected_arity} arguments, "
                 f"got {len(arguments)} in literal `{literal}`."
             )
+        if predicate_name in immutable_predicates:
+            raise ValueError(
+                f"{context}: predicate `{predicate_name}` is a static feature and cannot appear in an action effect."
+            )
 
 
 def validate_manipulation_records_against_predicate_inventory(
@@ -161,6 +167,9 @@ def validate_manipulation_records_against_predicate_inventory(
 ) -> None:
     allowed_predicates = {item.predicate_name for item in predicate_inventory or []}
     predicate_arities = _predicate_arity_map(predicate_inventory)
+    immutable_predicates = {
+        item.predicate_name for item in predicate_inventory or [] if item.is_static_feature
+    }
     if not allowed_predicates and not predicate_arities:
         return
     for record in records:
@@ -169,6 +178,7 @@ def validate_manipulation_records_against_predicate_inventory(
             delta_del=record.delta_del,
             allowed_predicates=allowed_predicates,
             predicate_arities=predicate_arities,
+            immutable_predicates=immutable_predicates,
             context=(
                 f"Manipulation effect record [{record.episode_name} step {record.step_index}] "
                 f"for action `{record.canonical_action_name}`"
@@ -798,6 +808,9 @@ class LLMManipulationEffectLearningModule:
         allowed_predicates = {item.predicate_name for item in predicate_inventory or []}
         allowed_predicate_inventory = [item.to_dict() for item in predicate_inventory or []]
         predicate_arities = _predicate_arity_map(predicate_inventory)
+        immutable_predicates = {
+            item.predicate_name for item in predicate_inventory or [] if item.is_static_feature
+        }
         logger.info(
             "Manipulation effect learning (LLM): learning from %d manipulation records (max_workers=%d)",
             len(manipulation_records),
@@ -812,6 +825,7 @@ class LLMManipulationEffectLearningModule:
                 allowed_predicates,
                 allowed_predicate_inventory,
                 predicate_arities,
+                immutable_predicates,
             )
         else:
             outputs = self._learn_effects_in_parallel(
@@ -822,6 +836,7 @@ class LLMManipulationEffectLearningModule:
                 allowed_predicates,
                 allowed_predicate_inventory,
                 predicate_arities,
+                immutable_predicates,
             )
         logger.info(
             "Manipulation effect learning (LLM) complete: produced %d effect records",
@@ -838,6 +853,7 @@ class LLMManipulationEffectLearningModule:
         allowed_predicates: set[str],
         allowed_predicate_inventory: list[dict[str, object]],
         predicate_arities: dict[str, int],
+        immutable_predicates: set[str],
     ) -> list[ManipulationEffectRecord]:
         outputs: list[ManipulationEffectRecord] = []
         total = len(manipulation_records)
@@ -859,6 +875,7 @@ class LLMManipulationEffectLearningModule:
                     allowed_predicates,
                     allowed_predicate_inventory,
                     predicate_arities,
+                    immutable_predicates,
                 )
             )
         return outputs
@@ -872,6 +889,7 @@ class LLMManipulationEffectLearningModule:
         allowed_predicates: set[str],
         allowed_predicate_inventory: list[dict[str, object]],
         predicate_arities: dict[str, int],
+        immutable_predicates: set[str],
     ) -> list[ManipulationEffectRecord]:
         total = len(manipulation_records)
         if total == 0:
@@ -890,6 +908,7 @@ class LLMManipulationEffectLearningModule:
                     allowed_predicates,
                     allowed_predicate_inventory,
                     predicate_arities,
+                    immutable_predicates,
                 ): index
                 for index, record in enumerate(manipulation_records)
             }
@@ -926,6 +945,7 @@ class LLMManipulationEffectLearningModule:
         allowed_predicates: set[str],
         allowed_predicate_inventory: list[dict[str, object]],
         predicate_arities: dict[str, int],
+        immutable_predicates: set[str],
     ) -> ManipulationEffectRecord:
         validation_feedback: str | None = None
         for attempt in range(1, self.max_validation_attempts + 1):
@@ -974,6 +994,7 @@ class LLMManipulationEffectLearningModule:
                     delta_del=delta_del,
                     allowed_predicates=allowed_predicates,
                     predicate_arities=predicate_arities,
+                    immutable_predicates=immutable_predicates,
                     context=(
                         f"Manipulation effect learning response [{step.episode_name} step {step.step_index}] "
                         f"for action `{action_name}`"

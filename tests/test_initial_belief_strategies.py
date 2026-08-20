@@ -156,7 +156,7 @@ def test_deterministic_predicate_chunks_can_be_judged_in_parallel(
     }
 
 
-def test_parallel_location_visibility_does_not_relabel_inventory_only_objects(
+def test_location_visibility_batches_never_split_an_object_group(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
@@ -175,15 +175,38 @@ def test_parallel_location_visibility_does_not_relabel_inventory_only_objects(
         ObjectDeclaration(name="blue_block", type_name="movable_item"),
         ObjectDeclaration(name="drawer", type_name="surface"),
     ]
-    calls: list[str] = []
-    agent = InitialBeliefGenerator(model="test-model", inference_strategy="parallel")
-    agent.set_current_visible_object_names({"black_box", "drawer"})
+    calls: list[dict[str, object]] = []
+    agent = InitialBeliefGenerator(
+        model="test-model",
+        inference_strategy="parallel",
+        location_visibility_batch_size=3,
+    )
+    agent.set_current_visible_object_names(None)
 
-    def fake_visibility(**kwargs) -> bool:
-        calls.append(kwargs["target_object_name"])
-        return True
+    monkeypatch.setattr(
+        "po_pddl.problem_generation.initial_belief.make_client",
+        lambda **_kwargs: object(),
+    )
 
-    monkeypatch.setattr(agent, "_is_object_location_visually_resolved", fake_visibility)
+    def fake_safe_chat(*args, **kwargs):
+        content = kwargs.get("user_content", args[2] if len(args) > 2 else None)
+        text_block = next(block for block in content if block["type"] == "text")
+        payload = json.loads(text_block["text"])
+        calls.append(payload)
+        return json.dumps(
+            {
+                "object_visibility": [
+                    {
+                        "target_object": item["target_object"],
+                        "visually_resolved": item["target_object"] == "black_box",
+                        "reasoning": "global scene judgment",
+                    }
+                    for item in payload["target_location_groups"]
+                ]
+            }
+        )
+
+    monkeypatch.setattr("po_pddl.problem_generation.initial_belief.safe_chat", fake_safe_chat)
     results = agent._classify_object_location_visibility(
         domain_analysis=analysis,
         image_path=image_path,
@@ -191,11 +214,33 @@ def test_parallel_location_visibility_does_not_relabel_inventory_only_objects(
         instruction="Move the objects.",
         objects=objects,
         grouped_location_predicates={
-            "black_box": [Predicate("on_top_of", ["black_box", "drawer"])],
-            "blue_block": [Predicate("on_top_of", ["blue_block", "drawer"])],
+            "black_box": [
+                Predicate("on_top_of", ["black_box", "drawer"]),
+                Predicate("in_front_of", ["black_box", "drawer"]),
+                Predicate("left_of", ["black_box", "drawer"]),
+                Predicate("right_of", ["black_box", "drawer"]),
+            ],
+            "blue_block": [
+                Predicate("on_top_of", ["blue_block", "drawer"]),
+                Predicate("in_front_of", ["blue_block", "drawer"]),
+            ],
         },
         max_workers=2,
     )
 
-    assert calls == ["black_box"]
+    assert len(calls) == 2
+    object_occurrences = [
+        group["target_object"]
+        for call in calls
+        for group in call["target_location_groups"]
+    ]
+    assert object_occurrences.count("black_box") == 1
+    assert object_occurrences.count("blue_block") == 1
+    black_box_group = next(
+        group
+        for call in calls
+        for group in call["target_location_groups"]
+        if group["target_object"] == "black_box"
+    )
+    assert len(black_box_group["candidate_location_predicates"]) == 4
     assert results == [("black_box", True), ("blue_block", False)]

@@ -215,11 +215,23 @@ def retain_identity_anchored_preconditions(
     for literal in universally_supported_literals:
         if is_redundant_noop_check(literal) or is_dependent_literal(literal):
             continue
-        _negated, predicate_name, _arguments = parse_symbolic_literal(literal)
+        negated, predicate_name, _arguments = parse_symbolic_literal(literal)
         identity_tokens = {
             token for token in predicate_name.lower().split("_") if token not in _IDENTITY_TOKEN_STOPWORDS
         }
-        if not identity_tokens or not identity_tokens.issubset(action_tokens):
+        directly_anchored = bool(identity_tokens) and identity_tokens.issubset(action_tokens)
+        directionally_anchored = any(
+            action_direction in group
+            and predicate_direction in group
+            and (
+                (not negated and action_direction == predicate_direction)
+                or (negated and action_direction != predicate_direction)
+            )
+            for group in _DIRECTIONAL_VARIANT_TOKEN_GROUPS
+            for action_direction in action_tokens
+            for predicate_direction in identity_tokens
+        )
+        if not directly_anchored and not directionally_anchored:
             continue
         if identity_tokens.issubset(represented_tokens):
             continue

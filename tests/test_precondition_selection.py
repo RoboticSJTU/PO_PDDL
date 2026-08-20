@@ -77,3 +77,23 @@ def test_positive_zero_arity_resource_is_still_enforced() -> None:
     )
 
     assert selected == ["sensor_available()"]
+
+
+def test_matching_directional_qualifier_is_retained() -> None:
+    selected = retain_identity_anchored_preconditions(
+        action_name="inspect_container_on_left",
+        universally_supported_literals=["gripper_empty()", "on_left(?arg0)"],
+        selected_literals=["gripper_empty()"],
+    )
+
+    assert selected == ["gripper_empty()", "on_left(?arg0)"]
+
+
+def test_complementary_directional_qualifier_is_retained() -> None:
+    selected = retain_identity_anchored_preconditions(
+        action_name="inspect_container_on_right",
+        universally_supported_literals=["gripper_empty()", "not on_left(?arg0)"],
+        selected_literals=["gripper_empty()"],
+    )
+
+    assert selected == ["gripper_empty()", "not on_left(?arg0)"]

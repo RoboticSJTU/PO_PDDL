@@ -101,14 +101,17 @@ class ProblemGenerationConfig:
     max_workers: int = 8
     inference_strategy: Literal["batch", "parallel"] = "batch"
     inference_batch_size: int = 20
+    location_visibility_batch_size: int = 30
     prior_data_confidence: float = 0.0
     close_domain: bool = False
     skip_init_observation: bool = False
+    concurrent_inference_branches: bool = False
     verbose: bool = True
 
     def __post_init__(self) -> None:
         _positive(self.max_workers, "max_workers")
         _positive(self.inference_batch_size, "inference_batch_size")
+        _positive(self.location_visibility_batch_size, "location_visibility_batch_size")
         if self.inference_strategy not in {"batch", "parallel"}:
             raise ValueError("inference_strategy must be 'batch' or 'parallel'")
         if not self.instruction.strip():

@@ -30,6 +30,7 @@ def test_problem_config_resolves_default_output(tmp_path: Path) -> None:
     assert config.resolved_output_file == tmp_path / "problem_online.pddl"
     assert config.inference_strategy == "batch"
     assert config.inference_batch_size == 20
+    assert config.location_visibility_batch_size == 30
 
 
 def test_problem_config_rejects_unknown_inference_strategy(tmp_path: Path) -> None:
@@ -49,6 +50,16 @@ def test_problem_config_rejects_nonpositive_inference_batch_size(tmp_path: Path)
             image_path=tmp_path / "scene.jpg",
             instruction="Open the drawer.",
             inference_batch_size=0,
+        )
+
+
+def test_problem_config_rejects_nonpositive_location_visibility_batch_size(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="location_visibility_batch_size"):
+        ProblemGenerationConfig(
+            domain_file=tmp_path / "domain.pddl",
+            image_path=tmp_path / "scene.jpg",
+            instruction="Open the drawer.",
+            location_visibility_batch_size=0,
         )
 
 
@@ -78,6 +89,20 @@ def test_problem_cli_accepts_inference_batch_size(tmp_path: Path) -> None:
     )
 
     assert args.inference_batch_size == 7
+
+
+def test_problem_cli_accepts_location_visibility_batch_size(tmp_path: Path) -> None:
+    args = build_problem_parser().parse_args(
+        [
+            str(tmp_path / "domain.pddl"),
+            str(tmp_path / "scene.jpg"),
+            "Open the drawer.",
+            "--location-visibility-batch-size",
+            "9",
+        ]
+    )
+
+    assert args.location_visibility_batch_size == 9
 
 
 def test_problem_cli_accepts_explicit_objects_file(tmp_path: Path) -> None:

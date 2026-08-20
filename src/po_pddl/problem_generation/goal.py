@@ -194,10 +194,7 @@ class GoalInferenceAgent:
             raise ValueError("inference_batch_size must be positive")
         self.inference_strategy = inference_strategy
         self.inference_batch_size = inference_batch_size
-        self._predicate_prompt = _load_prompt("relevant_predicates.md")
-        self._ground_atoms_prompt = _load_prompt("relevant_ground_atoms.md")
-        self._mutex_groups_prompt = _load_prompt("mutex_groups.md")
-        self._semantic_prune_prompt = _load_prompt("semantic_pruning.md")
+        self._preprocessing_prompt = _load_prompt("preprocessing.md")
         self._goal_state_prompt = _load_prompt("assignment_satisfaction.md")
 
     def _log(self, message: str) -> None:
@@ -215,29 +212,20 @@ class GoalInferenceAgent:
         if max_workers <= 0:
             raise ValueError("max_workers must be positive.")
 
-        relevant_predicate_names = self._select_goal_relevant_predicate_names(
+        (
+            relevant_predicate_names,
+            relevant_grounded_atoms,
+            mutex_groups,
+            semantically_pruned_atoms,
+        ) = self._preprocess_goal_candidates(
             domain_analysis=domain_analysis,
             instruction=instruction,
             objects=objects,
         )
         self._log("Selected relevant predicate schemas: " + ", ".join(relevant_predicate_names))
-        relevant_grounded_atoms = self._select_goal_relevant_ground_atoms(
-            domain_analysis=domain_analysis,
-            instruction=instruction,
-            objects=objects,
-            relevant_predicate_names=relevant_predicate_names,
-        )
-        if not relevant_grounded_atoms:
-            raise ValueError("Goal generation selected zero relevant grounded predicates.")
         self._log(
             "Selected relevant grounded predicates: "
             + ", ".join(predicate.to_pddl_str() for predicate in relevant_grounded_atoms)
-        )
-        mutex_groups = self._select_goal_mutex_groups(
-            domain_analysis=domain_analysis,
-            instruction=instruction,
-            objects=objects,
-            grounded_predicates=relevant_grounded_atoms,
         )
         if mutex_groups:
             rendered_groups = [
@@ -246,15 +234,6 @@ class GoalInferenceAgent:
             self._log("Selected mutex groups: " + "; ".join(rendered_groups))
         else:
             self._log("Selected mutex groups: none")
-        relevant_grounded_atoms, mutex_groups, semantically_pruned_atoms = (
-            self._prune_semantically_invalid_ground_atoms(
-                domain_analysis=domain_analysis,
-                instruction=instruction,
-                objects=objects,
-                grounded_predicates=relevant_grounded_atoms,
-                mutex_groups=mutex_groups,
-            )
-        )
         if semantically_pruned_atoms:
             self._log(
                 "Pruned semantically invalid grounded predicates before enumeration: "
@@ -302,14 +281,14 @@ class GoalInferenceAgent:
             return valid_goal_states[0]
         return ["or", *valid_goal_states]
 
-    def _select_goal_relevant_predicate_names(
+    def _preprocess_goal_candidates(
         self,
         *,
         domain_analysis: DomainAnalysisResult,
         instruction: str,
         objects: list[ObjectDeclaration],
-    ) -> list[str]:
-        candidate_predicates = []
+    ) -> tuple[list[str], list[Predicate], list[list[Predicate]], list[Predicate]]:
+        candidate_predicates: list[dict[str, object]] = []
         for predicate in domain_analysis.parsed_domain.predicates:
             if _is_observation_helper_predicate(predicate.name):
                 continue
@@ -321,44 +300,6 @@ class GoalInferenceAgent:
                     "parameter_types": [type_name for _name, type_name in parameter_types],
                 }
             )
-        payload = {
-            "domain_summary": _render_goal_domain_summary(domain_analysis),
-            "instruction": instruction.strip(),
-            "objects": [{"name": item.name, "type_name": item.type_name} for item in objects],
-            "candidate_predicates": candidate_predicates,
-        }
-        client = make_client(api_key=self.api_key, base_url=self.base_url)
-        reply = safe_chat(
-            client,
-            self._predicate_prompt,
-            build_user_content(text=json.dumps(payload, ensure_ascii=False, indent=2)),
-            model=self.model,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            verbose=self.verbose,
-        )
-        data = extract_json_object(reply)
-        selected = data.get("goal_relevant_predicates", [])
-        if not isinstance(selected, list) or not selected:
-            raise ValueError("Goal predicate selector must return a non-empty goal_relevant_predicates list.")
-        available = {item["predicate_name"] for item in candidate_predicates}
-        normalized = []
-        for item in selected:
-            name = str(item).strip()
-            if name not in available:
-                raise ValueError(f"Goal predicate selector returned unknown predicate {name!r}.")
-            if name not in normalized:
-                normalized.append(name)
-        return normalized
-
-    def _select_goal_relevant_ground_atoms(
-        self,
-        *,
-        domain_analysis: DomainAnalysisResult,
-        instruction: str,
-        objects: list[ObjectDeclaration],
-        relevant_predicate_names: list[str],
-    ) -> list[Predicate]:
         grounded_predicates = sorted(
             build_grounded_predicates_for_objects(
                 domain_analysis.parsed_domain,
@@ -372,26 +313,23 @@ class GoalInferenceAgent:
                 "Filtering grounded predicates that mention action constants: "
                 + ", ".join(sorted(action_constant_names))
             )
-        coarse_candidates = [
+        grounded_candidates = [
             predicate
             for predicate in grounded_predicates
-            if predicate.name in set(relevant_predicate_names)
+            if not _is_observation_helper_predicate(predicate.name)
             and not _predicate_mentions_action_constant(predicate, action_constant_names)
         ]
-        if not coarse_candidates:
-            return []
-
         payload = {
             "domain_summary": _render_goal_domain_summary(domain_analysis),
             "instruction": instruction.strip(),
             "objects": [{"name": item.name, "type_name": item.type_name} for item in objects],
-            "goal_relevant_predicates": relevant_predicate_names,
-            "candidate_grounded_predicates": [predicate.to_pddl_str() for predicate in coarse_candidates],
+            "candidate_predicates": candidate_predicates,
+            "candidate_grounded_predicates": [predicate.to_pddl_str() for predicate in grounded_candidates],
         }
         client = make_client(api_key=self.api_key, base_url=self.base_url)
         reply = safe_chat(
             client,
-            self._ground_atoms_prompt,
+            self._preprocessing_prompt,
             build_user_content(text=json.dumps(payload, ensure_ascii=False, indent=2)),
             model=self.model,
             temperature=self.temperature,
@@ -399,72 +337,64 @@ class GoalInferenceAgent:
             verbose=self.verbose,
         )
         data = extract_json_object(reply)
-        selected = data.get("goal_relevant_grounded_predicates", [])
-        if not isinstance(selected, list) or not selected:
+
+        raw_names = data.get("goal_relevant_predicates", [])
+        if not isinstance(raw_names, list) or not raw_names:
+            raise ValueError("Goal preprocessing must return a non-empty goal_relevant_predicates list.")
+        available_names = {str(item["predicate_name"]) for item in candidate_predicates}
+        relevant_names: list[str] = []
+        for item in raw_names:
+            name = str(item).strip()
+            if name not in available_names:
+                raise ValueError(f"Goal preprocessing returned unknown predicate schema {name!r}.")
+            if name not in relevant_names:
+                relevant_names.append(name)
+
+        raw_atoms = data.get("goal_relevant_grounded_predicates", [])
+        if not isinstance(raw_atoms, list) or not raw_atoms:
             raise ValueError(
-                "Goal grounded-predicate selector must return a non-empty goal_relevant_grounded_predicates list."
+                "Goal preprocessing must return a non-empty goal_relevant_grounded_predicates list."
             )
-        available = {predicate.to_pddl_str(): predicate for predicate in coarse_candidates}
-        normalized: list[Predicate] = []
-        seen: set[str] = set()
-        for item in selected:
+        available_atoms = {predicate.to_pddl_str(): predicate for predicate in grounded_candidates}
+        selected_atoms: list[Predicate] = []
+        seen_atoms: set[str] = set()
+        for item in raw_atoms:
             predicate_text = str(item).strip()
-            if predicate_text not in available:
+            if predicate_text not in available_atoms:
                 raise ValueError(
-                    f"Goal grounded-predicate selector returned unknown grounded predicate {predicate_text!r}."
+                    f"Goal preprocessing returned unknown grounded predicate {predicate_text!r}."
                 )
-            if predicate_text in seen:
+            predicate = available_atoms[predicate_text]
+            if predicate.name not in relevant_names:
+                raise ValueError(
+                    f"Goal preprocessing selected {predicate_text!r} without selecting its predicate schema."
+                )
+            if predicate_text in seen_atoms:
                 continue
-            seen.add(predicate_text)
-            normalized.append(available[predicate_text])
-        return normalized
+            seen_atoms.add(predicate_text)
+            selected_atoms.append(predicate)
 
-    def _select_goal_mutex_groups(
-        self,
-        *,
-        domain_analysis: DomainAnalysisResult,
-        instruction: str,
-        objects: list[ObjectDeclaration],
-        grounded_predicates: list[Predicate],
-    ) -> list[list[Predicate]]:
-        if len(grounded_predicates) < 2:
-            return []
-        payload = {
-            "domain_summary": _render_goal_domain_summary(domain_analysis),
-            "instruction": instruction.strip(),
-            "objects": [{"name": item.name, "type_name": item.type_name} for item in objects],
-            "candidate_mutex_group_predicates": [predicate.to_pddl_str() for predicate in grounded_predicates],
-        }
-        client = make_client(api_key=self.api_key, base_url=self.base_url)
-        reply = safe_chat(
-            client,
-            self._mutex_groups_prompt,
-            build_user_content(text=json.dumps(payload, ensure_ascii=False, indent=2)),
-            model=self.model,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            verbose=self.verbose,
-        )
-        data = extract_json_object(reply)
+        selected_by_text = {predicate.to_pddl_str(): predicate for predicate in selected_atoms}
         raw_groups = data.get("mutex_groups", [])
         if not isinstance(raw_groups, list):
-            raise ValueError("Goal mutex selector must return mutex_groups as a list.")
-        available = {predicate.to_pddl_str(): predicate for predicate in grounded_predicates}
+            raise ValueError("Goal preprocessing must return mutex_groups as a list.")
         normalized_groups: list[list[Predicate]] = []
         seen_groups: set[tuple[str, ...]] = set()
         for raw_group in raw_groups:
             if not isinstance(raw_group, list):
-                raise ValueError("Each mutex group must be a list of grounded predicates.")
+                raise ValueError("Each goal preprocessing mutex group must be a list.")
             group_predicates: list[Predicate] = []
             seen_members: set[str] = set()
             for item in raw_group:
                 predicate_text = str(item).strip()
-                if predicate_text not in available:
-                    raise ValueError(f"Goal mutex selector returned unknown grounded predicate {predicate_text!r}.")
+                if predicate_text not in selected_by_text:
+                    raise ValueError(
+                        f"Goal preprocessing mutex group contains unselected predicate {predicate_text!r}."
+                    )
                 if predicate_text in seen_members:
                     continue
                 seen_members.add(predicate_text)
-                group_predicates.append(available[predicate_text])
+                group_predicates.append(selected_by_text[predicate_text])
             if len(group_predicates) < 2:
                 continue
             group_key = tuple(sorted(predicate.to_pddl_str() for predicate in group_predicates))
@@ -472,58 +402,27 @@ class GoalInferenceAgent:
                 continue
             seen_groups.add(group_key)
             normalized_groups.append(sorted(group_predicates, key=lambda predicate: predicate.to_pddl_str()))
-        return normalized_groups
 
-    def _prune_semantically_invalid_ground_atoms(
-        self,
-        *,
-        domain_analysis: DomainAnalysisResult,
-        instruction: str,
-        objects: list[ObjectDeclaration],
-        grounded_predicates: list[Predicate],
-        mutex_groups: list[list[Predicate]],
-    ) -> tuple[list[Predicate], list[list[Predicate]], list[Predicate]]:
-        if not grounded_predicates:
-            return [], [], []
-        payload = {
-            "domain_summary": _render_goal_domain_summary(domain_analysis),
-            "instruction": instruction.strip(),
-            "objects": [{"name": item.name, "type_name": item.type_name} for item in objects],
-            "candidate_grounded_predicates": [predicate.to_pddl_str() for predicate in grounded_predicates],
-            "selected_mutex_groups": [[predicate.to_pddl_str() for predicate in group] for group in mutex_groups],
-        }
-        client = make_client(api_key=self.api_key, base_url=self.base_url)
-        reply = safe_chat(
-            client,
-            self._semantic_prune_prompt,
-            build_user_content(text=json.dumps(payload, ensure_ascii=False, indent=2)),
-            model=self.model,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            verbose=self.verbose,
-        )
-        data = extract_json_object(reply)
         raw_predicates = data.get("pruned_grounded_predicates", [])
         if not isinstance(raw_predicates, list):
-            raise ValueError("Goal semantic-prune selector must return pruned_grounded_predicates as a list.")
-        available = {predicate.to_pddl_str(): predicate for predicate in grounded_predicates}
+            raise ValueError("Goal preprocessing must return pruned_grounded_predicates as a list.")
         pruned_atoms: list[Predicate] = []
-        seen: set[str] = set()
+        seen_pruned: set[str] = set()
         for item in raw_predicates:
             predicate_text = str(item).strip()
-            if predicate_text not in available:
+            if predicate_text not in selected_by_text:
                 raise ValueError(
-                    f"Goal semantic-prune selector returned unknown grounded predicate {predicate_text!r}."
+                    f"Goal preprocessing attempted to prune unselected predicate {predicate_text!r}."
                 )
-            if predicate_text in seen:
+            if predicate_text in seen_pruned:
                 continue
-            seen.add(predicate_text)
-            pruned_atoms.append(available[predicate_text])
+            seen_pruned.add(predicate_text)
+            pruned_atoms.append(selected_by_text[predicate_text])
         pruned_set = set(pruned_atoms)
-        filtered_atoms = [predicate for predicate in grounded_predicates if predicate not in pruned_set]
+        filtered_atoms = [predicate for predicate in selected_atoms if predicate not in pruned_set]
         filtered_mutex_groups: list[list[Predicate]] = []
         seen_group_keys: set[tuple[str, ...]] = set()
-        for group in mutex_groups:
+        for group in normalized_groups:
             filtered_group = [predicate for predicate in group if predicate not in pruned_set]
             if len(filtered_group) < 2:
                 continue
@@ -532,7 +431,9 @@ class GoalInferenceAgent:
                 continue
             seen_group_keys.add(group_key)
             filtered_mutex_groups.append(filtered_group)
-        return filtered_atoms, filtered_mutex_groups, pruned_atoms
+        if not filtered_atoms:
+            raise ValueError("Goal preprocessing pruned all relevant grounded predicates.")
+        return relevant_names, filtered_atoms, filtered_mutex_groups, pruned_atoms
 
     def _enumerate_grounded_assignments(
         self,

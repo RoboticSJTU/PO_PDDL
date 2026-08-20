@@ -75,18 +75,27 @@ pipeline through a resumable filesystem protocol: Python retains all parsing,
 statistics, probability estimation, rendering, and validation, while Codex
 answers independent language and vision judgments with parallel subagents.
 
-The underlying resumable command is also available directly:
+The underlying resumable commands are also available directly:
 
 ```bash
 po-pddl-agent --help
 ```
 
-Code-level workers retain the original dependency structure. The skills maintain a
-pool of up to ten Codex workers across all stages, assign several independent tasks
-to each worker in bounded waves, and resume the same agent IDs instead of paying the
-startup cost for every task. Workers submit through a process-safe journal while the
-parent only advances and validates the workflow. This route remains slower than the
-API pipeline and is intended primarily for agent-native use.
+After initializing a workflow with `--no-start`, run it to completion with ten
+persistent Codex workers:
+
+```bash
+po-pddl-agent run-pool --run-dir <agent-run> --workers 10
+```
+
+The pool starts `codex app-server` once per active worker and reuses the process
+across pipeline stages. Each model task still receives a fresh ephemeral thread,
+which prevents scene facts and assumptions from leaking between tasks. Requests
+and local images are sent directly to Codex rather than through nested agents,
+while Python retains parsing, statistics, rendering, validation, and workflow
+retries. The resumable task journal remains available through `status`,
+`dispatch`, `submit`, and `reopen` for inspection and recovery. Codex remains
+slower than the API pipeline and is intended primarily for agent-native use.
 
 ## Installation
 
@@ -231,7 +240,13 @@ problem.
 Deterministic predicates and candidate goal assignments are grouped into
 set-level calls of at most `--inference-batch-size` items (default 20). The
 default `batch` strategy processes chunks sequentially; `parallel` processes
-independent chunks concurrently with `--max-workers`.
+independent chunks concurrently with `--max-workers`. Location visibility is
+judged globally in object-preserving batches with a target capacity set by
+`--location-visibility-batch-size` (default 30 grounded predicates). All
+location alternatives for one object remain in the same call; an individual
+object group may exceed the target capacity. In `--close-domain` mode, object names and
+types come from the historical grounding bundle and `objects.txt`, so the
+pipeline skips a separate image-based object extraction call.
 
 ```bash
 BUNDLE=outputs/example_domain/7_final_bundle
@@ -246,6 +261,7 @@ po-pddl-generate-problem \
   --config-name openai_config \
   --inference-strategy batch \
   --inference-batch-size 20 \
+  --location-visibility-batch-size 30 \
   --max-workers 8 \
   --close-domain \
   --output example_problem/problem_online.pddl

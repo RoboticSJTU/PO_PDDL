@@ -10,8 +10,8 @@ from typing import Any
 from po_pddl.config import DEFAULT_MODEL
 from po_pddl.domain_generation.pipeline.runner import PIPELINE_STAGE_ORDER
 
-from .workflow import AgentWorkflow, domain_arguments, extension_arguments, problem_arguments
 from .worker_pool import DEFAULT_POOL_SIZE, DEFAULT_TASKS_PER_WORKER
+from .workflow import AgentWorkflow, domain_arguments, extension_arguments, problem_arguments
 
 
 def _add_model_options(
@@ -72,6 +72,7 @@ def build_parser() -> argparse.ArgumentParser:
     problem.add_argument("--problem-name", default=None)
     problem.add_argument("--inference-strategy", choices=("batch", "parallel"), default="batch")
     problem.add_argument("--inference-batch-size", type=int, default=20)
+    problem.add_argument("--location-visibility-batch-size", type=int, default=30)
     problem.add_argument("--prior-data-confidence", type=float, default=0.0)
     problem.add_argument("--close-domain", action="store_true")
     problem.add_argument("--skip-init-observation", action="store_true")
@@ -87,6 +88,16 @@ def build_parser() -> argparse.ArgumentParser:
     dispatch.add_argument("--run-dir", type=Path, required=True)
     dispatch.add_argument("--workers", type=int, default=DEFAULT_POOL_SIZE)
     dispatch.add_argument("--tasks-per-worker", type=int, default=DEFAULT_TASKS_PER_WORKER)
+
+    run_pool = commands.add_parser(
+        "run-pool",
+        help="Run a workflow to completion with persistent Codex app-server workers.",
+    )
+    run_pool.add_argument("--run-dir", type=Path, required=True)
+    run_pool.add_argument("--workers", type=int, default=DEFAULT_POOL_SIZE)
+    run_pool.add_argument("--tasks-per-worker", type=int, default=DEFAULT_TASKS_PER_WORKER)
+    run_pool.add_argument("--codex-bin", default="codex")
+    run_pool.add_argument("--task-timeout-seconds", type=float, default=300.0)
 
     submit = commands.add_parser("submit")
     submit.add_argument("--run-dir", type=Path, required=True)
@@ -128,6 +139,19 @@ def main(argv: list[str] | None = None) -> int:
             workflow.dispatch(
                 worker_count=args.workers,
                 tasks_per_worker=args.tasks_per_worker,
+            )
+        )
+        return 0
+    if args.command == "run-pool":
+        from .pool_runner import run_persistent_pool
+
+        _print(
+            run_persistent_pool(
+                workflow,
+                worker_count=args.workers,
+                tasks_per_worker=args.tasks_per_worker,
+                codex_executable=args.codex_bin,
+                timeout_seconds=args.task_timeout_seconds,
             )
         )
         return 0
@@ -182,6 +206,7 @@ def main(argv: list[str] | None = None) -> int:
             problem_name=args.problem_name,
             inference_strategy=args.inference_strategy,
             inference_batch_size=args.inference_batch_size,
+            location_visibility_batch_size=args.location_visibility_batch_size,
             prior_data_confidence=args.prior_data_confidence,
             close_domain=args.close_domain,
             skip_init_observation=args.skip_init_observation,

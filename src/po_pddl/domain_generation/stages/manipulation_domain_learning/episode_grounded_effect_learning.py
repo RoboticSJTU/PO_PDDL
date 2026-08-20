@@ -285,6 +285,9 @@ class LLMEpisodeStepEffectModule:
         allowed_predicate_inventory = [item.to_dict() for item in allowed_predicates or []]
         allowed_predicates_set = {item.predicate_name for item in allowed_predicates or []}
         predicate_arities = _predicate_arity_map(allowed_predicates)
+        immutable_predicates = {
+            item.predicate_name for item in allowed_predicates or [] if item.is_static_feature
+        }
         payload = {
             "instruction": step.instruction,
             "current_action_schema": action_schema.to_dict(),
@@ -333,6 +336,7 @@ class LLMEpisodeStepEffectModule:
             delta_del=delta_del,
             allowed_predicates=allowed_predicates_set,
             predicate_arities=predicate_arities,
+            immutable_predicates=immutable_predicates,
             context=f"Episode step effect response [{step.episode_name} step {step.step_index}]",
         )
         success = _coerce_bool(

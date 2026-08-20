@@ -35,45 +35,29 @@ po-pddl-agent init-extension \
   --no-start
 ```
 
-Ten workers are recommended. The parent occupies one additional Codex thread, so configure the
-session for 11 threads.
+Ten workers are recommended.
 
 ## Persistent Worker Pool
 
-Create at most ten worker slots once and reuse their agent IDs for the entire workflow. Never spawn
-a fresh subagent per task. Obtain balanced, bounded assignments with:
+Run the initialized workflow to completion with:
 
 ```bash
-po-pddl-agent dispatch \
+po-pddl-agent run-pool \
   --run-dir <agent-run> \
   --workers 10 \
   --tasks-per-worker 4
 ```
 
-`dispatch` advances only when no responses are pending. Otherwise it writes one compact manifest
-per active worker slot, balancing prompt and media cost to reduce stragglers.
+`run-pool` starts up to ten persistent `codex app-server` processes, sends prompt and media inputs
+directly, and automatically advances, validates, and retries the resumable workflow. A fresh
+ephemeral Codex thread is used for every task, so process reuse does not carry entities, visual
+facts, or assumptions between demonstrations. `--tasks-per-worker` controls assignment balancing;
+the default of four works well for mixed image and text tasks. Use `--task-timeout-seconds` for
+unusually slow visual requests.
 
-1. Lazily spawn workers for assignment indexes without an agent ID. Workers must not spawn agents.
-2. Give a worker only its assignment manifest path and this protocol. For every listed task, it
-   independently reads `prompt_file`, `request_file`, optional `validation_file`, and every
-   task-local media path; produces only the requested schema; then submits it directly:
-
-```bash
-po-pddl-agent submit --run-dir <agent-run> --task-id <task-id> --response '<response>'
-```
-
-3. Between tasks, reset task-specific assumptions. Session reuse must never copy entities, facts,
-   visual judgments, or responses from another task. Reference outputs are prohibited. Workers may
-   write submission scratch files but must not edit pipeline artifacts.
-4. Workers return only submitted task IDs and failures to the parent, never response bodies. Wait
-   for every assigned worker, then call `dispatch` again.
-5. Reuse each slot: resume its existing agent and send the next manifest. Leave unused slots idle;
-   replace a slot only if its agent is irrecoverably unavailable. Close the pool only after status
-   is `complete`.
-
-The four-task cap amortizes agent turns while limiting cross-task context and VLM memory pressure.
-For unusually large videos, lower it. When validation reopens a task, its manifest includes
-`validation_file`; revise only that task.
+For manual inspection or recovery, use `po-pddl-agent status` and `po-pddl-agent dispatch`, then
+submit a corrected task with `po-pddl-agent submit`. Normal generation should use `run-pool` rather
+than spawning nested agents or one `codex exec` process per task.
 
 Do not bypass the learner by editing generated artifacts. If a recurring failure is caused by code
 or a generic prompt, fix the implementation, test it, and resume the workflow.
@@ -86,13 +70,14 @@ or a generic prompt, fix the implementation, test it, and resume the workflow.
 - Check passive, initial, and active observations against visual/state disagreement.
 - Parse and lint the PDDL before accepting it.
 
-If semantic review identifies a bad answer, reopen its task and let the pool revise it:
+If semantic review identifies a bad answer, reopen its task and rerun the pool:
 
 ```bash
 po-pddl-agent reopen \
   --run-dir <agent-run> \
   --task-id <task-id> \
   --reason "<domain-independent semantic error>"
+po-pddl-agent run-pool --run-dir <agent-run> --workers 10
 ```
 
 Never repair a learned domain by copying facts from a reference domain.

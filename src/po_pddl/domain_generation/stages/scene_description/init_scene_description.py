@@ -20,6 +20,8 @@ from po_pddl.domain_generation.infrastructure.payload_utils import normalize_opt
 from po_pddl.domain_generation.infrastructure.response_parsing import extract_json_object
 from po_pddl.prompts import load_prompt
 
+from .text_normalization import remove_unseen_object_statements
+
 DEFAULT_PROMPT_NAME = "init_scene_description_prompt.md"
 DEFAULT_SYSTEM_PROMPT = (
     "You generate concise, visually grounded English scene descriptions from an initial frame. "
@@ -167,6 +169,10 @@ class InitSceneDescriptionGenerator:
             system_prompt=system_prompt,
             user_content=user_content,
             raw_response=raw_response,
+        )
+        scene_description_text = remove_unseen_object_statements(
+            scene_description_text,
+            request.allowed_object_names,
         )
         return InitSceneDescriptionGenerationResult(
             episode_name=episode_name,

@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 
 from po_pddl.agent.task_client import AgentTaskPending
 from po_pddl.agent.workflow import AgentWorkflow, domain_arguments
@@ -23,6 +24,20 @@ def test_workflow_completes_and_persists_result(tmp_path, monkeypatch) -> None:
 
     assert status["status"] == "complete"
     assert status["result"] == {"domain": str(tmp_path / "output")}
+
+
+def test_partial_domain_run_does_not_require_a_merged_domain(tmp_path, monkeypatch) -> None:
+    workflow = _initialize(tmp_path)
+    missing_domain = tmp_path / "output" / "6_merged_domain" / "final_merged_domain.pddl"
+    result = SimpleNamespace(
+        merged_domain_file=str(missing_domain),
+        to_dict=lambda: {"merged_domain_file": str(missing_domain)},
+    )
+    monkeypatch.setattr("po_pddl.agent.workflow.generate_domain", lambda _config: result)
+
+    payload = workflow._run_domain(workflow.load()["arguments"])
+
+    assert payload == {"merged_domain_file": str(missing_domain)}
 
 
 def test_workflow_reports_pending_task(tmp_path, monkeypatch) -> None:

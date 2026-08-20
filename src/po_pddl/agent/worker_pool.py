@@ -10,7 +10,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
-
 DEFAULT_POOL_SIZE = 10
 DEFAULT_TASKS_PER_WORKER = 4
 

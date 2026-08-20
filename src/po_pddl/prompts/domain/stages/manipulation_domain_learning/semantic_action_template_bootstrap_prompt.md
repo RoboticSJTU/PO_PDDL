@@ -1,7 +1,9 @@
 Induce reusable semantic action templates from the supplied action texts.
 
 Rules:
-- Return JSON only with top-level `action_templates`; do not classify action category here.
+- Return JSON only with top-level `action_templates`.
+- Classify every template as `manipulation` or `active_observation`. An active-observation action is
+  primarily performed to inspect or sense information; a manipulation action primarily changes the world.
 - Use snake_case for `template_id` and `canonical_action_name`. Derive both from the complete fixed
   template wording in order, replacing each entity marker with `object` and omitting only articles.
   Do not omit a relation, direction, mode, or entity slot represented by the template.
@@ -26,7 +28,8 @@ Output shape:
     {
       "template_id": "canonical_action",
       "template_text": "perform the action on {param_1}",
-      "canonical_action_name": "canonical_action"
+      "canonical_action_name": "canonical_action",
+      "action_category": "manipulation"
     }
   ]
 }

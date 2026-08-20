@@ -1,7 +1,62 @@
 import json
 
 from po_pddl.core.models.predicate import Predicate
+from po_pddl.domain_generation.stages.problem_grounding.models import ObjectDeclaration
+from po_pddl.problem_generation.domain_analysis import analyze_domain
 from po_pddl.problem_generation.goal import GoalInferenceAgent
+
+
+def test_goal_preprocessing_combines_four_decisions_in_one_call(monkeypatch) -> None:
+    agent = GoalInferenceAgent(model="test-model")
+    analysis = analyze_domain(
+        """
+        (define (domain test)
+          (:requirements :strips :typing)
+          (:types item place - object)
+          (:predicates (in ?item - item ?place - place)))
+        """
+    )
+    objects = [
+        ObjectDeclaration(name="apple", type_name="item"),
+        ObjectDeclaration(name="drawer", type_name="place"),
+        ObjectDeclaration(name="fridge", type_name="place"),
+    ]
+    calls: list[object] = []
+    monkeypatch.setattr("po_pddl.problem_generation.goal.make_client", lambda **_kwargs: object())
+
+    def fake_safe_chat(*args, **kwargs):
+        calls.append(kwargs.get("user_content", args[2] if len(args) > 2 else None))
+        return json.dumps(
+            {
+                "reasoning": {
+                    "instruction_semantics": "the apple must be in one destination",
+                    "candidate_selection": "containment captures the goal",
+                    "validity_and_mutex": "the two destinations are exclusive",
+                },
+                "goal_relevant_predicates": ["in"],
+                "goal_relevant_grounded_predicates": [
+                    "(in apple drawer)",
+                    "(in apple fridge)",
+                ],
+                "mutex_groups": [["(in apple drawer)", "(in apple fridge)"]],
+                "pruned_grounded_predicates": [],
+            }
+        )
+
+    monkeypatch.setattr("po_pddl.problem_generation.goal.safe_chat", fake_safe_chat)
+    names, atoms, groups, pruned = agent._preprocess_goal_candidates(
+        domain_analysis=analysis,
+        instruction="Put the apple in either storage place.",
+        objects=objects,
+    )
+
+    assert len(calls) == 1
+    assert names == ["in"]
+    assert [atom.to_pddl_str() for atom in atoms] == ["(in apple drawer)", "(in apple fridge)"]
+    assert [[atom.to_pddl_str() for atom in group] for group in groups] == [
+        ["(in apple drawer)", "(in apple fridge)"]
+    ]
+    assert pruned == []
 
 
 def test_goal_assignments_are_evaluated_in_one_batch_and_returned_in_order(monkeypatch) -> None:

@@ -8,6 +8,11 @@ Rules:
 - `ground_truth_value` describes the real world state. `observed_value` describes what the visual observation reports; these are deliberately allowed to disagree.
 - Use the images as the authority for `observed_value`. The instruction and symbolic ground truth identify what to inspect, but they are not visual evidence that a property is present.
 - For a directly inspectable visual property whose target and relevant surface/interior are visible, absence of visual evidence for the positive property means `observed_value=false`. Do not reinterpret this as unknown merely because the symbolic ground truth says true.
+- When a predicate asserts that a container has some content, distinguish that content from the
+  container's own interior color, shading, and reflections. A positive observation requires a
+  separately visible object, material boundary, surface, meniscus, or texture discontinuity. A
+  smoothly colored interior without such independent evidence is a negative observation, even if
+  its color resembles the asserted content or the instruction names that content.
 - If the target or the region needed to inspect the property is genuinely hidden, outside the view, or occluded, return the row with `visually_assessable=false`; it will not be counted as a contradiction.
 - Return one `observation_evaluations` row for every supplied grounded assignment. Do not omit a row merely because observation and ground truth agree.
 - If the images support the ground-truth value, return the matching `observed_value`; it will not be counted as a contradiction.

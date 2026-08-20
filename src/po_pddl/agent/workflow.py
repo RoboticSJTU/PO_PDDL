@@ -162,10 +162,11 @@ class AgentWorkflow:
         )
         payload = result.to_dict()
         domain_file = Path(result.merged_domain_file)
-        payload["pddl_validation"] = _require_valid_pddl(
-            lint_domain_text(domain_file.read_text(encoding="utf-8")),
-            label="domain",
-        )
+        if domain_file.is_file():
+            payload["pddl_validation"] = _require_valid_pddl(
+                lint_domain_text(domain_file.read_text(encoding="utf-8")),
+                label="domain",
+            )
         return payload
 
     def _run_extension(self, arguments: dict[str, Any]) -> dict[str, Any]:
@@ -220,9 +221,11 @@ class AgentWorkflow:
                 max_workers=int(arguments.get("max_workers", 8)),
                 inference_strategy=str(arguments.get("inference_strategy", "batch")),
                 inference_batch_size=int(arguments.get("inference_batch_size", 20)),
+                location_visibility_batch_size=int(arguments.get("location_visibility_batch_size", 30)),
                 prior_data_confidence=float(arguments.get("prior_data_confidence", 0.0)),
                 close_domain=bool(arguments.get("close_domain", False)),
                 skip_init_observation=bool(arguments.get("skip_init_observation", False)),
+                concurrent_inference_branches=True,
                 verbose=bool(arguments.get("verbose", False)),
             )
         )

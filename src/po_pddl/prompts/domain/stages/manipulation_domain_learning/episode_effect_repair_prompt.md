@@ -30,6 +30,10 @@ Rules:
 - `step_effect_repairs` may only reference manipulation steps that already exist in the current episode result.
 - Use `delta_add_add` / `delta_add_remove` / `delta_del_add` / `delta_del_remove` to patch an existing step effect record.
 - Do not preserve an empty failed step effect when the current step scene description or current grounded replay clearly shows a concrete changed final state.
+- Repair only changes physically caused by the demonstrated action. If an inferred initial
+  attribute conflicts with an instruction that selects an object by that attribute, and no
+  demonstrated action plausibly transforms it, repair the initial/goal interpretation instead of
+  inventing an unrelated action effect.
 - If a failed place / put / drop / release / insert action leaves the object no longer held, repair the step so that it adds `gripper_empty()` and deletes `gripper_holding(object)`.
 - If that failed action also leaves the object in a concrete final location/support/containment relation that is visible in the trajectory evidence, repair the step so that it adds that grounded location predicate as well.
 - Only keep a failed step effect empty when the evidence supports that no symbolic fact changed, for example when the object is still being held and no other allowed predicate changed.

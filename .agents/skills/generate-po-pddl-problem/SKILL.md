@@ -23,46 +23,40 @@ po-pddl-agent init-problem \
   --run-dir <agent-run> \
   --final-bundle-dir <final-bundle> \
   --max-workers 10 \
+  --inference-strategy parallel \
+  --inference-batch-size 20 \
+  --location-visibility-batch-size 30 \
   --no-start
 ```
 
 Use `--objects-file` for a closed task inventory that includes initially hidden objects. Use
 `--initial-state-hint` only for user-provided priors and `--close-domain` only with a compatible
 final bundle. `--inference-batch-size` bounds predicates or goal assignments per model task
-(default 20); `--inference-strategy parallel` exposes independent chunks concurrently.
+(default 20). `--location-visibility-batch-size` sets the target capacity for grounded location
+predicates judged together from the scene (default 30), while keeping every object's complete
+location group in one call; `--inference-strategy parallel` exposes
+independent chunks concurrently. Close-domain mode obtains object identity and type from the
+grounding bundle and skips image-based object extraction.
 
 ## Persistent Worker Pool
 
-Create worker slots lazily, up to ten, and retain each agent ID until completion. Never spawn one
-agent per task. Request balanced assignments with:
+Run the initialized workflow to completion with:
 
 ```bash
-po-pddl-agent dispatch \
+po-pddl-agent run-pool \
   --run-dir <agent-run> \
   --workers 10 \
   --tasks-per-worker 4
 ```
 
-1. Spawn only missing assignment indexes. Give each worker its manifest path and forbid nested
-   agents.
-2. For every listed task, independently read the prompt, request, optional validation feedback,
-   and all media. Preserve exact predicate names, argument order, object types, and requested
-   schema. Submit directly instead of returning the response body to the parent:
+`run-pool` starts up to ten persistent `codex app-server` processes and sends prompts and local
+images directly. After object extraction, initial-belief and goal inference advance concurrently;
+chunks within each stage also run concurrently. Every task uses a fresh ephemeral thread,
+preserving its evidence boundary while avoiding repeated Codex process startup. The command
+automatically dispatches, validates, and retries tasks until the problem workflow completes.
 
-```bash
-po-pddl-agent submit --run-dir <agent-run> --task-id <task-id> --response '<response>'
-```
-
-3. Treat each task as a fresh evidence boundary. Do not carry visual facts, object assumptions,
-   goal decisions, or answer templates from earlier tasks. Never consult a reference problem while
-   answering.
-4. Workers report only submitted IDs and failures. After all finish, call `dispatch` again. Resume
-   the same agent for that worker index and send its next manifest; replace it only after an
-   unrecoverable failure. Leave unused slots idle and close the pool only after completion.
-
-The four-task cap amortizes turns without allowing worker context to grow unchecked. If validation
-reopens a task, follow its `validation_file` and revise only that task. Do not edit the generated
-problem manually to make it pass.
+For manual inspection or recovery, use `po-pddl-agent status`, `dispatch`, `submit`, and `reopen`.
+Do not edit the generated problem manually or copy facts from a reference problem to make it pass.
 
 ## Validate
 
@@ -74,5 +68,5 @@ problem manually to make it pass.
 - Lint the domain/problem pair and run the terminal executor when execution validation is requested.
 
 If semantic review identifies a bad answer, reopen it with `po-pddl-agent reopen`, provide a
-domain-independent reason, and let the worker pool revise it. Never copy a reference problem into
-the output.
+domain-independent reason, and run `po-pddl-agent run-pool` again. Never copy a reference problem
+into the output.
