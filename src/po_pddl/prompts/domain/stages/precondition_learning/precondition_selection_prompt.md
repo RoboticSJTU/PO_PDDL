@@ -20,6 +20,10 @@ Rules:
   earlier deletion to all later actions.
 - Positive relations may identify a required held object, source, support, container, or current
   state. A zero-arity resource predicate may be required when the action needs that resource free.
+- Retain a static property of an action parameter when it distinguishes the schema's applicability
+  from an otherwise equivalent action variant. Do not discard it merely because the property never
+  changes during a trajectory. Conversely, omit static properties unrelated to physical or semantic
+  applicability even when they are correlated with the demonstrations.
 - The state of an action's reference entity is causal when it changes the geometry or availability
   of the source, destination, support, access path, or workspace. For example, open/closed,
   locked/unlocked, attached/detached, or powered/unpowered state should be retained when it is

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Callable
 
@@ -57,10 +58,14 @@ class ProblemGenerator:
     @staticmethod
     def _load_close_domain_object_allowlist(
         domain_file: str | Path | None,
+        objects_file: str | Path | None = None,
     ) -> set[str] | None:
-        if domain_file is None:
+        if objects_file is not None:
+            allowlist_path = Path(objects_file).resolve()
+        elif domain_file is not None:
+            allowlist_path = Path(domain_file).resolve().parent / "objects.txt"
+        else:
             return None
-        allowlist_path = Path(domain_file).resolve().parent / "objects.txt"
         if not allowlist_path.exists() or not allowlist_path.is_file():
             return None
         tokens = allowlist_path.read_text(encoding="utf-8").split()
@@ -364,6 +369,7 @@ class ProblemGenerator:
         instruction: str,
         initial_state_hint: str | None = None,
         final_bundle_dir: str | Path | None = None,
+        objects_file: str | Path | None = None,
         reuse_problem_file: str | Path | None = None,
         problem_name: str | None = None,
         output_path: str | Path | None = None,
@@ -371,6 +377,7 @@ class ProblemGenerator:
         prior_data_confidence: float = 0.0,
         close_domain: bool = False,
         skip_init_observation: bool = False,
+        concurrent_inference_branches: bool = False,
     ) -> OnlinePlanningProblemResult:
         self._log("Loading and analyzing domain")
         domain_analysis = analyze_domain(domain_text)
@@ -454,7 +461,7 @@ class ProblemGenerator:
                         "Pass `--final-bundle-dir`, place `4_problem_grounding_all` next to the image directory, "
                         "or choose an output path under the learning pipeline root."
                     )
-                allowed_object_names = self._load_close_domain_object_allowlist(domain_file)
+                allowed_object_names = self._load_close_domain_object_allowlist(domain_file, objects_file)
                 if allowed_object_names is None:
                     self._log("No objects.txt next to domain file; using full close-domain object inventory")
                 else:
@@ -468,32 +475,15 @@ class ProblemGenerator:
                     historical_grounding_root=historical_grounding_root,
                     allowed_object_names=allowed_object_names,
                 )
-                self._log("Checking the current image for additional task-relevant objects")
-                current_visible_objects = self.object_agent.infer_visible_objects(
-                    domain_analysis=domain_analysis,
-                    image_path=prepared_image.image_path,
-                    image_input_note=prepared_image.image_input_note,
-                    instruction=instruction,
-                    manipulation_records_path=manipulation_records_path,
-                    known_object_names=allowed_object_names,
-                )
-                current_visible_objects, rejected_visible_names = self._restrict_objects_to_allowlist(
-                    current_visible_objects,
-                    allowed_object_names,
-                )
-                if rejected_visible_names:
-                    self._log(
-                        "Discarding current-image objects outside the strict "
-                        "objects.txt allowlist: " + ", ".join(rejected_visible_names)
-                    )
-                covered_names = {item.name for item in historical_objects + current_visible_objects}
+                self._log("Skipping current-image object extraction in close-domain mode")
+                covered_names = {item.name for item in historical_objects}
                 missing_allowed_names = (
                     set(allowed_object_names) - covered_names if allowed_object_names is not None else set()
                 )
                 if missing_allowed_names:
                     self._log(
-                        "Inferring domain types for allowlist objects absent from historical grounding "
-                        f"and current visible extraction: {len(missing_allowed_names)} objects"
+                        "Inferring domain types for allowlist objects absent from historical grounding: "
+                        f"{len(missing_allowed_names)} objects"
                     )
                 typed_missing_objects = self.object_agent.infer_named_object_types(
                     domain_analysis=domain_analysis,
@@ -507,24 +497,24 @@ class ProblemGenerator:
                     domain_analysis=domain_analysis,
                     object_groups=[
                         historical_objects,
-                        current_visible_objects,
                         typed_missing_objects,
                     ],
                 )
                 object_declarations = self.object_agent.to_object_declarations(visible_objects)
-                current_visible_object_names = {item.name for item in current_visible_objects}
+                # The inventory says which objects exist, not which ones are visible.
+                # The global location-visibility pass makes that judgment from the image.
+                current_visible_object_names = None
                 reused_goal_expr = None
                 self._log(
                     "Close-domain object inventory ready: "
                     f"{len(object_declarations)} merged objects "
                     f"(historical={len(historical_objects)}, "
-                    f"visible={len(current_visible_objects)}, "
                     f"typed_missing={len(typed_missing_objects)})"
                 )
                 object_source = "close_domain_historical_grounding"
             else:
                 self._log("Inferring task-relevant objects")
-                allowed_object_names = self._load_close_domain_object_allowlist(domain_file)
+                allowed_object_names = self._load_close_domain_object_allowlist(domain_file, objects_file)
                 if allowed_object_names is not None:
                     self._log(
                         "Applying strict object allowlist from objects.txt: "
@@ -571,13 +561,13 @@ class ProblemGenerator:
 
             self.init_belief_agent.set_current_visible_object_names(current_visible_object_names)
             self._log("Inferring initial state and initial belief")
-            if skip_init_observation:
-                self._log(
-                    "Skipping observation-aware init observation and belief update; "
-                    "using deterministic init-belief inference directly"
-                )
-                init_state, init_belief, predicate_judgments = (
-                    self.init_belief_agent.infer_deterministic_init_and_belief(
+            def _infer_initial_belief():
+                if skip_init_observation:
+                    self._log(
+                        "Skipping observation-aware init observation and belief update; "
+                        "using deterministic init-belief inference directly"
+                    )
+                    return self.init_belief_agent.infer_deterministic_init_and_belief(
                         domain_analysis=domain_analysis,
                         image_path=prepared_image.image_path,
                         image_input_note=prepared_image.image_input_note,
@@ -588,9 +578,7 @@ class ProblemGenerator:
                         problem_name=resolved_problem_name,
                         max_workers=max_workers,
                     )
-                )
-            else:
-                init_state, init_belief, predicate_judgments = self.init_belief_agent.infer_init_and_belief(
+                return self.init_belief_agent.infer_init_and_belief(
                     domain_analysis=domain_analysis,
                     image_path=prepared_image.image_path,
                     image_input_note=prepared_image.image_input_note,
@@ -602,6 +590,33 @@ class ProblemGenerator:
                     max_workers=max_workers,
                     prior_data_confidence=prior_data_confidence,
                 )
+
+            def _infer_goal():
+                self._log("Inferring symbolic goal")
+                return self.goal_agent.infer_goal_expr(
+                    domain_analysis=domain_analysis,
+                    instruction=instruction,
+                    objects=object_declarations,
+                    max_workers=max_workers,
+                )
+
+            if reused_problem_path is None and concurrent_inference_branches:
+                self._log("Running initial-belief and goal inference concurrently")
+                with ThreadPoolExecutor(max_workers=2, thread_name_prefix="problem-inference") as executor:
+                    initial_belief_future = executor.submit(_infer_initial_belief)
+                    goal_future = executor.submit(_infer_goal)
+                    init_state, init_belief, predicate_judgments = initial_belief_future.result()
+                    goal_expr = goal_future.result()
+                self._log("Goal inference complete")
+            elif reused_problem_path is not None:
+                init_state, init_belief, predicate_judgments = _infer_initial_belief()
+                self._log("Reusing goal expression from existing problem file")
+                goal_expr = reused_goal_expr
+            else:
+                init_state, init_belief, predicate_judgments = _infer_initial_belief()
+                goal_expr = _infer_goal()
+                self._log("Goal inference complete")
+
             grounded_predicates = build_grounded_predicates_for_objects(
                 domain_analysis.parsed_domain,
                 object_declarations,
@@ -642,19 +657,6 @@ class ProblemGenerator:
                 f"deterministic={belief_diagnostics.get('deterministic_predicate_count', len(predicate_judgments))}, "
                 f"uncertain={belief_diagnostics.get('uncertain_predicate_count', 0)}"
             )
-
-            if reused_problem_path is not None:
-                self._log("Reusing goal expression from existing problem file")
-                goal_expr = reused_goal_expr
-            else:
-                self._log("Inferring symbolic goal from initial belief")
-                goal_expr = self.goal_agent.infer_goal_expr(
-                    domain_analysis=domain_analysis,
-                    instruction=instruction,
-                    objects=object_declarations,
-                    max_workers=max_workers,
-                )
-                self._log("Goal inference complete")
             spec = OnlinePlanningProblemSpec(
                 problem_name=(
                     problem_name
@@ -699,6 +701,7 @@ class ProblemGenerator:
                     "prior_data_confidence": prior_data_confidence,
                     "close_domain": close_domain,
                     "skip_init_observation": skip_init_observation,
+                    "concurrent_inference_branches": concurrent_inference_branches,
                     "inference_strategy": self.init_belief_agent.inference_strategy,
                     "object_source": object_source,
                 },
@@ -713,6 +716,7 @@ class ProblemGenerator:
         instruction: str,
         initial_state_hint: str | None = None,
         final_bundle_dir: str | Path | None = None,
+        objects_file: str | Path | None = None,
         reuse_problem_file: str | Path | None = None,
         problem_name: str | None = None,
         output_path: str | Path | None = None,
@@ -720,6 +724,7 @@ class ProblemGenerator:
         prior_data_confidence: float = 0.0,
         close_domain: bool = False,
         skip_init_observation: bool = False,
+        concurrent_inference_branches: bool = False,
     ) -> OnlinePlanningProblemResult:
         return self.build_problem_from_text(
             domain_text=Path(domain_file).read_text(encoding="utf-8"),
@@ -728,6 +733,7 @@ class ProblemGenerator:
             instruction=instruction,
             initial_state_hint=initial_state_hint,
             final_bundle_dir=final_bundle_dir,
+            objects_file=objects_file,
             reuse_problem_file=reuse_problem_file,
             problem_name=problem_name,
             output_path=output_path,
@@ -735,4 +741,5 @@ class ProblemGenerator:
             prior_data_confidence=prior_data_confidence,
             close_domain=close_domain,
             skip_init_observation=skip_init_observation,
+            concurrent_inference_branches=concurrent_inference_branches,
         )

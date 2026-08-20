@@ -101,6 +101,8 @@ class InitialBeliefGenerator:
         verbose: bool = False,
         deterministic_collapse_threshold: float = 0.95,
         inference_strategy: Literal["batch", "parallel"] = "batch",
+        inference_batch_size: int = 20,
+        location_visibility_batch_size: int = 30,
         config_path: str | None = None,
         config_name: str | None = None,
     ) -> None:
@@ -123,12 +125,15 @@ class InitialBeliefGenerator:
         self.deterministic_collapse_threshold = deterministic_collapse_threshold
         if inference_strategy not in {"batch", "parallel"}:
             raise ValueError("inference_strategy must be 'batch' or 'parallel'")
+        if inference_batch_size <= 0:
+            raise ValueError("inference_batch_size must be positive")
+        if location_visibility_batch_size <= 0:
+            raise ValueError("location_visibility_batch_size must be positive")
         self.inference_strategy = inference_strategy
-        self._deterministic_truth_prompt = _load_prompt("deterministic_predicate.md")
+        self.inference_batch_size = inference_batch_size
+        self.location_visibility_batch_size = location_visibility_batch_size
         self._deterministic_batch_prompt = _load_prompt("deterministic_predicates.md")
-        self._openness_confirmation_prompt = _load_prompt("openness_confirmation.md")
         self._location_predicate_prompt = _load_prompt("location_predicates.md")
-        self._object_location_visibility_prompt = _load_prompt("object_location_visibility.md")
         self._object_location_visibility_batch_prompt = _load_prompt("object_location_visibilities.md")
         self._uncertain_grouping_prompt = _load_prompt("uncertain_groups.md")
         self._observable_judgment_prompt = _load_prompt("observable.md")
@@ -288,17 +293,7 @@ class InitialBeliefGenerator:
         fixed_judgments: list[PredicateTruthJudgment] | None,
         max_workers: int,
     ) -> list[PredicateTruthJudgment]:
-        if self.inference_strategy == "batch":
-            return self._judge_deterministic_predicates_batch(
-                domain_analysis=domain_analysis,
-                image_path=image_path,
-                image_input_note=image_input_note,
-                instruction=instruction,
-                objects=objects,
-                predicates=predicates,
-                fixed_judgments=fixed_judgments,
-            )
-        return self._judge_deterministic_predicates_parallel(
+        return self._judge_deterministic_predicates_in_chunks(
             domain_analysis=domain_analysis,
             image_path=image_path,
             image_input_note=image_input_note,
@@ -395,7 +390,7 @@ class InitialBeliefGenerator:
             return [parsed[predicate.to_pddl_str()] for predicate in ordered_predicates]
         raise ValueError(f"Invalid deterministic batch judgment after retry: {last_error}.")
 
-    def _judge_deterministic_predicates_parallel(
+    def _judge_deterministic_predicates_in_chunks(
         self,
         *,
         domain_analysis: DomainAnalysisResult,
@@ -411,23 +406,32 @@ class InitialBeliefGenerator:
             return []
         ordered_predicates = sorted(predicates, key=lambda item: item.to_pddl_str())
 
-        def _judge(predicate: Predicate) -> PredicateTruthJudgment:
-            return self._judge_single_predicate(
+        chunks = [
+            ordered_predicates[index : index + self.inference_batch_size]
+            for index in range(0, len(ordered_predicates), self.inference_batch_size)
+        ]
+
+        def _judge(chunk: list[Predicate]) -> list[PredicateTruthJudgment]:
+            return self._judge_deterministic_predicates_batch(
                 domain_analysis=domain_analysis,
                 image_path=image_path,
                 image_input_note=image_input_note,
                 instruction=instruction,
                 objects=objects,
-                predicate=predicate,
+                predicates=chunk,
                 fixed_judgments=fixed_judgments,
             )
 
         self._log(
-            f"Judging {len(ordered_predicates)} deterministic predicates independently "
-            f"using {self.inference_strategy} inference"
+            f"Judging {len(ordered_predicates)} deterministic predicates in {len(chunks)} "
+            f"chunk(s) of at most {self.inference_batch_size} using {self.inference_strategy} scheduling"
         )
-        with ThreadPoolExecutor(max_workers=min(max_workers, len(ordered_predicates))) as executor:
-            return list(executor.map(_judge, ordered_predicates))
+        if self.inference_strategy == "batch" or len(chunks) == 1:
+            chunk_results = [_judge(chunk) for chunk in chunks]
+        else:
+            with ThreadPoolExecutor(max_workers=min(max_workers, len(chunks))) as executor:
+                chunk_results = list(executor.map(_judge, chunks))
+        return [judgment for chunk in chunk_results for judgment in chunk]
 
     def _infer_observation_aware_init_and_belief(
         self,
@@ -1042,85 +1046,6 @@ class InitialBeliefGenerator:
                 )
         return results
 
-    def _judge_single_predicate(
-        self,
-        *,
-        domain_analysis: DomainAnalysisResult,
-        image_path: str | Path,
-        image_input_note: str | None,
-        instruction: str,
-        objects: list[ObjectDeclaration],
-        predicate: Predicate,
-        fixed_judgments: list[PredicateTruthJudgment] | None = None,
-    ) -> PredicateTruthJudgment:
-        payload = {
-            "domain_summary": domain_analysis.render_summary(),
-            "instruction": instruction.strip(),
-            "initial_state_hint": self._initial_state_hint,
-            "image_input_note": image_input_note
-            or "The provided image is a single-view snapshot of the initial scene.",
-            "objects": [{"name": item.name, "type_name": item.type_name} for item in objects],
-            "fixed_predicate_judgments": [item.to_dict() for item in (fixed_judgments or [])],
-            "target_predicate": predicate.to_pddl_str(),
-        }
-        user_content = build_user_content(
-            text=json.dumps(payload, ensure_ascii=False, indent=2),
-            image_path=str(image_path),
-        )
-        client = make_client(api_key=self.api_key, base_url=self.base_url)
-        reply = safe_chat(
-            client,
-            self._deterministic_truth_prompt,
-            user_content,
-            model=self.model,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            verbose=self.verbose,
-        )
-        data = extract_json_object(reply)
-        truth_value = str(data.get("truth_value", "")).strip().lower()
-        if truth_value not in {"true", "false"}:
-            raise ValueError(f"Predicate truth judgment must return truth_value=true/false, got {truth_value!r}.")
-        justification = str(data.get("justification", "")).strip() or None
-        if truth_value == "true" and predicate.name in {"open", "opened", "is_open"}:
-            confirmation_payload = {
-                **payload,
-                "proposed_truth_value": "true",
-                "initial_justification": justification,
-            }
-            for _ in range(2):
-                confirmation_reply = safe_chat(
-                    client,
-                    self._openness_confirmation_prompt,
-                    build_user_content(
-                        text=json.dumps(
-                            confirmation_payload,
-                            ensure_ascii=False,
-                            indent=2,
-                        ),
-                        image_path=str(image_path),
-                    ),
-                    model=self.model,
-                    temperature=self.temperature,
-                    max_tokens=self.max_tokens,
-                    verbose=self.verbose,
-                )
-                confirmation = extract_json_object(confirmation_reply)
-                confirmed_true = confirmation.get("confirmed_true")
-                if not isinstance(confirmed_true, bool):
-                    raise ValueError("Openness confirmation must return confirmed_true=true/false.")
-                confirmation_justification = str(confirmation.get("justification", "")).strip()
-                if confirmation_justification:
-                    justification = confirmation_justification
-                if not confirmed_true:
-                    truth_value = "false"
-                    break
-        return PredicateTruthJudgment(
-            predicate=predicate,
-            truth_value=(truth_value == "true"),
-            justification=justification,
-        )
-
     def _select_location_predicate_names(
         self,
         *,
@@ -1317,36 +1242,84 @@ class InitialBeliefGenerator:
         grouped_location_predicates: dict[str, list[Predicate]],
         max_workers: int,
     ) -> list[tuple[str, bool]]:
-        if self.inference_strategy == "batch":
+        ordered_groups = sorted(grouped_location_predicates.items())
+        if not ordered_groups:
+            return []
+
+        # Object extraction is the global identity pass. Inventory-only objects
+        # may still be hidden in containers, but independent workers must not
+        # relabel a visible instance that the global pass assigned elsewhere.
+        visible_names = self._current_visible_object_names
+        unresolved_inventory_names = {
+            object_name
+            for object_name, _predicates in ordered_groups
+            if visible_names is not None and object_name not in visible_names
+        }
+        candidate_groups = {
+            object_name: predicates
+            for object_name, predicates in ordered_groups
+            if object_name not in unresolved_inventory_names
+        }
+        resolved_by_name = {object_name: False for object_name in unresolved_inventory_names}
+
+        chunks = self._chunk_location_visibility_groups(candidate_groups)
+        self._log(
+            "Judging location visibility globally in "
+            f"{len(chunks)} object-preserving chunk(s) with target capacity "
+            f"{self.location_visibility_batch_size} grounded predicates"
+        )
+
+        def _classify(chunk: dict[str, list[Predicate]]) -> list[tuple[str, bool]]:
             return self._classify_object_location_visibility_batch(
                 domain_analysis=domain_analysis,
                 image_path=image_path,
                 image_input_note=image_input_note,
                 instruction=instruction,
                 objects=objects,
-                grouped_location_predicates=grouped_location_predicates,
-            )
-        ordered_groups = sorted(grouped_location_predicates.items())
-        if not ordered_groups:
-            return []
-
-        def _classify(item: tuple[str, list[Predicate]]) -> tuple[str, bool]:
-            object_name, predicates = item
-            return (
-                object_name,
-                self._is_object_location_visually_resolved(
-                    domain_analysis=domain_analysis,
-                    image_path=image_path,
-                    image_input_note=image_input_note,
-                    instruction=instruction,
-                    objects=objects,
-                    target_object_name=object_name,
-                    candidate_predicates=predicates,
-                ),
+                grouped_location_predicates=chunk,
             )
 
-        with ThreadPoolExecutor(max_workers=min(max_workers, len(ordered_groups))) as executor:
-            return list(executor.map(_classify, ordered_groups))
+        if self.inference_strategy == "parallel" and len(chunks) > 1:
+            with ThreadPoolExecutor(max_workers=min(max_workers, len(chunks))) as executor:
+                chunk_results = list(executor.map(_classify, chunks))
+        else:
+            chunk_results = [_classify(chunk) for chunk in chunks]
+
+        judgments_by_name: dict[str, list[bool]] = {}
+        for chunk_result in chunk_results:
+            for object_name, is_resolved in chunk_result:
+                judgments_by_name.setdefault(object_name, []).append(is_resolved)
+        resolved_by_name.update(
+            {
+                object_name: all(judgments)
+                for object_name, judgments in judgments_by_name.items()
+            }
+        )
+        return [(object_name, resolved_by_name[object_name]) for object_name, _predicates in ordered_groups]
+
+    def _chunk_location_visibility_groups(
+        self,
+        grouped_location_predicates: dict[str, list[Predicate]],
+    ) -> list[dict[str, list[Predicate]]]:
+        chunks: list[dict[str, list[Predicate]]] = []
+        current: dict[str, list[Predicate]] = {}
+        current_size = 0
+        limit = self.location_visibility_batch_size
+        for object_name, predicates in sorted(grouped_location_predicates.items()):
+            if current and current_size + len(predicates) > limit:
+                chunks.append(current)
+                current = {}
+                current_size = 0
+            current[object_name] = list(predicates)
+            current_size += len(predicates)
+            # An oversized object group remains intact and occupies its own chunk.
+            if current_size >= limit:
+                chunks.append(current)
+                current = {}
+                current_size = 0
+        if current:
+            chunks.append(current)
+        return chunks
 
     def _classify_object_location_visibility_batch(
         self,
@@ -1438,54 +1411,6 @@ class InitialBeliefGenerator:
             "contained_in",
             "enclosed_in",
         }
-
-    def _is_object_location_visually_resolved(
-        self,
-        *,
-        domain_analysis: DomainAnalysisResult,
-        image_path: str | Path,
-        image_input_note: str | None,
-        instruction: str,
-        objects: list[ObjectDeclaration],
-        target_object_name: str,
-        candidate_predicates: list[Predicate],
-    ) -> bool:
-        object_types = {item.name: item.type_name for item in objects}
-        payload = {
-            "domain_summary": domain_analysis.render_summary(),
-            "instruction": instruction.strip(),
-            "initial_state_hint": self._initial_state_hint,
-            "image_input_note": image_input_note
-            or "The provided image is a single-view snapshot of the initial scene.",
-            "objects": [{"name": item.name, "type_name": item.type_name} for item in objects],
-            "target_object": {
-                "name": target_object_name,
-                "type_name": object_types.get(target_object_name, "object"),
-            },
-            "candidate_location_predicates": [predicate.to_pddl_str() for predicate in candidate_predicates],
-        }
-        user_content = build_user_content(
-            text=json.dumps(payload, ensure_ascii=False, indent=2),
-            image_path=str(image_path),
-        )
-        client = make_client(api_key=self.api_key, base_url=self.base_url)
-        reply = safe_chat(
-            client,
-            self._object_location_visibility_prompt,
-            user_content,
-            model=self.model,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-            verbose=self.verbose,
-        )
-        data = extract_json_object(reply)
-        value = data.get("visually_resolved")
-        if isinstance(value, bool):
-            return value
-        normalized = str(value).strip().lower()
-        if normalized not in {"true", "false"}:
-            raise ValueError("Object location visibility judgment must return visually_resolved=true/false.")
-        return normalized == "true"
 
     def _build_historical_prior_judgments(
         self,

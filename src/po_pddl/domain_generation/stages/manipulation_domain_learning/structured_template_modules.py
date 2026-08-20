@@ -20,7 +20,6 @@ from .structured_action_templates import (
     build_action_name_map,
     compile_template_regex,
     induced_template_from_dict,
-    is_entity_argument_span,
     match_action_text_to_template,
     render_action_text_from_template,
 )
@@ -106,151 +105,45 @@ class LLMSemanticActionTextPreprocessingModule:
     def __post_init__(self) -> None:
         self._client = make_client(api_key=self.api_key, base_url=self.base_url)
         self._bootstrap_prompt = load_prompt("semantic_action_template_bootstrap_prompt.md")
-        self._resolution_prompt = load_prompt("semantic_action_template_resolution_prompt.md")
 
     def preprocess_steps(self, steps: list[RawTrajectoryStep]) -> ActionTextPreprocessingResult:
-        steps_by_episode: dict[str, list[RawTrajectoryStep]] = {}
-        episode_order: list[str] = []
-        for step in steps:
-            if step.episode_name not in steps_by_episode:
-                episode_order.append(step.episode_name)
-                steps_by_episode[step.episode_name] = []
-            steps_by_episode[step.episode_name].append(step)
+        actionable_steps = [step for step in steps if step.action_text]
+        if not actionable_steps:
+            return ActionTextPreprocessingResult(normalized_steps=list(steps), normalization_records=[])
 
+        templates = self._induce_templates_for_dataset(actionable_steps)
+        self.registry.set_templates(templates)
         normalized_steps: list[RawTrajectoryStep] = []
         normalization_records: list[ActionTextNormalizationRecord] = []
-        templates = list(self.registry.templates)
-        for episode_name in episode_order:
-            episode_steps = sorted(steps_by_episode[episode_name], key=lambda item: item.step_index)
-            actionable_steps = [step for step in episode_steps if step.action_text]
-            if actionable_steps and not templates:
-                templates = self._induce_templates_for_first_episode(episode_steps)
-                self.registry.set_templates(templates)
-            fully_matched_episode = self._match_episode_with_existing_templates(
-                episode_steps=episode_steps,
-                templates=templates,
-            )
-            if fully_matched_episode is not None:
-                for step in episode_steps:
-                    if not step.action_text:
-                        normalized_steps.append(step)
-                        continue
-                    parsed, resolved_template = fully_matched_episode[step.step_index]
-                    normalized_text = render_action_text_from_template(parsed.template_text, parsed.placeholder_values)
-                    normalized_steps.append(
-                        RawTrajectoryStep(
-                            episode_name=step.episode_name,
-                            instruction=step.instruction,
-                            step_index=step.step_index,
-                            start_time_sec=step.start_time_sec,
-                            end_time_sec=step.end_time_sec,
-                            action_text=normalized_text,
-                            observation_text=step.observation_text,
-                            extra_info=step.extra_info,
-                            previous_observation_text=step.previous_observation_text,
-                            previous_known_observation_text=step.previous_known_observation_text,
-                        )
-                    )
-                    normalization_records.append(
-                        ActionTextNormalizationRecord(
-                            episode_name=step.episode_name,
-                            step_index=step.step_index,
-                            original_action_text=step.action_text,
-                            normalized_action_text=normalized_text,
-                            canonical_action_name=resolved_template.canonical_action_name,
-                            template_id=resolved_template.template_id,
-                            resolution_kind="matched_existing",
-                        )
-                    )
+        for step in steps:
+            if not step.action_text:
+                normalized_steps.append(step)
                 continue
-            for step in episode_steps:
-                if not step.action_text:
-                    normalized_steps.append(step)
-                    continue
-                normalized_text, resolved_template, resolution_kind = self._normalize_single_step(
-                    step=step,
-                    templates=templates,
+            parsed = match_action_text_to_template(step.action_text, templates)
+            normalized_text = render_action_text_from_template(parsed.template_text, parsed.placeholder_values)
+            normalized_steps.append(replace(step, action_text=normalized_text))
+            normalization_records.append(
+                ActionTextNormalizationRecord(
+                    episode_name=step.episode_name,
+                    step_index=step.step_index,
+                    original_action_text=step.action_text,
+                    normalized_action_text=normalized_text,
+                    canonical_action_name=parsed.canonical_action_name,
+                    template_id=parsed.template_id,
+                    resolution_kind="global_induction",
                 )
-                templates = self.registry.ensure_templates()
-                normalized_steps.append(
-                    RawTrajectoryStep(
-                        episode_name=step.episode_name,
-                        instruction=step.instruction,
-                        step_index=step.step_index,
-                        start_time_sec=step.start_time_sec,
-                        end_time_sec=step.end_time_sec,
-                        action_text=normalized_text,
-                        observation_text=step.observation_text,
-                        extra_info=step.extra_info,
-                        previous_observation_text=step.previous_observation_text,
-                        previous_known_observation_text=step.previous_known_observation_text,
-                    )
-                )
-                normalization_records.append(
-                    ActionTextNormalizationRecord(
-                        episode_name=step.episode_name,
-                        step_index=step.step_index,
-                        original_action_text=step.action_text,
-                        normalized_action_text=normalized_text,
-                        canonical_action_name=resolved_template.canonical_action_name,
-                        template_id=resolved_template.template_id,
-                        resolution_kind=resolution_kind,
-                    )
-                )
+            )
         return ActionTextPreprocessingResult(
             normalized_steps=normalized_steps,
             normalization_records=normalization_records,
         )
 
-    @staticmethod
-    def _match_existing_template(
-        *,
-        step: RawTrajectoryStep,
-        templates: list[InducedActionTemplateArtifact],
-    ) -> tuple[Any, InducedActionTemplateArtifact] | None:
-        if not step.action_text or not templates:
-            return None
-        try:
-            parsed = match_action_text_to_template(step.action_text, templates)
-        except ValueError:
-            return None
-        template = next(
-            (
-                item
-                for item in templates
-                if item.template_id == parsed.template_id and item.canonical_action_name == parsed.canonical_action_name
-            ),
-            None,
-        )
-        if template is None:
-            return None
-        return parsed, template
-
-    def _match_episode_with_existing_templates(
-        self,
-        *,
-        episode_steps: list[RawTrajectoryStep],
-        templates: list[InducedActionTemplateArtifact],
-    ) -> dict[int, tuple[Any, InducedActionTemplateArtifact]] | None:
-        actionable_steps = [step for step in episode_steps if step.action_text]
-        if not actionable_steps or not templates:
-            return None
-        matches_by_step: dict[int, tuple[Any, InducedActionTemplateArtifact]] = {}
-        for step in actionable_steps:
-            matched = self._match_existing_template(step=step, templates=templates)
-            if matched is None:
-                return None
-            matches_by_step[step.step_index] = matched
-        return matches_by_step
-
-    def _induce_templates_for_first_episode(
+    def _induce_templates_for_dataset(
         self,
         steps: list[RawTrajectoryStep],
     ) -> list[InducedActionTemplateArtifact]:
         action_texts = sorted({step.action_text for step in steps if step.action_text})
-        instruction = next((step.instruction for step in steps if step.instruction), "")
         payload = {
-            "instruction": instruction,
             "episode_name": steps[0].episode_name if steps else "",
             "action_texts": [{"action_text": text} for text in action_texts],
         }
@@ -274,7 +167,7 @@ class LLMSemanticActionTextPreprocessingModule:
                 if not isinstance(template_rows, list) or not template_rows:
                     raise ValueError("response must contain a non-empty action_templates list")
                 templates = [
-                    induced_template_from_dict(item, require_action_category=False)
+                    induced_template_from_dict(item, require_action_category=True)
                     for item in template_rows
                     if isinstance(item, dict)
                 ]
@@ -294,143 +187,6 @@ class LLMSemanticActionTextPreprocessingModule:
                 logger.warning("Rejected semantic template bootstrap response: %s", validation_error)
         raise ValueError(f"Semantic template bootstrap failed validation: {validation_error}")
 
-    def _normalize_single_step(
-        self,
-        *,
-        step: RawTrajectoryStep,
-        templates: list[InducedActionTemplateArtifact],
-    ) -> tuple[str, InducedActionTemplateArtifact, str]:
-        matched = self._match_existing_template(step=step, templates=templates)
-        if matched is not None:
-            parsed, template = matched
-            normalized_text = render_action_text_from_template(parsed.template_text, parsed.placeholder_values)
-            return normalized_text, template, "matched_existing"
-        resolution = self._resolve_unmatched_step(step=step, templates=templates)
-        normalized_text = render_action_text_from_template(
-            resolution["template"].template_text,
-            resolution["placeholder_values"],
-        )
-        return normalized_text, resolution["template"], resolution["resolution_kind"]
-
-    def _resolve_unmatched_step(
-        self,
-        *,
-        step: RawTrajectoryStep,
-        templates: list[InducedActionTemplateArtifact],
-    ) -> dict[str, Any]:
-        payload = {
-            "instruction": step.instruction,
-            "existing_action_templates": [template.to_dict() for template in templates],
-            "unmatched_action": {
-                "episode_name": step.episode_name,
-                "step_index": step.step_index,
-                "action_text": step.action_text or "",
-            },
-        }
-        validation_error: str | None = None
-        for _attempt in range(_MAX_TEMPLATE_RESPONSE_ATTEMPTS):
-            request_payload = dict(payload)
-            if validation_error:
-                request_payload["validation_feedback"] = validation_error
-            reply = safe_chat(
-                self._client,
-                self._resolution_prompt,
-                json.dumps(request_payload, ensure_ascii=False, indent=2),
-                model=self.model,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
-                verbose=self.verbose,
-            )
-            try:
-                return self._parse_resolution_response(
-                    reply=reply,
-                    step=step,
-                    templates=templates,
-                )
-            except ValueError as exc:
-                validation_error = str(exc)
-                logger.warning(
-                    "Rejected semantic action resolution for %s:%d: %s",
-                    step.episode_name,
-                    step.step_index,
-                    validation_error,
-                )
-        raise ValueError(
-            f"Semantic action resolution failed validation for "
-            f"{step.episode_name}:{step.step_index}: {validation_error}"
-        )
-
-    def _parse_resolution_response(
-        self,
-        *,
-        reply: str,
-        step: RawTrajectoryStep,
-        templates: list[InducedActionTemplateArtifact],
-    ) -> dict[str, Any]:
-        data = extract_json_object(reply)
-        resolution_kind = str(data.get("resolution_kind") or "").strip().lower()
-        if resolution_kind not in {"match_existing", "new_action"}:
-            raise ValueError(f"Unsupported semantic action resolution_kind: {resolution_kind!r}")
-        placeholder_values_raw = data.get("placeholder_values", {})
-        if not isinstance(placeholder_values_raw, dict):
-            raise ValueError("placeholder_values must be a JSON object")
-        placeholder_values = {
-            str(key).strip(): str(value).strip()
-            for key, value in placeholder_values_raw.items()
-            if str(key).strip() and str(value).strip()
-        }
-        template: InducedActionTemplateArtifact | None = None
-        if resolution_kind == "match_existing":
-            matched_template_id = str(data.get("matched_template_id") or "").strip()
-            if not matched_template_id:
-                raise ValueError("match_existing resolution must include matched_template_id")
-            template = self._resolve_template_reference(
-                matched_template_id=matched_template_id,
-                templates=templates,
-            )
-            if template is None:
-                raise ValueError(f"Unknown matched_template_id returned by semantic resolver: {matched_template_id!r}")
-        else:
-            template_payload = data.get("new_action_template")
-            if not isinstance(template_payload, dict):
-                raise ValueError("new_action resolution must include new_action_template")
-            template = induced_template_from_dict(template_payload, require_action_category=False)
-        missing_placeholders = [
-            placeholder for placeholder in template.parameter_placeholders if placeholder not in placeholder_values
-        ]
-        if missing_placeholders:
-            raise ValueError(
-                f"Semantic resolver omitted placeholder values for {missing_placeholders} in step {step.episode_name}:{step.step_index}"
-            )
-        extra_placeholders = sorted(set(placeholder_values) - set(template.parameter_placeholders))
-        if extra_placeholders:
-            raise ValueError(f"Semantic resolver returned unknown placeholder values: {extra_placeholders}")
-        invalid_values = [
-            placeholder
-            for placeholder in template.parameter_placeholders
-            if not is_entity_argument_span(placeholder_values[placeholder])
-        ]
-        if invalid_values:
-            raise ValueError(
-                "Each placeholder must contain one entity only; relational clauses must remain "
-                f"in fixed template text. Invalid placeholders: {invalid_values}"
-            )
-        if resolution_kind == "new_action":
-            parsed = self._safe_match(step.action_text or "", [template])
-            if parsed is None:
-                raise ValueError(
-                    "A new template must deterministically match the complete action text "
-                    "without absorbing relational clauses into entity parameters"
-                )
-            merged_templates = _merge_induced_templates(templates, [template])
-            self.registry.set_templates(merged_templates)
-            template = next(item for item in merged_templates if item.template_id == template.template_id)
-        return {
-            "template": template,
-            "placeholder_values": placeholder_values,
-            "resolution_kind": resolution_kind,
-        }
-
     @staticmethod
     def _safe_match(
         action_text: str,
@@ -441,24 +197,6 @@ class LLMSemanticActionTextPreprocessingModule:
         except ValueError:
             return None
 
-    @staticmethod
-    def _resolve_template_reference(
-        *,
-        matched_template_id: str,
-        templates: list[InducedActionTemplateArtifact],
-    ) -> InducedActionTemplateArtifact | None:
-        direct_match = next((item for item in templates if item.template_id == matched_template_id), None)
-        if direct_match is not None:
-            return direct_match
-
-        canonical_matches = [item for item in templates if item.canonical_action_name == matched_template_id]
-        if len(canonical_matches) == 1:
-            logger.warning(
-                "Semantic resolver returned canonical_action_name %r instead of template_id; accepting unique match.",
-                matched_template_id,
-            )
-            return canonical_matches[0]
-        return None
 
 
 @dataclass
@@ -481,6 +219,8 @@ class LLMTemplateActionCategoryModule:
         steps: list[RawTrajectoryStep],
     ) -> list[InducedActionTemplateArtifact]:
         templates = self.registry.ensure_templates()
+        if all(template.action_category in {"manipulation", "active_observation"} for template in templates):
+            return templates
         examples_by_action: dict[str, list[str]] = {}
         for step in steps:
             if not step.action_text:

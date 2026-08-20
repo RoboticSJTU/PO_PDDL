@@ -1,4 +1,3 @@
-from .codex_cli_client import CODEX_CLI_BASE_URL, CodexCLIClient
 from .config import load_llm_config
 from .llm_client import (
     build_image_url_block,
@@ -29,8 +28,6 @@ __all__ = [
     "build_user_content",
     "build_video_url_block",
     "build_vlm_user_content",
-    "CODEX_CLI_BASE_URL",
-    "CodexCLIClient",
     "encode_video_to_data_url",
     "load_llm_config",
     "make_client",

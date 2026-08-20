@@ -33,7 +33,7 @@ def _clean_config_value(value: Any) -> Any:
 
 
 def _select_profile(data: Dict[str, Any], config_name: str) -> Dict[str, Any]:
-    if any(key in data for key in ("provider", "api_key", "base_url", "model", "temperature")):
+    if any(key in data for key in ("api_key", "base_url", "model", "temperature")):
         return data
     selected = data.get(config_name)
     if isinstance(selected, dict):
@@ -59,18 +59,12 @@ def load_llm_config(config_path: Optional[str] = None, config_name: Optional[str
         data = json.loads(path.read_text(encoding="utf-8"))
     selected = _select_profile(data, selected_config_name)
 
-    provider = _clean_config_value(selected.get("provider")) or "openai"
-    selected_base_url = _clean_config_value(selected.get("base_url"))
-    if provider == "codex_cli":
-        base_url = selected_base_url or "codex-cli://local"
-    else:
-        base_url = selected_base_url or _clean_config_value(os.getenv("OPENAI_BASE_URL"))
+    base_url = _clean_config_value(selected.get("base_url")) or _clean_config_value(os.getenv("OPENAI_BASE_URL"))
 
     return {
         "config_path": str(path),
         "config_exists": path_exists,
         "config_name": selected_config_name,
-        "provider": provider,
         "api_key": _clean_config_value(selected.get("api_key")) or _clean_config_value(os.getenv("OPENAI_API_KEY")),
         "base_url": base_url,
         "model": _clean_config_value(selected.get("model")),

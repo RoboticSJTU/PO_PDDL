@@ -37,12 +37,10 @@ incremental domain extension.
 
 **Links:** [Paper](https://arxiv.org/abs/2606.15654) | [Project page](https://po-pddl.github.io/) | [Prompt library](https://po-pddl.github.io/prompt-library/)
 
-## Model Backends
+## Model Configuration
 
-All language and vision calls use the model profile selected with
-`--config-name`. Two backends are supported.
-
-### OpenAI-Compatible API (Recommended)
+Language and vision calls use an OpenAI-compatible API profile selected with
+`--config-name`.
 
 Create a private configuration from the provided template:
 
@@ -64,32 +62,6 @@ Select this backend in generation commands with:
 ```bash
 --config large_model_config.private.json --config-name openai_config
 ```
-
-### Codex CLI (Supported, Not Recommended)
-
-The Codex backend launches a local `codex exec` process for every model call.
-Because the learning pipeline issues many calls, this mode is substantially
-slower than direct API access and is intended primarily for compatibility and
-local testing.
-
-Install and authenticate the Codex CLI:
-
-```bash
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
-codex
-codex login status
-```
-
-See the [official Codex CLI documentation](https://developers.openai.com/codex/cli/)
-for alternative installation and authentication methods. Select this backend
-with:
-
-```bash
---config large_model_config.private.json --config-name codex_config
-```
-
-Codex authentication is managed by the CLI; the JSON profile does not provide
-an API key in this mode.
 
 ## Installation
 
@@ -228,9 +200,16 @@ pipeline validates scene objects, estimates the deterministic initial state and
 factorized initial belief, infers the symbolic goal, and renders a POMDPDDL
 problem.
 
-The default `batch` strategy evaluates deterministic predicates and candidate
-goal assignments in set-level model calls. The alternative `parallel` strategy
-evaluates individual candidates concurrently with `--max-workers`.
+Deterministic predicates and candidate goal assignments are grouped into
+set-level calls of at most `--inference-batch-size` items (default 20). The
+default `batch` strategy processes chunks sequentially; `parallel` processes
+independent chunks concurrently with `--max-workers`. Location visibility is
+judged globally in object-preserving batches with a target capacity set by
+`--location-visibility-batch-size` (default 30 grounded predicates). All
+location alternatives for one object remain in the same call; an individual
+object group may exceed the target capacity. In `--close-domain` mode, object
+names and types come from the historical grounding bundle and `objects.txt`,
+so the pipeline skips a separate image-based object extraction call.
 
 ```bash
 BUNDLE=outputs/example_domain/7_final_bundle
@@ -240,9 +219,12 @@ po-pddl-generate-problem \
   example_problem/camera_high.jpg \
   "$(cat example_problem/instruction.txt)" \
   --final-bundle-dir "$BUNDLE" \
+  --objects-file example_problem/objects.txt \
   --config large_model_config.private.json \
   --config-name openai_config \
   --inference-strategy batch \
+  --inference-batch-size 20 \
+  --location-visibility-batch-size 30 \
   --max-workers 8 \
   --close-domain \
   --output example_problem/problem_online.pddl

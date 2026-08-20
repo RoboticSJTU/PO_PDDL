@@ -18,6 +18,8 @@ from po_pddl.domain_generation.infrastructure.payload_utils import normalize_opt
 from po_pddl.domain_generation.infrastructure.response_parsing import extract_json_object
 from po_pddl.prompts import load_prompt
 
+from .text_normalization import remove_unseen_object_statements
+
 DEFAULT_PROMPT_NAME = "step_scene_description_prompt.md"
 DEFAULT_FRAME_SELECTION_MODE = "first_and_last"
 _VALID_FRAME_SELECTION_MODES = {
@@ -249,6 +251,10 @@ class StepSceneDescriptionGenerator:
             system_prompt=system_prompt,
             user_content=user_content,
             raw_response=raw_response,
+        )
+        scene_description_text = remove_unseen_object_statements(
+            scene_description_text,
+            request.allowed_object_names,
         )
         return StepSceneDescriptionGenerationResult(
             episode_name=episode_name,

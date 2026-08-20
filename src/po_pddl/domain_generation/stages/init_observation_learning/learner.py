@@ -10,6 +10,7 @@ from typing import Any
 
 from po_pddl.domain_generation.infrastructure.artifact_io import load_json, load_json_object
 from po_pddl.domain_generation.infrastructure.fact_utils import parse_symbolic_literal
+from po_pddl.domain_generation.infrastructure.type_hierarchy import build_type_parent_map
 from po_pddl.domain_generation.stages.manipulation_domain_learning.learner import load_raw_trajectory_steps
 from po_pddl.domain_generation.stages.manipulation_domain_learning.models import PredicateSchema
 
@@ -745,11 +746,7 @@ def load_init_observation_inputs(
     predicate_comments = dict(load_json_object(artifact_path / "predicate_comments.json"))
     camera_order_by_episode = _load_camera_order_by_episode(scene_root)
     object_type_rows = load_json(artifact_path / "object_types.json")
-    parent_by_type = {
-        str(row["type_name"]): str(row.get("parent_type") or "")
-        for row in object_type_rows
-        if isinstance(row, dict) and row.get("parent_type")
-    }
+    parent_by_type = build_type_parent_map(object_type_rows)
     raw_steps = {
         (item.episode_name, item.step_index): item
         for item in load_raw_trajectory_steps(scene_root)

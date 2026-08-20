@@ -21,6 +21,8 @@ Rules:
 - Use `type_memberships` to decide whether a concrete object type is valid where a reusable supertype is required.
 - Use only object names that already appear in `objects`.
 - Goal facts must use symbolic predicate syntax such as `holding(block_a)` or `in(block_a,drawer_b)`.
+- Express a negative goal as `not predicate(arguments)`, for example `not open(container_a)`.
+  Do not use PDDL parentheses such as `not(open(container_a))` or `(not (open container_a))`.
 - Keep the goal conjunctive and concrete.
 - Do not invent new predicates.
 - Do not invent new objects.
