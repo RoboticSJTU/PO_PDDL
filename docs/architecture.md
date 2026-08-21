@@ -1,29 +1,74 @@
 # Architecture
 
-The package is split by responsibility rather than by experiment history.
+This document describes the public package boundaries and data flow of the
+PO-PDDL implementation. For language syntax and demonstration input schemas,
+see the [language specification](language-specification.md) and
+[data-format guide](data-format.md).
+
+## Design principles
+
+The repository separates deterministic symbolic processing from model-backed
+semantic inference:
+
+- Python owns parsing, grounding, statistics, probability estimation,
+  rendering, validation, artifact management, and runtime compilation.
+- Language and vision models handle semantic interpretation tasks exposed by
+  the pipelines.
+- From-scratch learning and incremental extension share reusable stage
+  implementations.
+- Every domain-learning stage writes inspectable artifacts so interrupted runs
+  can be audited or resumed.
+- The API backend and Codex workflow execute the same pipeline logic and differ
+  only in how model tasks are dispatched.
+
+## Package layout
 
 ```text
 src/po_pddl/
-  config.py                 typed public configuration
-  core/                     POMDPDDL models, parser, linter, codegen helpers
+  config.py                 Typed public configuration
+  core/
+    models/                 Symbolic and factorized-belief data structures
+    parser/                 PO-PDDL S-expression parsers
+    linter/                 Cross-file syntax and semantic checks
+    codegen/                Shared model-code generation helpers
   domain_generation/
-    service.py              public domain APIs
-    pipeline/               ordered from-scratch orchestration
-    extension/              incremental bundle update orchestration
-    stages/                 reusable learning stages
-    infrastructure/         artifact, video, and model-provider utilities
-  problem_generation/       scene-to-problem generators and public service
+    service.py              Public Python API
+    pipeline/               Ordered from-scratch orchestration
+    extension/              Incremental bundle extension
+    stages/                 Reusable learning stages
+    infrastructure/         Artifact, video, and model-provider utilities
+  problem_generation/       Scene-conditioned belief and goal generation
   runtime/
-    planning/                semantic, bitwise, and DESPOT compatibility core
-    terminal/                feedback providers, session loop, and CLI
-  prompts/
-    domain/                 prompts grouped by learning stage
-    problem/                goal, initial-belief, and object prompts
+    planning/               Semantic/bitwise models and DESPOT integration
+    terminal/               Interactive execution session and feedback
+  agent/                    Durable Codex task protocol and worker pool
+  prompts/                  Prompt templates grouped by pipeline and stage
 ```
 
-## Public API
+The top-level `example_data/` and `example_problem/` directories provide public
+inputs for the README workflows. Generated artifacts belong under `outputs/`
+and are not source modules.
 
-Use the service functions instead of constructing internal runners or agents:
+## Public interfaces
+
+### Command-line interfaces
+
+The installed package exposes five commands:
+
+| Command | Responsibility |
+|---|---|
+| `po-pddl-learn-domain` | Learn a domain from demonstration episodes. |
+| `po-pddl-extend-domain` | Extend an existing final bundle with new demonstrations. |
+| `po-pddl-generate-problem` | Generate an initial belief and goal for a scene and instruction. |
+| `po-pddl-run-terminal` | Compile and test a domain/problem through interactive planning. |
+| `po-pddl-agent` | Run the same generation workflows through Codex workers. |
+
+CLI modules translate arguments into typed configuration and delegate to the
+same services used by the Python API.
+
+### Python services
+
+Call service functions instead of constructing internal stage runners:
 
 ```python
 from pathlib import Path
@@ -33,65 +78,129 @@ from po_pddl.domain_generation import generate_domain
 
 result = generate_domain(
     DomainGenerationConfig(
-        input_dir=Path("data/demos"),
-        output_dir=Path("outputs/domain"),
-        llm=LLMSettings(config_path=Path("large_model_config.private.json")),
+        input_dir=Path("example_data"),
+        output_dir=Path("outputs/example_domain"),
+        llm=LLMSettings(
+            config_path=Path("large_model_config.private.json"),
+            config_name="openai_config",
+        ),
         max_workers=8,
     )
 )
 print(result.merged_domain_file)
 ```
 
-Problem generation follows the same pattern:
+Problem generation follows the same boundary:
 
 ```python
+from pathlib import Path
+
 from po_pddl import ProblemGenerationConfig
 from po_pddl.problem_generation import generate_problem
 
-result = generate_problem(
-    ProblemGenerationConfig(
-        domain_file=Path("outputs/domain/7_final_bundle/final_merged_domain.pddl"),
-        image_path=Path("scene.jpg"),
-        instruction="Put the cup in the drawer.",
-    )
+config = ProblemGenerationConfig(
+    domain_file=Path("outputs/example_domain/7_final_bundle/final_merged_domain.pddl"),
+    image_path=Path("example_problem/camera_high.jpg"),
+    instruction="Put the cup in the drawer.",
+    output_file=Path("outputs/example_problem/problem_online.pddl"),
 )
+result = generate_problem(config)
+print(config.resolved_output_file)
 ```
 
-The ordered learning stages and their artifact schemas remain compatible with
-the research pipeline. Refactoring is limited to package boundaries, prompt
-location, configuration, and public orchestration; it does not reorder stages.
+## Domain-generation flow
 
-## Symbolic conventions
+The from-scratch pipeline transforms demonstrations into a reusable domain in
+an ordered sequence:
 
-Relations use subject-reference argument order. Containment is always
-`in(movable_item, containable_item)` in predicates, effects, grounded states,
-observables, and generated problems. Grounding normalization rejects the legacy
-container-first representation rather than allowing both forms to coexist.
+1. Normalize action annotations and prepare episode evidence.
+2. Describe initial and per-step scenes from video or extracted frames.
+3. Induce typed predicates and stochastic manipulation action schemas.
+4. Ground episodes and reconstruct symbolic state trajectories.
+5. Infer action preconditions from grounded pre-state evidence.
+6. Learn passive, initial, and active observation models.
+7. Merge, validate, annotate rewards, and write the final bundle.
 
-Problem generation treats a neighboring `objects.txt` as a strict object
-allowlist when `--close-domain` is enabled. Initial uncertainty uses uniform
-factor probabilities by default (`--prior-data-confidence 0.0`); the LLM/VLM
-groups uncertain variables but does not inject historical priors. Deterministic
-predicates and goal assignments are evaluated in set-level calls by default.
-The optional `parallel` strategy evaluates each item independently, with
-concurrency limited by `--max-workers`.
+The output directory stores stage-specific JSON, JSONL, Markdown, images, and
+PDDL artifacts. `7_final_bundle/` is the stable input boundary for downstream
+problem generation and incremental extension.
+
+The extension pipeline reads an existing final bundle without modifying it. It
+classifies new demonstrations against existing action schemas, refreshes
+statistics for modeled actions, learns genuinely new schemas through the same
+stage implementations, relearns affected observation components, and writes a
+new bundle.
+
+## Problem-generation flow
+
+Problem generation consumes a domain, one initial scene, and a natural-language
+instruction. When available, the final bundle supplies grounding evidence and
+semantic metadata.
+
+The generator:
+
+1. resolves the allowed scene objects and their domain types;
+2. evaluates grounded predicates visible in the initial scene;
+3. groups uncertain alternatives into a factorized initial belief;
+4. maps the instruction to a typed symbolic goal; and
+5. renders and validates `problem_online.pddl`.
+
+In `--close-domain` mode, object names are restricted to the supplied
+`objects.txt` and known bundle types. Deterministic predicates and goal
+assignments are processed in configurable batches. Location predicates are
+batched without splitting the alternatives associated with one object.
+
+## Model dispatch
+
+### OpenAI-compatible API
+
+API mode calls the provider configured by `LLMSettings`. Independent semantic
+tasks may run concurrently up to `max_workers`; deterministic stages continue
+to execute locally.
+
+### Codex workers
+
+Codex mode serializes model tasks into a durable run directory. A pool of
+persistent `codex app-server` workers claims tasks while Python retains control
+of pipeline ordering, local computation, validation, and recovery. Each task
+uses an isolated Codex thread, while worker processes stay alive across tasks
+to reduce startup overhead.
+
+The run journal is an execution mechanism, not a separate learning pipeline.
+Equivalent inputs and model judgments flow through the same stage code as API
+mode.
 
 ## Prompt management
 
-`po_pddl.prompts.prompt_catalog` validates that every Markdown prompt has a
-unique filename at import time. Internal stages load prompts by filename, so a
-template has one canonical copy and cannot silently diverge between pipelines.
+Prompt templates live under `src/po_pddl/prompts/`, grouped by domain or
+problem pipeline and by stage. `po_pddl.prompts.catalog.PromptCatalog` indexes
+the packaged Markdown templates and rejects duplicate filenames. Stages load a
+canonical template by filename rather than embedding prompt copies in runner
+code.
 
-## Runtime boundaries
+## Symbolic boundaries
 
-`TerminalSession` owns planner orchestration and structured logging but knows
-nothing about `input()`. `ConsoleFeedback` and `ScriptedFeedback` implement the
-same small protocol, so experiments can replay exact effect and observation
-sequences without changing the executor. The migrated planning compatibility
-layer remains separate because it includes model-code generation and native
-DESPOT integration; the higher-level terminal code is independently testable
-with a fake planner.
+The language parser and linter in `po_pddl.core` are independent of learned
+task vocabulary. Generated relation schemas follow subject-reference argument
+order; for example, containment is represented as `in(movable, container)`.
+Problem generation and grounding use the domain declaration as the authority
+for predicate arity, argument order, and object types.
 
-The native dependency is resolved through `PO_PDDL_DESPOT_ROOT`. This avoids the
-absolute repository paths used by the research script and keeps deployment
-configuration outside source code.
+Initial uncertainty is represented as disjoint factors. With the default
+`prior_data_confidence=0.0`, model inference groups uncertain alternatives but
+does not inject empirical frequency priors into a generated problem.
+
+## Runtime boundary
+
+The runtime parses and lints a domain/problem pair, grounds the symbolic model,
+compiles semantic and bitwise representations, and produces DESPOT-compatible
+C++ when requested.
+
+`TerminalSession` owns planner orchestration and structured logs but does not
+read directly from standard input. `ConsoleFeedback` and `ScriptedFeedback`
+implement the same feedback protocol, allowing manual testing and reproducible
+replay without changing planning logic.
+
+Native DESPOT sources are located through `PO_PDDL_DESPOT_ROOT`. The build uses
+the `pybind11` installation associated with the active Python interpreter so
+the generated extension and interpreter ABI remain aligned.

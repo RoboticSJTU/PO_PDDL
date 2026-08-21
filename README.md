@@ -35,7 +35,21 @@ The learned domain is reusable across task instructions and initial scenes.
 Intermediate artifacts are retained to support inspection, partial reruns, and
 incremental domain extension.
 
-**Links:** [Paper](https://arxiv.org/abs/2606.15654) | [Project page](https://po-pddl.github.io/) | [Prompt library](https://po-pddl.github.io/prompt-library/)
+**Links:** [Paper](https://arxiv.org/abs/2606.15654) | [Project page](https://po-pddl.github.io/) | [PO-PDDL language specification](docs/language-specification.md)
+
+## PO-PDDL Language
+
+PO-PDDL extends a typed PPDDL subset with an explicit observation vocabulary,
+state-conditioned observation distributions, and factorized initial beliefs.
+Domain files define latent predicates, stochastic actions, observables, and
+observation rules; problem files separately define the simulator's initial
+state, the planner's initial belief, the goal, and reward objective.
+
+See the [PO-PDDL language specification](docs/language-specification.md) for the
+current grammar, formal semantics, supported operator subset, complete example,
+and parser-based validation instructions. The specification documents the
+general language and is independent of the predicates or action conventions
+learned for any particular task environment.
 
 ## Model Configuration
 
@@ -434,9 +448,20 @@ result = generate_domain(
 print(result.merged_domain_file)
 ```
 
-See [the architecture guide](docs/architecture.md) for package boundaries and
-[the data-format guide](docs/data-format.md) for supported demonstration
-schemas.
+## Documentation
+
+The repository maintains three public documents, each covering a stable
+interface for users or developers:
+
+- [PO-PDDL language specification](docs/language-specification.md): domain and
+  problem grammar, stochastic transition and observation semantics, factorized
+  initial beliefs, rewards, supported operators, and validation.
+- [Demonstration data format](docs/data-format.md): episode annotations,
+  supported single/multi-camera video layouts, pre-extracted frame manifests,
+  and problem-generation image inputs.
+- [Architecture guide](docs/architecture.md): package boundaries, public APIs,
+  from-scratch and extension data flow, API/Codex model dispatch, prompt
+  management, and terminal/DESPOT runtime integration.
 
 ## Citation
 
