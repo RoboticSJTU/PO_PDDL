@@ -5,18 +5,18 @@
 ### Learning Symbolic POMDPs from Visual Demonstrations for Robot Planning Under Uncertainty
 
 [![Paper](https://img.shields.io/badge/arXiv-2606.15654-b31b1b.svg)](https://arxiv.org/abs/2606.15654)
-[![Project Page](https://img.shields.io/badge/Project-Page-2f6f61.svg)](https://po-pddl.github.io/)
+[![Project Page](https://img.shields.io/badge/Project-Page-2f6f61.svg)](https://roboticsjtu.github.io/PO-PDDL/)
 [![Python](https://img.shields.io/badge/Python-%3E%3D3.10-3776ab.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Wenjing Tang, Xuanjin Jin, Yuan Liu, Renming Huang, Cewu Lu, Panpan Cai**
 
-Official implementation accompanying our NeurIPS 2026 submission.
+Official implementation of our paper accepted to NeurIPS 2026.
 
 </div>
 
 <p align="center">
-  <img src="https://po-pddl.github.io/contexts/pipeline.png" alt="PO-PDDL learning pipeline" width="95%">
+  <img src="https://roboticsjtu.github.io/PO-PDDL/contexts/pipeline.png" alt="PO-PDDL learning pipeline" width="95%">
 </p>
 
 ## Overview
@@ -35,7 +35,7 @@ The learned domain is reusable across task instructions and initial scenes.
 Intermediate artifacts are retained to support inspection, partial reruns, and
 incremental domain extension.
 
-**Links:** [Paper](https://arxiv.org/abs/2606.15654) | [Project page](https://po-pddl.github.io/) | [PO-PDDL language specification](docs/language-specification.md)
+**Links:** [Paper](https://arxiv.org/abs/2606.15654) | [Project page](https://roboticsjtu.github.io/PO-PDDL/) | [PO-PDDL language specification](docs/language-specification.md)
 
 ## PO-PDDL Language
 
