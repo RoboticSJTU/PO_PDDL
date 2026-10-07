@@ -30,7 +30,12 @@ def _load_manifest(root: Path) -> dict[str, str]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
         raise ValueError(f"Bundle manifest must contain a JSON object: {path}")
-    return {str(key): str(value) for key, value in payload.items() if str(value).strip()}
+    return {
+        str(key): str(path if path.is_absolute() else root / path)
+        for key, value in payload.items()
+        if str(value).strip()
+        for path in [Path(str(value)).expanduser()]
+    }
 
 
 def _first_existing(*paths: Path | None) -> Path | None:

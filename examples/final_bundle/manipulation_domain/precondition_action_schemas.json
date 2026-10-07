@@ -1,0 +1,576 @@
+[
+  {
+    "canonical_action_name": "close_object_on_left",
+    "action_category": "manipulation",
+    "parameter_count": 1,
+    "parameter_roles": [
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "schema_description": "Manipulation actions learned from trajectories. close the {param_1} on the left",
+    "effect_branches": [
+      {
+        "effect_bucket": "close_object_on_left_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [],
+        "delta_del": [
+          "open(?arg0)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [],
+        "fixed_delta_del": [
+          "open(?arg0)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "close_object_on_right",
+    "action_category": "manipulation",
+    "parameter_count": 1,
+    "parameter_roles": [
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "not on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "schema_description": "close the {param_1} on the right",
+    "effect_branches": [
+      {
+        "effect_bucket": "close_object_on_right_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [],
+        "delta_del": [
+          "open(?arg0)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [],
+        "fixed_delta_del": [
+          "open(?arg0)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+    "action_category": "active_observation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "cup",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "on_left(?arg1)"
+    ],
+    "schema_description": "look into the {param_1} in front of the {param_2} on the left",
+    "effect_branches": []
+  },
+  {
+    "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+    "action_category": "active_observation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "cup",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "not on_left(?arg1)"
+    ],
+    "schema_description": "look into the {param_1} in front of the {param_2} on the right",
+    "effect_branches": []
+  },
+  {
+    "canonical_action_name": "look_into_object_on_left",
+    "action_category": "active_observation",
+    "parameter_count": 1,
+    "parameter_roles": [
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "schema_description": "look into the {param_1} on the left",
+    "effect_branches": []
+  },
+  {
+    "canonical_action_name": "look_into_object_on_right",
+    "action_category": "active_observation",
+    "parameter_count": 1,
+    "parameter_roles": [
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "not on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "schema_description": "look into the {param_1} on the right",
+    "effect_branches": []
+  },
+  {
+    "canonical_action_name": "open_object_on_left",
+    "action_category": "manipulation",
+    "parameter_count": 1,
+    "parameter_roles": [
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "not in_front_of(?dep0,?arg0)",
+      "not open(?arg0)",
+      "on_left(?arg0)"
+    ],
+    "schema_description": "open the {param_1} on the left",
+    "effect_branches": [
+      {
+        "effect_bucket": "open_object_on_left_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "open(?arg0)"
+        ],
+        "delta_del": [],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "open(?arg0)"
+        ],
+        "fixed_delta_del": [],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "open_object_on_right",
+    "action_category": "manipulation",
+    "parameter_count": 1,
+    "parameter_roles": [
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "not in_front_of(?dep0,?arg0)",
+      "not on_left(?arg0)",
+      "not open(?arg0)"
+    ],
+    "schema_description": "open the {param_1} on the right",
+    "effect_branches": [
+      {
+        "effect_bucket": "open_object_on_right_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "open(?arg0)"
+        ],
+        "delta_del": [],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "open(?arg0)"
+        ],
+        "fixed_delta_del": [],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "pick_up_object_in_front_of_object_on_left",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "cup",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "on_left(?arg1)"
+    ],
+    "schema_description": "pick up the {param_1} in front of the {param_2} on the left",
+    "effect_branches": [
+      {
+        "effect_bucket": "pick_up_object_in_front_of_object_on_left_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "delta_del": [
+          "gripper_empty()",
+          "in_front_of(?arg0,?arg1)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "fixed_delta_del": [
+          "gripper_empty()",
+          "in_front_of(?arg0,?arg1)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "pick_up_object_in_front_of_object_on_right",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "cup",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "not on_left(?arg1)",
+      "not on_top_of(?dep0,?arg1)"
+    ],
+    "schema_description": "pick up the {param_1} in front of the {param_2} on the right",
+    "effect_branches": [
+      {
+        "effect_bucket": "pick_up_object_in_front_of_object_on_right_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "delta_del": [
+          "gripper_empty()",
+          "in_front_of(?arg0,?arg1)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "fixed_delta_del": [
+          "gripper_empty()",
+          "in_front_of(?arg0,?arg1)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "pick_up_object_in_object_on_left",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "block",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "in(?arg0,?arg1)",
+      "on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "schema_description": "pick up the {param_1} in the {param_2} on the left",
+    "effect_branches": [
+      {
+        "effect_bucket": "pick_up_object_in_object_on_left_success",
+        "probability": 0.6363636363636364,
+        "success": true,
+        "delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "delta_del": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "fixed_delta_del": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      },
+      {
+        "effect_bucket": "pick_up_object_in_object_on_left_failure",
+        "probability": 0.36363636363636365,
+        "success": false,
+        "delta_add": [],
+        "delta_del": [],
+        "variant_rank": null,
+        "fixed_delta_add": [],
+        "fixed_delta_del": [],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "pick_up_object_in_object_on_right",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "block",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "in(?arg0,?arg1)",
+      "not on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "schema_description": "pick up the {param_1} in the {param_2} on the right",
+    "effect_branches": [
+      {
+        "effect_bucket": "pick_up_object_in_object_on_right_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "delta_del": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_holding(?arg0)"
+        ],
+        "fixed_delta_del": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "place_object_into_object_on_left",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "block",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_holding(?arg0)",
+      "on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "schema_description": "place the {param_1} into the {param_2} on the left",
+    "effect_branches": [
+      {
+        "effect_bucket": "place_object_into_object_on_left_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "fixed_delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "place_object_into_object_on_right",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "block",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_holding(?arg0)",
+      "not on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "schema_description": "place the {param_1} into the {param_2} on the right",
+    "effect_branches": [
+      {
+        "effect_bucket": "place_object_into_object_on_right_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_empty()",
+          "in(?arg0,?arg1)"
+        ],
+        "fixed_delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "place_object_on_top_of_object_on_left",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "block",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_holding(?arg0)",
+      "on_left(?arg1)"
+    ],
+    "schema_description": "place the {param_1} on the top of the {param_2} on the left",
+    "effect_branches": [
+      {
+        "effect_bucket": "place_object_on_top_of_object_on_left_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "gripper_empty()",
+          "on_top_of(?arg0,?arg1)"
+        ],
+        "delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_empty()",
+          "on_top_of(?arg0,?arg1)"
+        ],
+        "fixed_delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "place_object_on_top_of_object_on_right",
+    "action_category": "manipulation",
+    "parameter_count": 2,
+    "parameter_roles": [
+      "cup",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_holding(?arg0)",
+      "not on_left(?arg1)",
+      "not on_top_of(?dep0,?arg1)",
+      "not open(?arg1)"
+    ],
+    "schema_description": "place the {param_1} on the top of the {param_2} on the right",
+    "effect_branches": [
+      {
+        "effect_bucket": "place_object_on_top_of_object_on_right_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "gripper_empty()",
+          "on_top_of(?arg0,?arg1)"
+        ],
+        "delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "gripper_empty()",
+          "on_top_of(?arg0,?arg1)"
+        ],
+        "fixed_delta_del": [
+          "gripper_holding(?arg0)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  },
+  {
+    "canonical_action_name": "push_object_on_object_on_right_to_object_on_left",
+    "action_category": "manipulation",
+    "parameter_count": 3,
+    "parameter_roles": [
+      "box",
+      "drawer",
+      "drawer"
+    ],
+    "precondition_literals": [
+      "gripper_empty()",
+      "not on_left(?arg1)",
+      "not open(?arg1)",
+      "not open(?arg2)",
+      "on_left(?arg2)",
+      "on_top_of(?arg0,?arg1)"
+    ],
+    "schema_description": "push the {param_1} on the {param_2} on the right to the {param_3} on the left",
+    "effect_branches": [
+      {
+        "effect_bucket": "push_object_on_object_on_right_to_object_on_left_success",
+        "probability": 1.0,
+        "success": true,
+        "delta_add": [
+          "on_top_of(?arg0,?arg2)"
+        ],
+        "delta_del": [
+          "on_top_of(?arg0,?arg1)"
+        ],
+        "variant_rank": null,
+        "fixed_delta_add": [
+          "on_top_of(?arg0,?arg2)"
+        ],
+        "fixed_delta_del": [
+          "on_top_of(?arg0,?arg1)"
+        ],
+        "residual_delta_add": [],
+        "residual_delta_del": [],
+        "extra_pddl_effect_conjuncts": []
+      }
+    ]
+  }
+]

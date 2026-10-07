@@ -1,0 +1,456 @@
+{
+  "schema_version": 2,
+  "actions_by_name": {
+    "close_object_on_left": {
+      "action_name": "close_object_on_left",
+      "action_category": "manipulation",
+      "template_id": "close_object_on_left",
+      "template_text": "close the {param_1} on the left",
+      "parameter_roles": [
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1"
+      ],
+      "effect_buckets": {
+        "success": "close_object_on_left_success",
+        "failure": "close_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "close_object_on_right": {
+      "action_name": "close_object_on_right",
+      "action_category": "manipulation",
+      "template_id": "close_object_on_right",
+      "template_text": "close the {param_1} on the right",
+      "parameter_roles": [
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1"
+      ],
+      "effect_buckets": {
+        "success": "close_object_on_right_success",
+        "failure": "close_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "look_into_object_in_front_of_object_on_left": {
+      "action_name": "look_into_object_in_front_of_object_on_left",
+      "action_category": "active_observation",
+      "template_id": "look_into_object_in_front_of_object_on_left",
+      "template_text": "look into the {param_1} in front of the {param_2} on the left",
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "look_into_object_in_front_of_object_on_left_success",
+        "failure": "look_into_object_in_front_of_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "look_into_object_in_front_of_object_on_right": {
+      "action_name": "look_into_object_in_front_of_object_on_right",
+      "action_category": "active_observation",
+      "template_id": "look_into_object_in_front_of_object_on_right",
+      "template_text": "look into the {param_1} in front of the {param_2} on the right",
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "look_into_object_in_front_of_object_on_right_success",
+        "failure": "look_into_object_in_front_of_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "look_into_object_on_left": {
+      "action_name": "look_into_object_on_left",
+      "action_category": "active_observation",
+      "template_id": "look_into_object_on_left",
+      "template_text": "look into the {param_1} on the left",
+      "parameter_roles": [
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1"
+      ],
+      "effect_buckets": {
+        "success": "look_into_object_on_left_success",
+        "failure": "look_into_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "look_into_object_on_right": {
+      "action_name": "look_into_object_on_right",
+      "action_category": "active_observation",
+      "template_id": "look_into_object_on_right",
+      "template_text": "look into the {param_1} on the right",
+      "parameter_roles": [
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1"
+      ],
+      "effect_buckets": {
+        "success": "look_into_object_on_right_success",
+        "failure": "look_into_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "open_object_on_left": {
+      "action_name": "open_object_on_left",
+      "action_category": "manipulation",
+      "template_id": "open_object_on_left",
+      "template_text": "open the {param_1} on the left",
+      "parameter_roles": [
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1"
+      ],
+      "effect_buckets": {
+        "success": "open_object_on_left_success",
+        "failure": "open_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "open_object_on_right": {
+      "action_name": "open_object_on_right",
+      "action_category": "manipulation",
+      "template_id": "open_object_on_right",
+      "template_text": "open the {param_1} on the right",
+      "parameter_roles": [
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1"
+      ],
+      "effect_buckets": {
+        "success": "open_object_on_right_success",
+        "failure": "open_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "pick_up_object_in_front_of_object_on_left": {
+      "action_name": "pick_up_object_in_front_of_object_on_left",
+      "action_category": "manipulation",
+      "template_id": "pick_up_object_in_front_of_object_on_left",
+      "template_text": "pick up the {param_1} in front of the {param_2} on the left",
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "pick_up_object_in_front_of_object_on_left_success",
+        "failure": "pick_up_object_in_front_of_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "pick_up_object_in_front_of_object_on_right": {
+      "action_name": "pick_up_object_in_front_of_object_on_right",
+      "action_category": "manipulation",
+      "template_id": "pick_up_object_in_front_of_object_on_right",
+      "template_text": "pick up the {param_1} in front of the {param_2} on the right",
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "pick_up_object_in_front_of_object_on_right_success",
+        "failure": "pick_up_object_in_front_of_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "pick_up_object_in_object_on_left": {
+      "action_name": "pick_up_object_in_object_on_left",
+      "action_category": "manipulation",
+      "template_id": "pick_up_object_in_object_on_left",
+      "template_text": "pick up the {param_1} in the {param_2} on the left",
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "pick_up_object_in_object_on_left_success",
+        "failure": "pick_up_object_in_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "pick_up_object_in_object_on_right": {
+      "action_name": "pick_up_object_in_object_on_right",
+      "action_category": "manipulation",
+      "template_id": "pick_up_object_in_object_on_right",
+      "template_text": "pick up the {param_1} in the {param_2} on the right",
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "pick_up_object_in_object_on_right_success",
+        "failure": "pick_up_object_in_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "place_object_into_object_on_left": {
+      "action_name": "place_object_into_object_on_left",
+      "action_category": "manipulation",
+      "template_id": "place_object_into_object_on_left",
+      "template_text": "place the {param_1} into the {param_2} on the left",
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "place_object_into_object_on_left_success",
+        "failure": "place_object_into_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "place_object_into_object_on_right": {
+      "action_name": "place_object_into_object_on_right",
+      "action_category": "manipulation",
+      "template_id": "place_object_into_object_on_right",
+      "template_text": "place the {param_1} into the {param_2} on the right",
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "place_object_into_object_on_right_success",
+        "failure": "place_object_into_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "place_object_on_top_of_object_on_left": {
+      "action_name": "place_object_on_top_of_object_on_left",
+      "action_category": "manipulation",
+      "template_id": "place_object_on_top_of_object_on_left",
+      "template_text": "place the {param_1} on the top of the {param_2} on the left",
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "place_object_on_top_of_object_on_left_success",
+        "failure": "place_object_on_top_of_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "place_object_on_top_of_object_on_right": {
+      "action_name": "place_object_on_top_of_object_on_right",
+      "action_category": "manipulation",
+      "template_id": "place_object_on_top_of_object_on_right",
+      "template_text": "place the {param_1} on the top of the {param_2} on the right",
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2"
+      ],
+      "effect_buckets": {
+        "success": "place_object_on_top_of_object_on_right_success",
+        "failure": "place_object_on_top_of_object_on_right_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    },
+    "push_object_on_object_on_right_to_object_on_left": {
+      "action_name": "push_object_on_object_on_right_to_object_on_left",
+      "action_category": "manipulation",
+      "template_id": "push_object_on_object_on_right_to_object_on_left",
+      "template_text": "push the {param_1} on the {param_2} on the right to the {param_3} on the left",
+      "parameter_roles": [
+        "box",
+        "drawer",
+        "drawer"
+      ],
+      "parameter_placeholders": [
+        "param_1",
+        "param_2",
+        "param_3"
+      ],
+      "effect_buckets": {
+        "success": "push_object_on_object_on_right_to_object_on_left_success",
+        "failure": "push_object_on_object_on_right_to_object_on_left_failure"
+      },
+      "source_action_name": null,
+      "ground_truth_positive_literal": null
+    }
+  },
+  "typing": {
+    "object_name_to_type": {
+      "black_box": "box",
+      "blue_block": "block",
+      "green_cup": "cup",
+      "green_drawer": "drawer",
+      "pink_cup": "cup",
+      "red_block": "block",
+      "yellow_drawer": "drawer"
+    },
+    "type_to_object_names": {
+      "block": [
+        "blue_block",
+        "red_block"
+      ],
+      "box": [
+        "black_box"
+      ],
+      "cup": [
+        "green_cup",
+        "pink_cup"
+      ],
+      "drawer": [
+        "green_drawer",
+        "yellow_drawer"
+      ]
+    }
+  },
+  "lookup": {
+    "template_id_to_action": {
+      "close_object_on_left": "close_object_on_left",
+      "close_object_on_right": "close_object_on_right",
+      "look_into_object_in_front_of_object_on_left": "look_into_object_in_front_of_object_on_left",
+      "look_into_object_in_front_of_object_on_right": "look_into_object_in_front_of_object_on_right",
+      "look_into_object_on_left": "look_into_object_on_left",
+      "look_into_object_on_right": "look_into_object_on_right",
+      "open_object_on_left": "open_object_on_left",
+      "open_object_on_right": "open_object_on_right",
+      "pick_up_object_in_front_of_object_on_left": "pick_up_object_in_front_of_object_on_left",
+      "pick_up_object_in_front_of_object_on_right": "pick_up_object_in_front_of_object_on_right",
+      "pick_up_object_in_object_on_left": "pick_up_object_in_object_on_left",
+      "pick_up_object_in_object_on_right": "pick_up_object_in_object_on_right",
+      "place_object_into_object_on_left": "place_object_into_object_on_left",
+      "place_object_into_object_on_right": "place_object_into_object_on_right",
+      "place_object_on_top_of_object_on_left": "place_object_on_top_of_object_on_left",
+      "place_object_on_top_of_object_on_right": "place_object_on_top_of_object_on_right",
+      "push_object_on_object_on_right_to_object_on_left": "push_object_on_object_on_right_to_object_on_left"
+    },
+    "template_text_to_action": {
+      "close the {param_1} on the left": "close_object_on_left",
+      "close the {param_1} on the right": "close_object_on_right",
+      "look into the {param_1} in front of the {param_2} on the left": "look_into_object_in_front_of_object_on_left",
+      "look into the {param_1} in front of the {param_2} on the right": "look_into_object_in_front_of_object_on_right",
+      "look into the {param_1} on the left": "look_into_object_on_left",
+      "look into the {param_1} on the right": "look_into_object_on_right",
+      "open the {param_1} on the left": "open_object_on_left",
+      "open the {param_1} on the right": "open_object_on_right",
+      "pick up the {param_1} in front of the {param_2} on the left": "pick_up_object_in_front_of_object_on_left",
+      "pick up the {param_1} in front of the {param_2} on the right": "pick_up_object_in_front_of_object_on_right",
+      "pick up the {param_1} in the {param_2} on the left": "pick_up_object_in_object_on_left",
+      "pick up the {param_1} in the {param_2} on the right": "pick_up_object_in_object_on_right",
+      "place the {param_1} into the {param_2} on the left": "place_object_into_object_on_left",
+      "place the {param_1} into the {param_2} on the right": "place_object_into_object_on_right",
+      "place the {param_1} on the top of the {param_2} on the left": "place_object_on_top_of_object_on_left",
+      "place the {param_1} on the top of the {param_2} on the right": "place_object_on_top_of_object_on_right",
+      "push the {param_1} on the {param_2} on the right to the {param_3} on the left": "push_object_on_object_on_right_to_object_on_left"
+    },
+    "template_text_to_type_signature_to_action": {
+      "close the {param_1} on the left": {
+        "drawer": "close_object_on_left"
+      },
+      "close the {param_1} on the right": {
+        "drawer": "close_object_on_right"
+      },
+      "look into the {param_1} in front of the {param_2} on the left": {
+        "cup|drawer": "look_into_object_in_front_of_object_on_left"
+      },
+      "look into the {param_1} in front of the {param_2} on the right": {
+        "cup|drawer": "look_into_object_in_front_of_object_on_right"
+      },
+      "look into the {param_1} on the left": {
+        "drawer": "look_into_object_on_left"
+      },
+      "look into the {param_1} on the right": {
+        "drawer": "look_into_object_on_right"
+      },
+      "open the {param_1} on the left": {
+        "drawer": "open_object_on_left"
+      },
+      "open the {param_1} on the right": {
+        "drawer": "open_object_on_right"
+      },
+      "pick up the {param_1} in front of the {param_2} on the left": {
+        "cup|drawer": "pick_up_object_in_front_of_object_on_left"
+      },
+      "pick up the {param_1} in front of the {param_2} on the right": {
+        "cup|drawer": "pick_up_object_in_front_of_object_on_right"
+      },
+      "pick up the {param_1} in the {param_2} on the left": {
+        "block|drawer": "pick_up_object_in_object_on_left"
+      },
+      "pick up the {param_1} in the {param_2} on the right": {
+        "block|drawer": "pick_up_object_in_object_on_right"
+      },
+      "place the {param_1} into the {param_2} on the left": {
+        "block|drawer": "place_object_into_object_on_left"
+      },
+      "place the {param_1} into the {param_2} on the right": {
+        "block|drawer": "place_object_into_object_on_right"
+      },
+      "place the {param_1} on the top of the {param_2} on the left": {
+        "block|drawer": "place_object_on_top_of_object_on_left"
+      },
+      "place the {param_1} on the top of the {param_2} on the right": {
+        "cup|drawer": "place_object_on_top_of_object_on_right"
+      },
+      "push the {param_1} on the {param_2} on the right to the {param_3} on the left": {
+        "box|drawer|drawer": "push_object_on_object_on_right_to_object_on_left"
+      }
+    }
+  }
+}

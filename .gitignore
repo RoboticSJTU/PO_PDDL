@@ -39,5 +39,7 @@ large_model_config.private.json
 
 # Generated experiments
 outputs/
-example_problem/problem_online.pddl
 *.log
+
+# Optional native dependency checkout
+third_party/

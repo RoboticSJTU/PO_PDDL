@@ -1,0 +1,28 @@
+[
+  {
+    "predicate_name": "has_dark_liquid",
+    "observable_name": "obs_has_dark_liquid",
+    "parameter_types": [
+      "cup"
+    ],
+    "target_literal_template": "has_dark_liquid(?obs0)",
+    "condition_literals": [],
+    "last_action_false_conditions": [
+      "(forall (?m - last_action_marker ?x0 - object) (not (last_action_1_param ?m ?x0)))",
+      "(forall (?m - last_action_marker ?x0 - object ?x1 - object) (not (last_action_2_param ?m ?x0 ?x1)))",
+      "(forall (?m - last_action_marker ?x0 - object ?x1 - object ?x2 - object) (not (last_action_3_param ?m ?x0 ?x1 ?x2)))"
+    ],
+    "true_rule_name": "init_obs_has_dark_liquid_true",
+    "false_rule_name": "init_obs_has_dark_liquid_false",
+    "total_ground_truth_true": 7,
+    "observed_true_when_ground_truth_true": 1,
+    "observed_false_when_ground_truth_true": 6,
+    "prob_observable_true_given_ground_truth_true": 0.14285714285714285,
+    "prob_observable_false_given_ground_truth_true": 0.8571428571428571,
+    "total_ground_truth_false": 15,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 15,
+    "prob_observable_true_given_ground_truth_false": 0.0,
+    "prob_observable_false_given_ground_truth_false": 1.0
+  }
+]

@@ -298,11 +298,23 @@ numeric literal as the update amount.
 
 ```pddl
 (:observation <rule-name>
+  [:last-action <action-name|init>]
   :parameters (<typed-variable-list>)
   :condition <condition>
   :distribution <observation-distribution>
 )
 ```
+
+`:last-action` is optional observation context, not a state predicate. When it
+names an action, the rule is considered only immediately after that action.
+The reserved value `init` restricts the rule to the initial observation, before
+any action has executed. When omitted, rule applicability depends only on its
+grounded `:condition`.
+
+If an observation distinguishes probabilistic effect outcomes, the successor-
+state literals established by that outcome must be included in `:condition`.
+Action or outcome identity must not be encoded through synthetic state
+predicates such as last-action markers.
 
 The distribution grammar is:
 
@@ -321,6 +333,7 @@ Example:
 
 ```pddl
 (:observation observe-item-present
+  :last-action open-container
   :parameters (?item - movable ?container - container)
   :condition (and (open ?container) (in ?item ?container))
   :distribution (probabilistic

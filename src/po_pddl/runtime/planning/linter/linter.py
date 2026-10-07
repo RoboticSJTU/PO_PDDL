@@ -236,6 +236,18 @@ def _lint_parsed(
         )
 
     for rule_schema in parsed_domain.observation_rules:
+        if (
+            rule_schema.last_action is not None
+            and rule_schema.last_action != "init"
+            and rule_schema.last_action not in {action.action.name for action in parsed_domain.actions}
+        ):
+            result.add(
+                "error",
+                "semantic.unknown_observation_last_action",
+                f"Observation references unknown last action `{rule_schema.last_action}`.",
+                "domain",
+                f"observation:{rule_schema.rule.name}",
+            )
         scope = dict(rule_schema.parameter_types)
         _check_expr(
             rule_schema.condition,

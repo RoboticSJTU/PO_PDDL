@@ -1,0 +1,28 @@
+{
+  "problem_name": "episode24_inferred_problem",
+  "domain_name": "learned_action_schema_fragment",
+  "objects": [
+    {
+      "name": "yellow_drawer",
+      "type_name": "drawer"
+    },
+    {
+      "name": "blue_block",
+      "type_name": "block"
+    }
+  ],
+  "init_facts": [
+    "gripper_empty()",
+    "in(blue_block,yellow_drawer)",
+    "not gripper_holding(blue_block)",
+    "not on_top_of(blue_block,yellow_drawer)",
+    "not open(yellow_drawer)",
+    "on_left(yellow_drawer)"
+  ],
+  "goal_facts": [
+    "on_top_of(blue_block,yellow_drawer)"
+  ],
+  "canonical_object_map": {},
+  "object_init_raw_llm_outputs": {},
+  "goal_inference_raw_output": null
+}

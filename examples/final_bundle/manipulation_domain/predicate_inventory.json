@@ -1,0 +1,69 @@
+[
+  {
+    "predicate_name": "in",
+    "parameter_types": [
+      "movable_item",
+      "containable_item"
+    ],
+    "comment": "The movable item is inside the containable item.",
+    "predicate_kind": "state"
+  },
+  {
+    "predicate_name": "on_top_of",
+    "parameter_types": [
+      "movable_item",
+      "fixed_item"
+    ],
+    "comment": "The movable item rests on top of the fixed item.",
+    "predicate_kind": "state"
+  },
+  {
+    "predicate_name": "in_front_of",
+    "parameter_types": [
+      "movable_item",
+      "fixed_item"
+    ],
+    "comment": "The movable item is in front of the fixed item.",
+    "predicate_kind": "state"
+  },
+  {
+    "predicate_name": "open",
+    "parameter_types": [
+      "drawer"
+    ],
+    "comment": "The drawer is open.",
+    "predicate_kind": "state"
+  },
+  {
+    "predicate_name": "on_left",
+    "parameter_types": [
+      "drawer"
+    ],
+    "comment": "The drawer occupies the left-side position.",
+    "predicate_kind": "feature",
+    "is_static_feature": true
+  },
+  {
+    "predicate_name": "has_dark_liquid",
+    "parameter_types": [
+      "cup"
+    ],
+    "comment": "The cup contains dark liquid.",
+    "predicate_kind": "feature",
+    "is_static_feature": true
+  },
+  {
+    "predicate_name": "gripper_empty",
+    "parameter_types": [],
+    "comment": "The gripper is empty.",
+    "predicate_kind": "state"
+  },
+  {
+    "predicate_name": "gripper_holding",
+    "parameter_types": [
+      "movable_item"
+    ],
+    "comment": "The gripper is holding the movable item.",
+    "predicate_kind": "state"
+  }
+]

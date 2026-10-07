@@ -1,0 +1,17 @@
+{
+  "changed": true,
+  "reason": "reverse_replay_from_final_state_and_goal",
+  "original_init_fact_count": 3,
+  "rewritten_init_fact_count": 7,
+  "added_init_facts": [
+    "not gripper_holding(red_block)",
+    "not in(red_block,green_drawer)",
+    "not open(green_drawer)",
+    "not open(yellow_drawer)"
+  ],
+  "removed_init_facts": [],
+  "goal_facts_seeded_into_reverse_pass": [
+    "in(red_block,green_drawer)"
+  ],
+  "source_original_grounding_dir": "original-run/domain/4a_problem_grounding_all/episode26"
+}

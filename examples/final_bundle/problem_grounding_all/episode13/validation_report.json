@@ -1,0 +1,68 @@
+{
+  "goal_satisfied": true,
+  "issue_count": 0,
+  "issues": [],
+  "steps": [
+    {
+      "step_index": 1,
+      "action_name": "pick_up_object_in_front_of_object_on_left",
+      "effect_bucket": "pick_up_object_in_front_of_object_on_left_success",
+      "status": "applied",
+      "state_before": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "state_after": [
+        "gripper_holding(green_cup)",
+        "not gripper_empty()",
+        "not on_top_of(green_cup,green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "failed_preconditions": []
+    },
+    {
+      "step_index": 2,
+      "action_name": "place_object_on_top_of_object_on_right",
+      "effect_bucket": "place_object_on_top_of_object_on_right_success",
+      "status": "applied",
+      "state_before": [
+        "gripper_holding(green_cup)",
+        "not gripper_empty()",
+        "not on_top_of(green_cup,green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "state_after": [
+        "gripper_empty()",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(green_cup,green_drawer)"
+      ],
+      "failed_preconditions": []
+    },
+    {
+      "step_index": 3,
+      "action_name": "open_object_on_left",
+      "effect_bucket": "open_object_on_left_success",
+      "status": "applied",
+      "state_before": [
+        "gripper_empty()",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(green_cup,green_drawer)"
+      ],
+      "state_after": [
+        "gripper_empty()",
+        "on_left(yellow_drawer)",
+        "on_top_of(green_cup,green_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "failed_preconditions": []
+    }
+  ]
+}

@@ -1,0 +1,2698 @@
+{
+  "source_records": [
+    {
+      "episode_name": "episode10",
+      "step_index": 1,
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the pink cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is closed on the left, with the pink_cup standing in front of it. The green_drawer is closed on the right, with the green_cup standing in front of it. Both cup interiors are visible; the pink_cup contains dark liquid, while no dark liquid is visible in the green_cup.",
+      "current_scene_description": "The pink_cup stands in front of the closed yellow_drawer, and inspection reveals dark liquid inside it. The green_cup stands in front of the closed green_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode10",
+      "step_index": 2,
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the green drawer on the right",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The pink_cup stands in front of the closed yellow_drawer, and inspection reveals dark liquid inside it. The green_cup stands in front of the closed green_drawer.",
+      "current_scene_description": "The green_cup stands in front of the closed green_drawer, and inspection reveals no dark liquid inside it. The pink_cup lies on its side in front of the closed yellow_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0000_t00015000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0001_t00017000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0002_t00019000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0003_t00021000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0004_t00023000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0005_t00025000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0006_t00027000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0007_t00029000ms.jpg",
+        "original-run/domain/1_scene_description/episode10/frames/step_002/frame_0008_t00030000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 1,
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the pink cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is closed on the left, and the green_drawer is closed beside it on the right. The pink_cup stands in front of the yellow_drawer with its interior visible and no distinct contents apparent. The green_cup stands in front of the green_drawer; its visible interior has dark shading, but no distinct contents are clearly supported.",
+      "current_scene_description": "The pink_cup remains in front of the closed yellow_drawer, and inspection reveals no distinct contents inside it. The green_cup stands in front of the closed green_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "green_cup": "cup"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 4,
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the green drawer on the right",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The pink_cup rests independently on top of the closed green_drawer and is no longer held. The green_cup stands in front of the green_drawer, and the closed yellow_drawer is beside it.",
+      "current_scene_description": "Inspection reveals dark liquid inside the green_cup in front of the closed green_drawer. The pink_cup rests on top of the green_drawer, and the yellow_drawer is closed beside it.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0000_t00062300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0001_t00064300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0002_t00066300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0003_t00068300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0004_t00070300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0005_t00072300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0006_t00074300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0007_t00076300ms.jpg",
+        "original-run/domain/1_scene_description/episode11/frames/step_004/frame_0008_t00077300ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "green_cup": "cup"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode17",
+      "step_index": 3,
+      "instruction": "pick the blue block from the green drwer and place it into the the yellow drawer on the left",
+      "raw_action_text": "look into the green drawer on the right",
+      "canonical_action_name": "look_into_object_on_right",
+      "effect_bucket": "look_into_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "previous_scene_description": "The green_drawer on the right is open, revealing blue_block inside. The yellow_drawer on the left remains open.",
+      "current_scene_description": "The green_drawer on the right is open, visibly revealing blue_block inside. The yellow_drawer on the left is also open.",
+      "current_state": [
+        "gripper_empty()",
+        "in(blue_block,green_drawer)",
+        "not gripper_holding(blue_block)",
+        "not in(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(green_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "in(blue_block,green_drawer)",
+        "not gripper_holding(blue_block)",
+        "not in(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(green_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0000_t00050400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0001_t00052400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0002_t00054400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0003_t00056400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0004_t00058400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0005_t00060400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0006_t00062400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0007_t00064400ms.jpg",
+        "original-run/domain/1_scene_description/episode17/frames/step_003/frame_0008_t00065400ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "blue_block": "block"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode24",
+      "step_index": 2,
+      "instruction": "pick up the blue block and place the blue block on the top of the yellow drawer on the left",
+      "raw_action_text": "look into the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is open, revealing the blue_block inside.",
+      "current_scene_description": "The yellow_drawer is open, clearly revealing the blue_block inside.",
+      "current_state": [
+        "gripper_empty()",
+        "in(blue_block,yellow_drawer)",
+        "not gripper_holding(blue_block)",
+        "not on_top_of(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "in(blue_block,yellow_drawer)",
+        "not gripper_holding(blue_block)",
+        "not on_top_of(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0000_t00024900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0001_t00026900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0002_t00028900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0003_t00030900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0004_t00032900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0005_t00034900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0006_t00036900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0007_t00038900ms.jpg",
+        "original-run/domain/1_scene_description/episode24/frames/step_002/frame_0008_t00039900ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "blue_block": "block"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode27",
+      "step_index": 2,
+      "instruction": "pick up the red block and place the red block on the top of the yellow drawer on the left",
+      "raw_action_text": "look into the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is open, revealing the red_block inside it.",
+      "current_scene_description": "The yellow_drawer is open, clearly revealing the red_block resting inside.",
+      "current_state": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0000_t00025000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0001_t00027000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0002_t00029000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0003_t00031000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0004_t00033000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0005_t00035000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0006_t00037000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0007_t00039000ms.jpg",
+        "original-run/domain/1_scene_description/episode27/frames/step_002/frame_0008_t00040000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "red_block": "block"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode30",
+      "step_index": 2,
+      "instruction": "pick up the red block and place the red block on the top of the yellow drawer on the left",
+      "raw_action_text": "look into the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is open, revealing the red_block inside.",
+      "current_scene_description": "The yellow_drawer is open, clearly revealing the red_block resting inside.",
+      "current_state": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0000_t00025600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0001_t00027600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0002_t00029600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0003_t00031600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0004_t00033600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0005_t00035600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0006_t00037600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0007_t00039600ms.jpg",
+        "original-run/domain/1_scene_description/episode30/frames/step_002/frame_0008_t00040600ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "red_block": "block"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode4",
+      "step_index": 1,
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The green_drawer is on the right with its drawer closed, beside the yellow_drawer on the left with its drawer closed. The green_cup is in front of the yellow_drawer and contains visible dark liquid.",
+      "current_scene_description": "The green_cup is in front of the yellow_drawer, and inspection reveals dark liquid inside it. The green_drawer and yellow_drawer are closed.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode4/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 1,
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is closed on the left, beside the closed green_drawer on the right. The green_cup sits in front of the yellow_drawer, and the pink_cup sits in front of the green_drawer. Both cup interiors are visible; the pink_cup contains dark liquid.",
+      "current_scene_description": "The green_cup remains in front of the closed yellow_drawer, and inspection reveals no distinct contents inside it. The pink_cup remains in front of the closed green_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "pink_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 2,
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the pink cup in front of the green drawer on the right",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "pink_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The green_cup remains in front of the closed yellow_drawer, and inspection reveals no distinct contents inside it. The pink_cup remains in front of the closed green_drawer.",
+      "current_scene_description": "Inspection reveals dark liquid inside the pink_cup, which remains in front of the closed green_drawer. The green_cup remains in front of the closed yellow_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0000_t00015000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0001_t00017000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0002_t00019000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0003_t00021000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0004_t00023000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0005_t00025000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0006_t00027000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0007_t00029000ms.jpg",
+        "original-run/domain/1_scene_description/episode5/frames/step_002/frame_0008_t00030000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "pink_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode6",
+      "step_index": 1,
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The green_drawer is closed and stands to the right of the closed yellow_drawer. The green_cup is upright in front of the yellow_drawer; its interior is visible, with no distinct liquid surface apparent.",
+      "current_scene_description": "The green_cup is upright in front of the closed yellow_drawer. Its interior is clearly visible, with no distinct liquid surface apparent; the green_drawer remains closed to the right.",
+      "current_state": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode6/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 1,
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the pink cup in front of the green drawer on the right",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "pink_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is closed on the left, and the green_drawer is closed on its right. The green_cup stands in front of the yellow_drawer. The pink_cup stands in front of the green_drawer and contains no visible dark liquid.",
+      "current_scene_description": "The pink_cup stands in front of the closed green_drawer, and inspection reveals no visible dark liquid inside it. The green_cup lies on its side in front of the closed yellow_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "green_drawer": "drawer",
+        "green_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 4,
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The pink_cup stands independently on top of the closed green_drawer and is no longer held. The green_cup rests on top of the closed yellow_drawer.",
+      "current_scene_description": "The green_cup stands in front of the closed yellow_drawer, and inspection reveals dark liquid inside it. The pink_cup stands on top of the closed green_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0000_t00061900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0001_t00063900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0002_t00065900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0003_t00067900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0004_t00069900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0005_t00071900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0006_t00073900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0007_t00075900ms.jpg",
+        "original-run/domain/1_scene_description/episode7/frames/step_004/frame_0008_t00076900ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "green_drawer": "drawer",
+        "green_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 1,
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the green drawer on the right",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The closed green_drawer is on the right, with the green_cup positioned in front of it; the cup's visible interior appears dark. The closed yellow_drawer is on the left, with the pink_cup positioned in front of it.",
+      "current_scene_description": "The green_cup is in front of the closed green_drawer, and inspection reveals dark liquid inside it. The pink_cup lies on its side in front of the closed yellow_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "green_drawer": "drawer",
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 2,
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the pink cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The green_cup is in front of the closed green_drawer, and inspection reveals dark liquid inside it. The pink_cup lies on its side in front of the closed yellow_drawer.",
+      "current_scene_description": "The pink_cup is upright in front of the closed yellow_drawer, and inspection reveals its empty interior. The green_cup remains in front of the closed green_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0000_t00015000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0001_t00017000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0002_t00019000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0003_t00021000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0004_t00023000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0005_t00025000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0006_t00027000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0007_t00029000ms.jpg",
+        "original-run/domain/1_scene_description/episode8/frames/step_002/frame_0008_t00030000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "green_drawer": "drawer",
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 1,
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the green cup in front of the green drawer on the right",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The yellow_drawer is closed, with the pink_cup standing on the surface in front of it; dark liquid is visible inside the pink_cup. The green_drawer is closed, with the green_cup standing on the surface in front of it.",
+      "current_scene_description": "The green_cup stands in front of the closed green_drawer, and inspection reveals no distinct contents inside it. The pink_cup stands in front of the closed yellow_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0000_t00000000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0001_t00002000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0002_t00004000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0003_t00006000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0004_t00008000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0005_t00010000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0006_t00012000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0007_t00014000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_001/frame_0008_t00015000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "green_drawer": "drawer",
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 2,
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "raw_action_text": "look into the pink cup in front of the yellow drawer on the left",
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "previous_scene_description": "The green_cup stands in front of the closed green_drawer, and inspection reveals no distinct contents inside it. The pink_cup stands in front of the closed yellow_drawer.",
+      "current_scene_description": "The pink_cup stands in front of the closed yellow_drawer, and inspection reveals dark liquid inside it. The green_cup stands in front of the closed green_drawer.",
+      "current_state": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "ground_truth_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0000_t00015000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0001_t00017000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0002_t00019000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0003_t00021000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0004_t00023000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0005_t00025000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0006_t00027000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0007_t00029000ms.jpg",
+        "original-run/domain/1_scene_description/episode9/frames/step_002/frame_0008_t00030000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "green_drawer": "drawer",
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "effect_predicate_names": [],
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    }
+  ],
+  "discovery_results": [
+    {
+      "episode_name": "episode10",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": true,
+            "rationale": "Looking into the pink cup reveals that it contains dark liquid."
+          }
+        ],
+        "summary": "Inspection of the pink cup confirmed the presence of dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the pink cup reveals that it contains dark liquid.\"\n    }\n  ],\n  \"summary\": \"Inspection of the pink cup confirmed the presence of dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": false,
+            "rationale": "Looking into the pink cup reveals no distinct contents, establishing that it does not contain dark liquid."
+          }
+        ],
+        "summary": "Inspection of the pink cup determined that it does not contain dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"rationale\": \"Looking into the pink cup reveals no distinct contents, establishing that it does not contain dark liquid.\"\n    }\n  ],\n  \"summary\": \"Inspection of the pink cup determined that it does not contain dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode4",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": true,
+            "rationale": "Looking into the green cup reveals that it contains dark liquid."
+          }
+        ],
+        "summary": "The inspection confirmed dark liquid inside the green cup.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the green cup reveals that it contains dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection confirmed dark liquid inside the green cup.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "rationale": "Looking into the green cup revealed no distinct contents, checking and ruling out dark liquid in the inspected cup."
+          }
+        ],
+        "summary": "The inspection established that the green cup does not contain dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"rationale\": \"Looking into the green cup revealed no distinct contents, checking and ruling out dark liquid in the inspected cup.\"\n    }\n  ],\n  \"summary\": \"The inspection established that the green cup does not contain dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode6",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "rationale": "Looking into the green cup clearly reveals that no distinct dark liquid is present."
+          }
+        ],
+        "summary": "The action inspected the green cup's contents and established that it does not contain dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"rationale\": \"Looking into the green cup clearly reveals that no distinct dark liquid is present.\"\n    }\n  ],\n  \"summary\": \"The action inspected the green cup's contents and established that it does not contain dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 4,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": true,
+            "rationale": "Looking into the green cup reveals that it contains dark liquid."
+          }
+        ],
+        "summary": "The inspection established that the green cup contains dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the green cup reveals that it contains dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection established that the green cup contains dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 2,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": false,
+            "rationale": "Looking into the pink cup reveals that its interior is empty, so it does not contain dark liquid."
+          }
+        ],
+        "summary": "The inspection established that the pink cup does not contain dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"rationale\": \"Looking into the pink cup reveals that its interior is empty, so it does not contain dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection established that the pink cup does not contain dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 2,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": true,
+            "rationale": "Looking into the pink cup reveals that it contains dark liquid."
+          }
+        ],
+        "summary": "The inspection revealed dark liquid inside the pink cup.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the pink cup reveals that it contains dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection revealed dark liquid inside the pink cup.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode10",
+      "step_index": 2,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "rationale": "Looking into the green cup reveals that it contains no dark liquid."
+          }
+        ],
+        "summary": "The inspection established that the green cup does not contain dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"rationale\": \"Looking into the green cup reveals that it contains no dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection established that the green cup does not contain dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 4,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": true,
+            "rationale": "Looking into the green cup reveals that it contains dark liquid."
+          }
+        ],
+        "summary": "The inspection confirmed dark liquid inside the green cup.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the green cup reveals that it contains dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection confirmed dark liquid inside the green cup.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 2,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": true,
+            "rationale": "Looking into the pink cup reveals that it contains dark liquid."
+          }
+        ],
+        "summary": "The inspection revealed dark liquid inside the pink cup.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the pink cup reveals that it contains dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection revealed dark liquid inside the pink cup.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": false,
+            "rationale": "Looking into the pink cup directly reveals that it contains no visible dark liquid."
+          }
+        ],
+        "summary": "The inspection checked the pink cup's contents and found no dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"rationale\": \"Looking into the pink cup directly reveals that it contains no visible dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection checked the pink cup's contents and found no dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": true,
+            "rationale": "Looking into the green cup reveals that it contains dark liquid."
+          }
+        ],
+        "summary": "The inspection confirmed dark liquid inside the green cup.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the green cup reveals that it contains dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection confirmed dark liquid inside the green cup.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 1,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "rationale": "Looking into the green cup reveals that it contains no dark liquid."
+          }
+        ],
+        "summary": "The inspection established that the green cup does not contain dark liquid.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"rationale\": \"Looking into the green cup reveals that it contains no dark liquid.\"\n    }\n  ],\n  \"summary\": \"The inspection established that the green cup does not contain dark liquid.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode24",
+      "step_index": 2,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "in",
+            "grounded_literal": "in(blue_block,yellow_drawer)",
+            "observed_value": true,
+            "rationale": "Looking into the open yellow drawer clearly reveals that the blue block is inside it."
+          }
+        ],
+        "summary": "The action observed that the blue block is inside the yellow drawer.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,yellow_drawer)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the open yellow drawer clearly reveals that the blue block is inside it.\"\n    }\n  ],\n  \"summary\": \"The action observed that the blue block is inside the yellow drawer.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode27",
+      "step_index": 2,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "in",
+            "grounded_literal": "in(red_block,yellow_drawer)",
+            "observed_value": true,
+            "rationale": "Looking into the open yellow drawer reveals that the red block is inside it."
+          }
+        ],
+        "summary": "The action observed the red block inside the yellow drawer.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,yellow_drawer)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the open yellow drawer reveals that the red block is inside it.\"\n    }\n  ],\n  \"summary\": \"The action observed the red block inside the yellow drawer.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode30",
+      "step_index": 2,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "in",
+            "grounded_literal": "in(red_block,yellow_drawer)",
+            "observed_value": true,
+            "rationale": "Looking into the open yellow drawer reveals that the red block is inside it."
+          }
+        ],
+        "summary": "The action confirmed that the red block is inside the yellow drawer.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,yellow_drawer)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the open yellow drawer reveals that the red block is inside it.\"\n    }\n  ],\n  \"summary\": \"The action confirmed that the red block is inside the yellow drawer.\"\n}"
+      }
+    },
+    {
+      "episode_name": "episode17",
+      "step_index": 3,
+      "discovery_result": {
+        "discovered_observations": [
+          {
+            "predicate_name": "in",
+            "grounded_literal": "in(blue_block,green_drawer)",
+            "observed_value": true,
+            "rationale": "Looking into the green drawer confirms that the blue block is inside it."
+          }
+        ],
+        "summary": "The action observed that the blue block is inside the green drawer.",
+        "raw_output": "{\n  \"discovered_observations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,green_drawer)\",\n      \"observed_value\": true,\n      \"rationale\": \"Looking into the green drawer confirms that the blue block is inside it.\"\n    }\n  ],\n  \"summary\": \"The action observed that the blue block is inside the green drawer.\"\n}"
+      }
+    }
+  ],
+  "seed_examples": [
+    {
+      "episode_name": "episode10",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode4",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode6",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "in_front_of(green_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 4,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode10",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 4,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode24",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(blue_block,yellow_drawer)",
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "blue_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(blue_block,yellow_drawer)",
+        "not on_top_of(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode27",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(red_block,yellow_drawer)",
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "red_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(red_block,yellow_drawer)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode30",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(red_block,yellow_drawer)",
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "red_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(red_block,yellow_drawer)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    },
+    {
+      "episode_name": "episode17",
+      "step_index": 3,
+      "canonical_action_name": "look_into_object_on_right",
+      "effect_bucket": "look_into_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(blue_block,green_drawer)",
+      "action_arguments": [
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "blue_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(blue_block,green_drawer)",
+        "not in(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(green_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "discovery_seed"
+    }
+  ],
+  "conditions": [
+    {
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_argument_types": [],
+      "target_literal_template": "has_dark_liquid(?arg0)",
+      "condition_literals": []
+    },
+    {
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_argument_types": [],
+      "target_literal_template": "has_dark_liquid(?arg0)",
+      "condition_literals": []
+    },
+    {
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "target_literal_template": "in(?obs0,?arg0)",
+      "condition_literals": []
+    },
+    {
+      "canonical_action_name": "look_into_object_on_right",
+      "effect_bucket": "look_into_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "target_literal_template": "in(?obs0,?arg0)",
+      "condition_literals": []
+    }
+  ],
+  "confirmed_examples": [
+    {
+      "episode_name": "episode10",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode4",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode6",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "in_front_of(green_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 4,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode10",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode11",
+      "step_index": 4,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode5",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode7",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "action_arguments": [
+        "pink_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode8",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode9",
+      "step_index": 1,
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "action_arguments": [
+        "green_cup",
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_arguments": [],
+      "extra_argument_types": [],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "current_state": [
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode24",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(blue_block,yellow_drawer)",
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "blue_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(blue_block,yellow_drawer)",
+        "not on_top_of(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode27",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(red_block,yellow_drawer)",
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "red_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(red_block,yellow_drawer)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode30",
+      "step_index": 2,
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(red_block,yellow_drawer)",
+      "action_arguments": [
+        "yellow_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "red_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(red_block,yellow_drawer)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    },
+    {
+      "episode_name": "episode17",
+      "step_index": 3,
+      "canonical_action_name": "look_into_object_on_right",
+      "effect_bucket": "look_into_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "grounded_literal": "in(blue_block,green_drawer)",
+      "action_arguments": [
+        "green_drawer"
+      ],
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_arguments": [
+        "blue_block"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "current_state": [
+        "in(blue_block,green_drawer)",
+        "not in(blue_block,yellow_drawer)",
+        "on_left(yellow_drawer)",
+        "open(green_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "source_kind": "vlm_confirmed"
+    }
+  ],
+  "schemas": [
+    {
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "observable_name": "obs_has_dark_liquid",
+      "last_action_constant": "look_into_object_in_front_of_object_on_left_success_0",
+      "last_action_predicate_name": "last_action_2_param",
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_argument_types": [],
+      "last_action_predicate_parameter_types": [
+        "last_action_marker",
+        "object",
+        "object"
+      ],
+      "target_predicate_parameter_types": [
+        "cup"
+      ],
+      "target_literal_template": "has_dark_liquid(?arg0)",
+      "condition_literals": [],
+      "true_rule_name": "active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_true",
+      "false_rule_name": "active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_false",
+      "total_ground_truth_true": 4,
+      "observed_true_when_ground_truth_true": 4,
+      "observed_false_when_ground_truth_true": 0,
+      "prob_observable_true_given_ground_truth_true": 1.0,
+      "prob_observable_false_given_ground_truth_true": 0.0,
+      "total_ground_truth_false": 4,
+      "observed_true_when_ground_truth_false": 0,
+      "observed_false_when_ground_truth_false": 4,
+      "prob_observable_true_given_ground_truth_false": 0.0,
+      "prob_observable_false_given_ground_truth_false": 1.0
+    },
+    {
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "has_dark_liquid",
+      "observable_name": "obs_has_dark_liquid",
+      "last_action_constant": "look_into_object_in_front_of_object_on_right_success_0",
+      "last_action_predicate_name": "last_action_2_param",
+      "action_argument_types": [
+        "cup",
+        "drawer"
+      ],
+      "extra_argument_types": [],
+      "last_action_predicate_parameter_types": [
+        "last_action_marker",
+        "object",
+        "object"
+      ],
+      "target_predicate_parameter_types": [
+        "cup"
+      ],
+      "target_literal_template": "has_dark_liquid(?arg0)",
+      "condition_literals": [],
+      "true_rule_name": "active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_true",
+      "false_rule_name": "active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_false",
+      "total_ground_truth_true": 3,
+      "observed_true_when_ground_truth_true": 3,
+      "observed_false_when_ground_truth_true": 0,
+      "prob_observable_true_given_ground_truth_true": 1.0,
+      "prob_observable_false_given_ground_truth_true": 0.0,
+      "total_ground_truth_false": 3,
+      "observed_true_when_ground_truth_false": 0,
+      "observed_false_when_ground_truth_false": 3,
+      "prob_observable_true_given_ground_truth_false": 0.0,
+      "prob_observable_false_given_ground_truth_false": 1.0
+    },
+    {
+      "canonical_action_name": "look_into_object_on_left",
+      "effect_bucket": "look_into_object_on_left_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "observable_name": "obs_in",
+      "last_action_constant": "look_into_object_on_left_success_0",
+      "last_action_predicate_name": "last_action_1_param",
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "last_action_predicate_parameter_types": [
+        "last_action_marker",
+        "object"
+      ],
+      "target_predicate_parameter_types": [
+        "movable_item",
+        "containable_item"
+      ],
+      "target_literal_template": "in(?obs0,?arg0)",
+      "condition_literals": [],
+      "true_rule_name": "active_look_into_object_on_left_success_0_in_true",
+      "false_rule_name": "active_look_into_object_on_left_success_0_in_false",
+      "total_ground_truth_true": 3,
+      "observed_true_when_ground_truth_true": 3,
+      "observed_false_when_ground_truth_true": 0,
+      "prob_observable_true_given_ground_truth_true": 1.0,
+      "prob_observable_false_given_ground_truth_true": 0.0,
+      "total_ground_truth_false": 0,
+      "observed_true_when_ground_truth_false": 0,
+      "observed_false_when_ground_truth_false": 0,
+      "prob_observable_true_given_ground_truth_false": 0.0,
+      "prob_observable_false_given_ground_truth_false": 1.0
+    },
+    {
+      "canonical_action_name": "look_into_object_on_right",
+      "effect_bucket": "look_into_object_on_right_success",
+      "success": true,
+      "variant_rank": 0,
+      "predicate_name": "in",
+      "observable_name": "obs_in",
+      "last_action_constant": "look_into_object_on_right_success_0",
+      "last_action_predicate_name": "last_action_1_param",
+      "action_argument_types": [
+        "drawer"
+      ],
+      "extra_argument_types": [
+        "block"
+      ],
+      "last_action_predicate_parameter_types": [
+        "last_action_marker",
+        "object"
+      ],
+      "target_predicate_parameter_types": [
+        "movable_item",
+        "containable_item"
+      ],
+      "target_literal_template": "in(?obs0,?arg0)",
+      "condition_literals": [],
+      "true_rule_name": "active_look_into_object_on_right_success_0_in_true",
+      "false_rule_name": "active_look_into_object_on_right_success_0_in_false",
+      "total_ground_truth_true": 1,
+      "observed_true_when_ground_truth_true": 1,
+      "observed_false_when_ground_truth_true": 0,
+      "prob_observable_true_given_ground_truth_true": 1.0,
+      "prob_observable_false_given_ground_truth_true": 0.0,
+      "total_ground_truth_false": 0,
+      "observed_true_when_ground_truth_false": 0,
+      "observed_false_when_ground_truth_false": 0,
+      "prob_observable_true_given_ground_truth_false": 0.0,
+      "prob_observable_false_given_ground_truth_false": 1.0
+    }
+  ],
+  "predicate_inventory": [
+    {
+      "predicate_name": "in",
+      "parameter_types": [
+        "movable_item",
+        "containable_item"
+      ],
+      "comment": "The movable item is inside the containable item.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "on_top_of",
+      "parameter_types": [
+        "movable_item",
+        "fixed_item"
+      ],
+      "comment": "The movable item rests on top of the fixed item.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "in_front_of",
+      "parameter_types": [
+        "movable_item",
+        "fixed_item"
+      ],
+      "comment": "The movable item is in front of the fixed item.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "open",
+      "parameter_types": [
+        "drawer"
+      ],
+      "comment": "The drawer is open.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "on_left",
+      "parameter_types": [
+        "drawer"
+      ],
+      "comment": "The drawer occupies the left-side position.",
+      "predicate_kind": "feature",
+      "is_static_feature": true
+    },
+    {
+      "predicate_name": "has_dark_liquid",
+      "parameter_types": [
+        "cup"
+      ],
+      "comment": "The cup contains dark liquid.",
+      "predicate_kind": "feature",
+      "is_static_feature": true
+    }
+  ],
+  "predicate_comments": {
+    "in": "The first object is inside the second object.",
+    "on_top_of": "The first object rests on top of the second object.",
+    "in_front_of": "The first object is positioned in front of the second object.",
+    "open": "The drawer is open.",
+    "on_left": "The drawer occupies the left-side position.",
+    "has_dark_liquid": "The cup contains dark liquid.",
+    "gripper_empty)": "The gripper is not holding any object."
+  },
+  "rendered_module_text": ";; Active observation domain module learned from active perception actions\n(:observables\n  (obs-nothing)\n  (obs_has_dark_liquid ?arg0 - cup)\n  (obs_in ?arg0 - movable_item ?arg1 - containable_item)\n)\n\n;; look_into_object_in_front_of_object_on_left / look_into_object_in_front_of_object_on_left_success / predicate=has_dark_liquid\n(:observation active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_true\n  :parameters (?arg0 - cup ?arg1 - drawer)\n  :condition (and ( last_action_2_param look_into_object_in_front_of_object_on_left_success_0 ?arg0 ?arg1) (has_dark_liquid ?arg0))\n  :distribution (probabilistic\n      1.000000 (obs_has_dark_liquid ?arg0)\n      0.000000 (not (obs_has_dark_liquid ?arg0))\n    )\n)\n(:observation active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_false\n  :parameters (?arg0 - cup ?arg1 - drawer)\n  :condition (and ( last_action_2_param look_into_object_in_front_of_object_on_left_success_0 ?arg0 ?arg1) (not (has_dark_liquid ?arg0)))\n  :distribution (probabilistic\n      0.000000 (obs_has_dark_liquid ?arg0)\n      1.000000 (not (obs_has_dark_liquid ?arg0))\n    )\n)\n\n;; look_into_object_in_front_of_object_on_right / look_into_object_in_front_of_object_on_right_success / predicate=has_dark_liquid\n(:observation active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_true\n  :parameters (?arg0 - cup ?arg1 - drawer)\n  :condition (and ( last_action_2_param look_into_object_in_front_of_object_on_right_success_0 ?arg0 ?arg1) (has_dark_liquid ?arg0))\n  :distribution (probabilistic\n      1.000000 (obs_has_dark_liquid ?arg0)\n      0.000000 (not (obs_has_dark_liquid ?arg0))\n    )\n)\n(:observation active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_false\n  :parameters (?arg0 - cup ?arg1 - drawer)\n  :condition (and ( last_action_2_param look_into_object_in_front_of_object_on_right_success_0 ?arg0 ?arg1) (not (has_dark_liquid ?arg0)))\n  :distribution (probabilistic\n      0.000000 (obs_has_dark_liquid ?arg0)\n      1.000000 (not (obs_has_dark_liquid ?arg0))\n    )\n)\n\n;; look_into_object_on_left / look_into_object_on_left_success / predicate=in\n(:observation active_look_into_object_on_left_success_0_in_true\n  :parameters (?arg0 - drawer ?obs0 - block)\n  :condition (and ( last_action_1_param look_into_object_on_left_success_0 ?arg0) (in ?obs0 ?arg0))\n  :distribution (probabilistic\n      1.000000 (obs_in ?obs0 ?arg0)\n      0.000000 (not (obs_in ?obs0 ?arg0))\n    )\n)\n(:observation active_look_into_object_on_left_success_0_in_false\n  :parameters (?arg0 - drawer ?obs0 - block)\n  :condition (and ( last_action_1_param look_into_object_on_left_success_0 ?arg0) (not (in ?obs0 ?arg0)))\n  :distribution (probabilistic\n      0.000000 (obs_in ?obs0 ?arg0)\n      1.000000 (not (obs_in ?obs0 ?arg0))\n    )\n)\n\n;; look_into_object_on_right / look_into_object_on_right_success / predicate=in\n(:observation active_look_into_object_on_right_success_0_in_true\n  :parameters (?arg0 - drawer ?obs0 - block)\n  :condition (and ( last_action_1_param look_into_object_on_right_success_0 ?arg0) (in ?obs0 ?arg0))\n  :distribution (probabilistic\n      1.000000 (obs_in ?obs0 ?arg0)\n      0.000000 (not (obs_in ?obs0 ?arg0))\n    )\n)\n(:observation active_look_into_object_on_right_success_0_in_false\n  :parameters (?arg0 - drawer ?obs0 - block)\n  :condition (and ( last_action_1_param look_into_object_on_right_success_0 ?arg0) (not (in ?obs0 ?arg0)))\n  :distribution (probabilistic\n      0.000000 (obs_in ?obs0 ?arg0)\n      1.000000 (not (obs_in ?obs0 ?arg0))\n    )\n)\n"
+}

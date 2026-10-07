@@ -170,6 +170,11 @@ class POMDPWorld:
         """Collect and merge all active observation rules in the current state."""
         observation_entries: list[ObservationEntry] = []
         for observation_rule in self.pomdp_model.observation_rules:
+            if not self.pomdp_model.observation_rule_matches_last_action(
+                observation_rule,
+                current_action,
+            ):
+                continue
             if self.pomdp_model.check_observation_rule_condition(
                 observation_rule,
                 self.current_state,

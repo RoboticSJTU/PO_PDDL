@@ -374,6 +374,8 @@ def _write_model_module(
     if plan.grounded_observation_rules:
         append("        if self.should_skip_observation_rule_before_check(observation_rule, current_action):")
         append("            return False")
+        append("        if not self.observation_rule_matches_last_action(observation_rule, current_action):")
+        append("            return False")
         append("        rule_index = OBSERVATION_RULE_INDEX.get(observation_rule)")
         append("        if rule_index is None:")
         append("            raise ValueError(f'Unknown observation rule: {observation_rule}')")
@@ -386,6 +388,8 @@ def _write_model_module(
     append("    ) -> ObservationEntry:")
     if plan.grounded_observation_rules:
         append("        if self.should_skip_observation_rule_before_check(observation_rule, current_action):")
+        append("            return {}")
+        append("        if not self.observation_rule_matches_last_action(observation_rule, current_action):")
         append("            return {}")
         append("        rule_index = OBSERVATION_RULE_INDEX.get(observation_rule)")
         append("        if rule_index is None:")

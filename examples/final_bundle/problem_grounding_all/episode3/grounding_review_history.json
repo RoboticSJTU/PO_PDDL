@@ -1,0 +1,21 @@
+{
+  "converged": true,
+  "stop_reason": "validation_passed",
+  "issue_count": 0,
+  "goal_satisfied": true,
+  "iterations": [
+    {
+      "iteration_index": 0,
+      "grounding_output_dir": "original-run/domain/4a_problem_grounding_all/episode3/iterations/iteration_000/problem_grounding",
+      "validation_issue_count": 0,
+      "first_issue": null,
+      "input_review_guidance": null,
+      "review_result": null,
+      "review_raw_output_file": null,
+      "next_review_guidance": null,
+      "stop_reason": "validation_passed"
+    }
+  ],
+  "backward_effect_replay_applied": true,
+  "backward_effect_replay_summary_file": "original-run/domain/4_problem_grounding_all/episode3/backward_effect_replay_summary.json"
+}

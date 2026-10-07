@@ -295,6 +295,7 @@ def _parse_observation_rule(section: list[SExpr]) -> ParsedObservationRuleSchema
     parameter_types: list[tuple[str, str]] = []
     condition: SExpr | None = None
     distribution_expr: SExpr | None = None
+    last_action: str | None = None
     for index, item in enumerate(section[2:], start=2):
         if item == ":parameters":
             if index + 1 >= len(section) or not isinstance(section[index + 1], list):
@@ -307,6 +308,11 @@ def _parse_observation_rule(section: list[SExpr]) -> ParsedObservationRuleSchema
                 raise ParseError(f"Observation `{name}` has malformed `:condition`.")
             condition = section[index + 1]
             continue
+        if item == ":last-action":
+            if index + 1 >= len(section) or not isinstance(section[index + 1], str):
+                raise ParseError(f"Observation `{name}` has malformed `:last-action`.")
+            last_action = section[index + 1]
+            continue
         if item == ":distribution":
             if index + 1 >= len(section):
                 raise ParseError(f"Observation `{name}` has malformed `:distribution`.")
@@ -315,11 +321,12 @@ def _parse_observation_rule(section: list[SExpr]) -> ParsedObservationRuleSchema
 
     distribution = _extract_distribution_support(distribution_expr)
     return ParsedObservationRuleSchema(
-        rule=ObservationRule(name=name, distribution=distribution),
+        rule=ObservationRule(name=name, distribution=distribution, last_action=last_action),
         parameter_types=parameter_types,
         parameters=parameters,
         condition=condition,
         distribution_expr=distribution_expr,
+        last_action=last_action,
     )
 
 

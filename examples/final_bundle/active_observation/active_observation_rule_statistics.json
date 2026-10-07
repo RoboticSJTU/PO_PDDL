@@ -1,0 +1,42 @@
+{
+  "active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_true": {
+    "total_ground_truth_true": 4,
+    "observed_true_when_ground_truth_true": 4,
+    "observed_false_when_ground_truth_true": 0
+  },
+  "active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_false": {
+    "total_ground_truth_false": 4,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 4
+  },
+  "active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_true": {
+    "total_ground_truth_true": 3,
+    "observed_true_when_ground_truth_true": 3,
+    "observed_false_when_ground_truth_true": 0
+  },
+  "active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_false": {
+    "total_ground_truth_false": 3,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 3
+  },
+  "active_look_into_object_on_left_success_0_in_true": {
+    "total_ground_truth_true": 3,
+    "observed_true_when_ground_truth_true": 3,
+    "observed_false_when_ground_truth_true": 0
+  },
+  "active_look_into_object_on_left_success_0_in_false": {
+    "total_ground_truth_false": 0,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 0
+  },
+  "active_look_into_object_on_right_success_0_in_true": {
+    "total_ground_truth_true": 1,
+    "observed_true_when_ground_truth_true": 1,
+    "observed_false_when_ground_truth_true": 0
+  },
+  "active_look_into_object_on_right_success_0_in_false": {
+    "total_ground_truth_false": 0,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 0
+  }
+}

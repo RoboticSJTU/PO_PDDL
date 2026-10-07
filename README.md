@@ -131,7 +131,7 @@ Repository-scoped skills provide the same workflow inside Codex: use
 ## Installation
 
 Python 3.10 or later is required. We recommend installing the project in a
-clean Conda environment:
+clean Conda environment. Run all commands from the repository root:
 
 ```bash
 conda create -n po_pddl python=3.10 -y
@@ -156,13 +156,17 @@ environment explicitly, which keeps pybind11 and the interpreter ABI aligned.
 If installing without `requirements.txt`, use:
 
 ```bash
-python -m pip install -e '.[runtime]'
+python -m pip install -e '.[runtime,dev]'
 ```
+
+Keep this environment active in each new terminal (`conda activate po_pddl`).
+If ROS has set a global `PYTHONPATH`, use `unset PYTHONPATH` before activating
+this environment to avoid mixing Python installations.
 
 Verify the installation:
 
 ```bash
-pytest -q
+python -m pytest -q
 ruff check src tests
 po-pddl-learn-domain --help
 po-pddl-extend-domain --help
@@ -182,7 +186,8 @@ PO_PDDL/
 |   |-- runtime/              # POMDPDDL conversion and terminal execution
 |   `-- prompts/              # Prompts grouped by pipeline stage
 |-- example_data/             # Demonstration episodes
-|-- example_problem/          # Initial scene and task specification
+|-- example_problem/          # Scene, matched domain/problem, and scripted feedback
+|-- examples/final_bundle/    # Reusable learned domain and grounding artifacts
 |-- .agents/skills/           # Repository-scoped Codex workflows
 |-- docs/                     # Architecture and data-format documentation
 |-- tests/                    # Unit and regression tests
@@ -202,11 +207,16 @@ supported; see [the data-format specification](docs/data-format.md).
 - `camera_high.jpg`: initial scene image;
 - `instruction.txt`: natural-language task instruction;
 - `objects.txt`: allowed object names;
-- `domain.pddl`: reference domain for an isolated problem-generation test;
+- `domain.pddl`: learned domain matching the included problem;
+- `problem_online.pddl`: generated initial state, belief, and goal;
+- `feedback.json`: 30 synthetic successful outcomes with no informative observations;
 - `executor_task_mapping.json`: optional robot-executor mapping metadata.
 
-The generated `problem_online.pddl` is intentionally excluded from the example
-inputs.
+These files are checked in. `examples/final_bundle/` contains the matching
+reusable domain bundle, including historical grounding for `--close-domain`.
+See [example provenance](examples/README.md). You can run the terminal example
+without calling a model or first repeating domain learning. Fresh generation
+results go under `outputs/` and do not overwrite the checked-in examples.
 
 ## Domain Generation
 
@@ -262,6 +272,9 @@ Use `--run-stages` to rerun selected stages while loading their prerequisites
 from an existing run.
 
 ## Incremental Domain Extension
+
+The paths below are templates: supply genuinely additional demonstrations and an
+existing complete bundle (for example `examples/final_bundle`).
 
 The extension pipeline accepts an existing final bundle and additional
 demonstrations. It identifies already-modeled action schemas, updates their
@@ -326,7 +339,7 @@ so the pipeline skips a separate image-based object extraction call.
 **API**
 
 ```bash
-BUNDLE=outputs/example_domain/7_final_bundle
+BUNDLE=examples/final_bundle
 
 po-pddl-generate-problem \
   "$BUNDLE/final_merged_domain.pddl" \
@@ -341,13 +354,13 @@ po-pddl-generate-problem \
   --location-visibility-batch-size 30 \
   --max-workers 8 \
   --close-domain \
-  --output example_problem/problem_online.pddl
+  --output outputs/example_problem_api/problem_online.pddl
 ```
 
 **Codex**
 
 ```bash
-BUNDLE=outputs/example_domain_codex/7_final_bundle
+BUNDLE=examples/final_bundle
 
 po-pddl-agent init-problem \
   "$BUNDLE/final_merged_domain.pddl" \
@@ -372,7 +385,12 @@ po-pddl-agent run-pool \
   --task-timeout-seconds 300
 ```
 
-For a standalone smoke test, use `example_problem/domain.pddl` as the first
+Both commands above use the bundled domain. To use a freshly learned domain,
+set `BUNDLE=outputs/example_domain/7_final_bundle` (API) or
+`BUNDLE=outputs/example_domain_codex/7_final_bundle` (Codex) after domain learning
+finishes. Generation requires a configured model backend; it is not an offline test.
+
+For generation without historical grounding, use `example_problem/domain.pddl` as the first
 argument and omit `--final-bundle-dir` and `--close-domain`.
 
 ## Interactive Planning
@@ -382,11 +400,19 @@ C++, requests an action from the planner, and asks the operator to select the
 observed outcome and observation literals. The posterior belief becomes the
 initial belief for the next planning step.
 
-Set `PO_PDDL_DESPOT_ROOT` to a directory that contains the `despot/` source
-folder:
+Install the compatible DESPOT source revision once (Git and network access
+are required). This checkout is ignored by Git:
 
 ```bash
-export PO_PDDL_DESPOT_ROOT=/path/to/despot-parent
+mkdir -p third_party
+git clone https://github.com/Applesoups/POMDPDDL.git third_party/POMDPDDL
+git -C third_party/POMDPDDL checkout d901d3b9a41f26dd480e3ee505da88847caf134c
+```
+
+In each new shell, point the runtime to its source parent:
+
+```bash
+export PO_PDDL_DESPOT_ROOT="$PWD/third_party/POMDPDDL/POMDPDDL_ccplus"
 ```
 
 The build always uses `pybind11` from the Python interpreter running
@@ -394,13 +420,20 @@ The build always uses `pybind11` from the Python interpreter running
 same environment:
 
 ```bash
-python -m pip install -e '.[runtime]'
+python -m pip install -e '.[runtime,dev]'
 ```
 
-Run the generated example problem:
+Check conversion first (no model credentials or operator input required):
 
 ```bash
-BUNDLE=outputs/example_domain/7_final_bundle
+po-pddl-run-terminal example_problem/domain.pddl example_problem/problem_online.pddl \
+  --validate-only --output-dir outputs/example_validate
+```
+
+Run the checked-in example interactively:
+
+```bash
+BUNDLE=examples/final_bundle
 
 po-pddl-run-terminal \
   "$BUNDLE/final_merged_domain.pddl" \
@@ -418,14 +451,22 @@ feedback file:
 
 ```bash
 po-pddl-run-terminal \
-  /path/to/domain.pddl \
-  /path/to/problem_online.pddl \
-  --feedback-script /path/to/feedback.json \
+  example_problem/domain.pddl \
+  example_problem/problem_online.pddl \
+  --feedback-script example_problem/feedback.json \
+  --max-steps 3 \
+  --planner-seed 0 \
   --output-dir outputs/scripted_run
 ```
 
-Use `--validate-only` to parse and compile a symbolic model without entering
-the planning loop. DESPOT sources remain necessary for conversion.
+The scripted example is a three-step execution smoke test using synthetic
+feedback, not a claim that the goal is reached. For fresh API or Codex results,
+pass the corresponding bundle domain and `outputs/example_problem_api/problem_online.pddl`
+or `outputs/example_problem_codex/problem_online.pddl` together.
+
+`--validate-only` parses the model and generates Python/C++ artifacts without
+building the native planner or entering the planning loop. DESPOT source discovery
+is still required. The interactive/scripted commands build and run the native planner.
 
 ## Python API
 

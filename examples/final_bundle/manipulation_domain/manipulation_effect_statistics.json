@@ -1,0 +1,384 @@
+{
+  "push_object_on_object_on_right_to_object_on_left": [
+    {
+      "canonical_action_name": "push_object_on_object_on_right_to_object_on_left",
+      "effect_bucket": "push_object_on_object_on_right_to_object_on_left_success",
+      "count": 4,
+      "probability": 1.0,
+      "delta_add": [
+        "on_top_of(?param_1,?param_3)"
+      ],
+      "delta_del": [
+        "on_top_of(?param_1,?param_2)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "on_top_of(?param_1,?param_3)"
+      ],
+      "fixed_delta_del": [
+        "on_top_of(?param_1,?param_2)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 21.924999999999997,
+      "reward": -21.924999999999997,
+      "action_avg_execution_time_sec": 21.924999999999997,
+      "action_reward": -21.924999999999997
+    }
+  ],
+  "pick_up_object_in_front_of_object_on_left": [
+    {
+      "canonical_action_name": "pick_up_object_in_front_of_object_on_left",
+      "effect_bucket": "pick_up_object_in_front_of_object_on_left_success",
+      "count": 8,
+      "probability": 1.0,
+      "delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "delta_del": [
+        "gripper_empty()",
+        "in_front_of(?param_1,?param_2)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "fixed_delta_del": [
+        "gripper_empty()",
+        "in_front_of(?param_1,?param_2)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 22.5625,
+      "reward": -22.5625,
+      "action_avg_execution_time_sec": 22.5625,
+      "action_reward": -22.5625
+    }
+  ],
+  "place_object_on_top_of_object_on_right": [
+    {
+      "canonical_action_name": "place_object_on_top_of_object_on_right",
+      "effect_bucket": "place_object_on_top_of_object_on_right_success",
+      "count": 16,
+      "probability": 1.0,
+      "delta_add": [
+        "gripper_empty()",
+        "on_top_of(?param_1,?param_2)"
+      ],
+      "delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_empty()",
+        "on_top_of(?param_1,?param_2)"
+      ],
+      "fixed_delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 24.131249999999994,
+      "reward": -24.131249999999994,
+      "action_avg_execution_time_sec": 24.131249999999994,
+      "action_reward": -24.131249999999994
+    }
+  ],
+  "pick_up_object_in_front_of_object_on_right": [
+    {
+      "canonical_action_name": "pick_up_object_in_front_of_object_on_right",
+      "effect_bucket": "pick_up_object_in_front_of_object_on_right_success",
+      "count": 8,
+      "probability": 1.0,
+      "delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "delta_del": [
+        "gripper_empty()",
+        "in_front_of(?param_1,?param_2)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "fixed_delta_del": [
+        "gripper_empty()",
+        "in_front_of(?param_1,?param_2)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 22.349999999999994,
+      "reward": -22.349999999999994,
+      "action_avg_execution_time_sec": 22.349999999999994,
+      "action_reward": -22.349999999999994
+    }
+  ],
+  "open_object_on_left": [
+    {
+      "canonical_action_name": "open_object_on_left",
+      "effect_bucket": "open_object_on_left_success",
+      "count": 11,
+      "probability": 1.0,
+      "delta_add": [
+        "open(?param_1)"
+      ],
+      "delta_del": [],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "open(?param_1)"
+      ],
+      "fixed_delta_del": [],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 25.645454545454548,
+      "reward": -25.645454545454548,
+      "action_avg_execution_time_sec": 25.645454545454548,
+      "action_reward": -25.645454545454548
+    }
+  ],
+  "open_object_on_right": [
+    {
+      "canonical_action_name": "open_object_on_right",
+      "effect_bucket": "open_object_on_right_success",
+      "count": 10,
+      "probability": 1.0,
+      "delta_add": [
+        "open(?param_1)"
+      ],
+      "delta_del": [],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "open(?param_1)"
+      ],
+      "fixed_delta_del": [],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 24.519999999999996,
+      "reward": -24.519999999999996,
+      "action_avg_execution_time_sec": 24.519999999999996,
+      "action_reward": -24.519999999999996
+    }
+  ],
+  "pick_up_object_in_object_on_right": [
+    {
+      "canonical_action_name": "pick_up_object_in_object_on_right",
+      "effect_bucket": "pick_up_object_in_object_on_right_success",
+      "count": 4,
+      "probability": 1.0,
+      "delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "delta_del": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "fixed_delta_del": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 23.474999999999998,
+      "reward": -23.474999999999998,
+      "action_avg_execution_time_sec": 23.474999999999998,
+      "action_reward": -23.474999999999998
+    }
+  ],
+  "place_object_into_object_on_left": [
+    {
+      "canonical_action_name": "place_object_into_object_on_left",
+      "effect_bucket": "place_object_into_object_on_left_success",
+      "count": 2,
+      "probability": 1.0,
+      "delta_add": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "fixed_delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 20.85,
+      "reward": -20.85,
+      "action_avg_execution_time_sec": 20.85,
+      "action_reward": -20.85
+    }
+  ],
+  "place_object_on_top_of_object_on_left": [
+    {
+      "canonical_action_name": "place_object_on_top_of_object_on_left",
+      "effect_bucket": "place_object_on_top_of_object_on_left_success",
+      "count": 6,
+      "probability": 1.0,
+      "delta_add": [
+        "gripper_empty()",
+        "on_top_of(?param_1,?param_2)"
+      ],
+      "delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_empty()",
+        "on_top_of(?param_1,?param_2)"
+      ],
+      "fixed_delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 20.650000000000002,
+      "reward": -20.650000000000002,
+      "action_avg_execution_time_sec": 20.650000000000002,
+      "action_reward": -20.650000000000002
+    }
+  ],
+  "pick_up_object_in_object_on_left": [
+    {
+      "canonical_action_name": "pick_up_object_in_object_on_left",
+      "effect_bucket": "pick_up_object_in_object_on_left_success",
+      "count": 7,
+      "probability": 0.6363636363636364,
+      "delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "delta_del": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_holding(?param_1)"
+      ],
+      "fixed_delta_del": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 24.11428571428571,
+      "reward": -24.11428571428571,
+      "action_avg_execution_time_sec": 23.536363636363635,
+      "action_reward": -23.536363636363635
+    },
+    {
+      "canonical_action_name": "pick_up_object_in_object_on_left",
+      "effect_bucket": "pick_up_object_in_object_on_left_failure",
+      "count": 4,
+      "probability": 0.36363636363636365,
+      "delta_add": [],
+      "delta_del": [],
+      "success": false,
+      "variant_rank": null,
+      "fixed_delta_add": [],
+      "fixed_delta_del": [],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 22.525000000000002,
+      "reward": -22.525000000000002,
+      "action_avg_execution_time_sec": 23.536363636363635,
+      "action_reward": -23.536363636363635
+    }
+  ],
+  "place_object_into_object_on_right": [
+    {
+      "canonical_action_name": "place_object_into_object_on_right",
+      "effect_bucket": "place_object_into_object_on_right_success",
+      "count": 3,
+      "probability": 1.0,
+      "delta_add": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [
+        "gripper_empty()",
+        "in(?param_1,?param_2)"
+      ],
+      "fixed_delta_del": [
+        "gripper_holding(?param_1)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 22.66666666666667,
+      "reward": -22.66666666666667,
+      "action_avg_execution_time_sec": 22.66666666666667,
+      "action_reward": -22.66666666666667
+    }
+  ],
+  "close_object_on_left": [
+    {
+      "canonical_action_name": "close_object_on_left",
+      "effect_bucket": "close_object_on_left_success",
+      "count": 1,
+      "probability": 1.0,
+      "delta_add": [],
+      "delta_del": [
+        "open(?param_1)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [],
+      "fixed_delta_del": [
+        "open(?param_1)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 22.9,
+      "reward": -22.9,
+      "action_avg_execution_time_sec": 22.9,
+      "action_reward": -22.9
+    }
+  ],
+  "close_object_on_right": [
+    {
+      "canonical_action_name": "close_object_on_right",
+      "effect_bucket": "close_object_on_right_success",
+      "count": 1,
+      "probability": 1.0,
+      "delta_add": [],
+      "delta_del": [
+        "open(?param_1)"
+      ],
+      "success": true,
+      "variant_rank": null,
+      "fixed_delta_add": [],
+      "fixed_delta_del": [
+        "open(?param_1)"
+      ],
+      "residual_delta_add": [],
+      "residual_delta_del": [],
+      "avg_execution_time_sec": 22.9,
+      "reward": -22.9,
+      "action_avg_execution_time_sec": 22.9,
+      "action_reward": -22.9
+    }
+  ]
+}

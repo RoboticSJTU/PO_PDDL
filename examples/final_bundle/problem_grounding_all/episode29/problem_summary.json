@@ -1,0 +1,20 @@
+{
+  "problem_name": "episode29_inferred_problem",
+  "domain_name": "learned_action_schema_fragment",
+  "objects": [
+    {
+      "name": "green_drawer",
+      "type_name": "drawer"
+    }
+  ],
+  "init_facts": [
+    "gripper_empty()",
+    "open(green_drawer)"
+  ],
+  "goal_facts": [
+    "not open(green_drawer)"
+  ],
+  "canonical_object_map": {},
+  "object_init_raw_llm_outputs": {},
+  "goal_inference_raw_output": null
+}

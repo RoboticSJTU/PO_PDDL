@@ -1,0 +1,152 @@
+[
+  {
+    "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+    "effect_bucket": "look_into_object_in_front_of_object_on_left_success",
+    "success": true,
+    "variant_rank": 0,
+    "predicate_name": "has_dark_liquid",
+    "observable_name": "obs_has_dark_liquid",
+    "last_action_constant": "look_into_object_in_front_of_object_on_left_success_0",
+    "last_action_predicate_name": "last_action_2_param",
+    "action_argument_types": [
+      "cup",
+      "drawer"
+    ],
+    "extra_argument_types": [],
+    "last_action_predicate_parameter_types": [
+      "last_action_marker",
+      "object",
+      "object"
+    ],
+    "target_predicate_parameter_types": [
+      "cup"
+    ],
+    "target_literal_template": "has_dark_liquid(?arg0)",
+    "condition_literals": [],
+    "true_rule_name": "active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_true",
+    "false_rule_name": "active_look_into_object_in_front_of_object_on_left_success_0_has_dark_liquid_false",
+    "total_ground_truth_true": 4,
+    "observed_true_when_ground_truth_true": 4,
+    "observed_false_when_ground_truth_true": 0,
+    "prob_observable_true_given_ground_truth_true": 1.0,
+    "prob_observable_false_given_ground_truth_true": 0.0,
+    "total_ground_truth_false": 4,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 4,
+    "prob_observable_true_given_ground_truth_false": 0.0,
+    "prob_observable_false_given_ground_truth_false": 1.0
+  },
+  {
+    "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+    "effect_bucket": "look_into_object_in_front_of_object_on_right_success",
+    "success": true,
+    "variant_rank": 0,
+    "predicate_name": "has_dark_liquid",
+    "observable_name": "obs_has_dark_liquid",
+    "last_action_constant": "look_into_object_in_front_of_object_on_right_success_0",
+    "last_action_predicate_name": "last_action_2_param",
+    "action_argument_types": [
+      "cup",
+      "drawer"
+    ],
+    "extra_argument_types": [],
+    "last_action_predicate_parameter_types": [
+      "last_action_marker",
+      "object",
+      "object"
+    ],
+    "target_predicate_parameter_types": [
+      "cup"
+    ],
+    "target_literal_template": "has_dark_liquid(?arg0)",
+    "condition_literals": [],
+    "true_rule_name": "active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_true",
+    "false_rule_name": "active_look_into_object_in_front_of_object_on_right_success_0_has_dark_liquid_false",
+    "total_ground_truth_true": 3,
+    "observed_true_when_ground_truth_true": 3,
+    "observed_false_when_ground_truth_true": 0,
+    "prob_observable_true_given_ground_truth_true": 1.0,
+    "prob_observable_false_given_ground_truth_true": 0.0,
+    "total_ground_truth_false": 3,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 3,
+    "prob_observable_true_given_ground_truth_false": 0.0,
+    "prob_observable_false_given_ground_truth_false": 1.0
+  },
+  {
+    "canonical_action_name": "look_into_object_on_left",
+    "effect_bucket": "look_into_object_on_left_success",
+    "success": true,
+    "variant_rank": 0,
+    "predicate_name": "in",
+    "observable_name": "obs_in",
+    "last_action_constant": "look_into_object_on_left_success_0",
+    "last_action_predicate_name": "last_action_1_param",
+    "action_argument_types": [
+      "drawer"
+    ],
+    "extra_argument_types": [
+      "block"
+    ],
+    "last_action_predicate_parameter_types": [
+      "last_action_marker",
+      "object"
+    ],
+    "target_predicate_parameter_types": [
+      "movable_item",
+      "containable_item"
+    ],
+    "target_literal_template": "in(?obs0,?arg0)",
+    "condition_literals": [],
+    "true_rule_name": "active_look_into_object_on_left_success_0_in_true",
+    "false_rule_name": "active_look_into_object_on_left_success_0_in_false",
+    "total_ground_truth_true": 3,
+    "observed_true_when_ground_truth_true": 3,
+    "observed_false_when_ground_truth_true": 0,
+    "prob_observable_true_given_ground_truth_true": 1.0,
+    "prob_observable_false_given_ground_truth_true": 0.0,
+    "total_ground_truth_false": 0,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 0,
+    "prob_observable_true_given_ground_truth_false": 0.0,
+    "prob_observable_false_given_ground_truth_false": 1.0
+  },
+  {
+    "canonical_action_name": "look_into_object_on_right",
+    "effect_bucket": "look_into_object_on_right_success",
+    "success": true,
+    "variant_rank": 0,
+    "predicate_name": "in",
+    "observable_name": "obs_in",
+    "last_action_constant": "look_into_object_on_right_success_0",
+    "last_action_predicate_name": "last_action_1_param",
+    "action_argument_types": [
+      "drawer"
+    ],
+    "extra_argument_types": [
+      "block"
+    ],
+    "last_action_predicate_parameter_types": [
+      "last_action_marker",
+      "object"
+    ],
+    "target_predicate_parameter_types": [
+      "movable_item",
+      "containable_item"
+    ],
+    "target_literal_template": "in(?obs0,?arg0)",
+    "condition_literals": [],
+    "true_rule_name": "active_look_into_object_on_right_success_0_in_true",
+    "false_rule_name": "active_look_into_object_on_right_success_0_in_false",
+    "total_ground_truth_true": 1,
+    "observed_true_when_ground_truth_true": 1,
+    "observed_false_when_ground_truth_true": 0,
+    "prob_observable_true_given_ground_truth_true": 1.0,
+    "prob_observable_false_given_ground_truth_true": 0.0,
+    "total_ground_truth_false": 0,
+    "observed_true_when_ground_truth_false": 0,
+    "observed_false_when_ground_truth_false": 0,
+    "prob_observable_true_given_ground_truth_false": 0.0,
+    "prob_observable_false_given_ground_truth_false": 1.0
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "changed": true,
+  "reason": "reverse_replay_from_final_state_and_goal",
+  "original_init_fact_count": 2,
+  "rewritten_init_fact_count": 2,
+  "added_init_facts": [],
+  "removed_init_facts": [],
+  "goal_facts_seeded_into_reverse_pass": [
+    "not open(green_drawer)"
+  ],
+  "source_original_grounding_dir": "original-run/domain/4a_problem_grounding_all/episode29"
+}

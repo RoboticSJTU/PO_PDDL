@@ -218,6 +218,17 @@ def _write_model_module(
     append(
         f"ACTION_IS_ACTIVE_PERCEPTION = {repr([action.name.startswith('active_obs_') for action in semantic_model.actions])}"
     )
+    allowed_action_ids = []
+    for rule in semantic_model.observation_rules:
+        if rule.last_action is None:
+            allowed_action_ids.append(None)
+        elif rule.last_action == "init":
+            allowed_action_ids.append(frozenset())
+        else:
+            allowed_action_ids.append(
+                frozenset(index for index, action in enumerate(semantic_model.actions) if action.name == rule.last_action)
+            )
+    append(f"OBS_RULE_ALLOWED_ACTION_IDS = {repr(allowed_action_ids)}")
     append("")
     append("CHECK_DEFAULT_POLICY_RULE_CONDITIONS = [")
     for idx, rule in enumerate(semantic_model.default_policy_rules):
@@ -243,6 +254,7 @@ def _write_model_module(
     append("        )")
     append("        self.observation_rule_skip_before_for_active_perception = list(OBS_RULE_SKIP_BEFORE_ON_ACTIVE_PERCEPTION)")
     append("        self.action_is_active_perception = list(ACTION_IS_ACTIVE_PERCEPTION)")
+    append("        self.observation_rule_allowed_action_ids = list(OBS_RULE_ALLOWED_ACTION_IDS)")
     append("")
     append("    def _sample_branch_index(self, weights: list[float]) -> int | None:")
     append("        cleaned = [max(weight, 0.0) for weight in weights]")
@@ -307,6 +319,12 @@ def _write_model_module(
     append("            raise ValueError(f\"Unknown grounded observation rule id: {observation_rule}\")")
     append("        if self.should_skip_observation_rule_before_check(observation_rule, current_action):")
     append("            return False")
+    append("        allowed = self.observation_rule_allowed_action_ids[observation_rule]")
+    append("        if allowed is not None:")
+    append("            if current_action is None and allowed:")
+    append("                return False")
+    append("            if current_action is not None and current_action not in allowed:")
+    append("                return False")
     append("        return CHECK_OBSERVATION_RULE_CONDITIONS[observation_rule](self, state)")
     append("")
     append("    def observe_with_rule(")

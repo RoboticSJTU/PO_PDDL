@@ -1,0 +1,46 @@
+[
+  {
+    "type_name": "block",
+    "member_object_names": [
+      "blue_block",
+      "red_block"
+    ],
+    "parent_type": "movable_item",
+    "special_supertypes": [
+      "movable_item"
+    ]
+  },
+  {
+    "type_name": "box",
+    "member_object_names": [
+      "black_box"
+    ],
+    "parent_type": "movable_item",
+    "special_supertypes": [
+      "movable_item"
+    ]
+  },
+  {
+    "type_name": "cup",
+    "member_object_names": [
+      "green_cup",
+      "pink_cup"
+    ],
+    "parent_type": "movable_item",
+    "special_supertypes": [
+      "movable_item"
+    ]
+  },
+  {
+    "type_name": "drawer",
+    "member_object_names": [
+      "green_drawer",
+      "yellow_drawer"
+    ],
+    "parent_type": "fixed_item",
+    "special_supertypes": [
+      "containable_item",
+      "fixed_item"
+    ]
+  }
+]

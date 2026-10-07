@@ -35,6 +35,28 @@ def test_resolve_current_bundle_prefers_precondition_schemas(tmp_path: Path) -> 
     assert artifacts.action_schemas_file == manipulation / "precondition_action_schemas.json"
 
 
+def test_resolve_bundle_artifacts_resolves_relative_manifest_paths(tmp_path: Path) -> None:
+    bundle = tmp_path / "bundle"
+    manipulation = bundle / "manipulation_domain"
+    manipulation.mkdir(parents=True)
+    (bundle / "final_merged_domain.pddl").write_text("(define (domain test))", encoding="utf-8")
+    (manipulation / "final_manipulation_domain.pddl").write_text("(define (domain test))", encoding="utf-8")
+    _write_json(manipulation / "precondition_action_schemas.json", [])
+    (bundle / "bundle_manifest.json").write_text(
+        json.dumps({
+            "final_domain_file": "final_merged_domain.pddl",
+            "final_manipulation_domain_file": "manipulation_domain/final_manipulation_domain.pddl",
+            "precondition_action_schemas_json": "manipulation_domain/precondition_action_schemas.json",
+        }),
+        encoding="utf-8",
+    )
+
+    artifacts = resolve_bundle_artifacts(bundle)
+
+    assert artifacts.final_domain_file == bundle / "final_merged_domain.pddl"
+    assert artifacts.action_schemas_file == manipulation / "precondition_action_schemas.json"
+
+
 def test_combined_artifacts_preserve_old_execution_times_and_merge_types(tmp_path: Path) -> None:
     bundle = tmp_path / "bundle"
     manipulation = bundle / "manipulation_domain"

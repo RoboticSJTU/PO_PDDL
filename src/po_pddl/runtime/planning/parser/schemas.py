@@ -36,6 +36,7 @@ class ParsedObservationRuleSchema:
     parameters: list[str] = field(default_factory=list)
     condition: SExpr | None = None
     distribution_expr: SExpr | None = None
+    last_action: str | None = None
 
 
 @dataclass

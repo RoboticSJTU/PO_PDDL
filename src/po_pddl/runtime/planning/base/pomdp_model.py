@@ -182,6 +182,20 @@ class POMDPModelBase(ABC):
             and getattr(observation_rule, "name", "").startswith("before_")
         )
 
+    def observation_rule_matches_last_action(
+        self,
+        observation_rule: ObservationRule,
+        current_action: Action | None = None,
+    ) -> bool:
+        """Match the optional observation action context without storing it in state."""
+
+        expected = observation_rule.last_action
+        if expected is None:
+            return True
+        if expected == "init":
+            return current_action is None
+        return current_action is not None and current_action.name == expected
+
     @abstractmethod
     def check_observation_rule_condition(
         self,

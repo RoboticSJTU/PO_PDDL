@@ -1,0 +1,38 @@
+{
+  "problem_name": "episode2_inferred_problem",
+  "domain_name": "learned_action_schema_fragment",
+  "objects": [
+    {
+      "name": "black_box",
+      "type_name": "box"
+    },
+    {
+      "name": "green_drawer",
+      "type_name": "drawer"
+    },
+    {
+      "name": "yellow_drawer",
+      "type_name": "drawer"
+    },
+    {
+      "name": "pink_cup",
+      "type_name": "cup"
+    }
+  ],
+  "init_facts": [
+    "gripper_empty()",
+    "in_front_of(pink_cup,green_drawer)",
+    "not gripper_holding(pink_cup)",
+    "not on_top_of(black_box,yellow_drawer)",
+    "not on_top_of(pink_cup,green_drawer)",
+    "on_left(yellow_drawer)",
+    "on_top_of(black_box,green_drawer)"
+  ],
+  "goal_facts": [
+    "on_top_of(pink_cup,green_drawer)",
+    "on_top_of(black_box,yellow_drawer)"
+  ],
+  "canonical_object_map": {},
+  "object_init_raw_llm_outputs": {},
+  "goal_inference_raw_output": null
+}

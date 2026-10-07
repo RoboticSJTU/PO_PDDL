@@ -1,0 +1,15 @@
+{
+  "changed": true,
+  "reason": "reverse_replay_from_final_state_and_goal",
+  "original_init_fact_count": 5,
+  "rewritten_init_fact_count": 7,
+  "added_init_facts": [
+    "not gripper_holding(pink_cup)",
+    "not on_top_of(pink_cup,green_drawer)"
+  ],
+  "removed_init_facts": [],
+  "goal_facts_seeded_into_reverse_pass": [
+    "on_top_of(pink_cup,green_drawer)"
+  ],
+  "source_original_grounding_dir": "original-run/domain/4a_problem_grounding_all/episode9"
+}

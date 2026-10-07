@@ -1,0 +1,20 @@
+{
+  "has_dark_liquid": [
+    {
+      "bucket": "ground_truth_true",
+      "total_count": 7,
+      "observed_positive_count": 1,
+      "observed_negative_count": 6,
+      "prob_observe_positive": 0.14285714285714285,
+      "prob_observe_negative": 0.8571428571428571
+    },
+    {
+      "bucket": "ground_truth_false",
+      "total_count": 15,
+      "observed_positive_count": 0,
+      "observed_negative_count": 15,
+      "prob_observe_positive": 0.0,
+      "prob_observe_negative": 1.0
+    }
+  ]
+}

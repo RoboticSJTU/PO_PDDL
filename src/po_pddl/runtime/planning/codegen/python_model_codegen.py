@@ -149,7 +149,11 @@ def _ground_observation_rules(
         if not schema.parameter_types:
             grounded.append(
                 GroundedObservationRuleCase(
-                    rule=ObservationRule(schema.rule.name, list(schema.rule.distribution)),
+                    rule=ObservationRule(
+                        schema.rule.name,
+                        list(schema.rule.distribution),
+                        schema.last_action,
+                    ),
                     schema=schema,
                     bindings={},
                 )
@@ -166,6 +170,7 @@ def _ground_observation_rules(
             grounded_rule = ObservationRule(
                 _build_grounded_name(schema.rule.name, schema.parameter_types, bindings),
                 grounded_distribution,
+                schema.last_action,
             )
             grounded.append(
                 GroundedObservationRuleCase(

@@ -1,0 +1,11 @@
+{
+  "in": "The first object is inside the second object.",
+  "on_top_of": "The first object rests on top of the second object.",
+  "in_front_of": "The first object is positioned in front of the second object.",
+  "open": "The drawer is open.",
+  "on_left": "The drawer occupies the left-side position.",
+  "has_dark_liquid": "The cup contains dark liquid.",
+  "gripper_empty": "The gripper is not holding any object.",
+  "gripper_holding": "The gripper is currently holding the object.",
+  "gripper_empty)": "The gripper is not holding any object."
+}

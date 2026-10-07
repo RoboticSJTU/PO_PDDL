@@ -1,0 +1,1381 @@
+{
+  "zero_arity_predicates": [
+    "gripper_empty"
+  ],
+  "example_counts_by_action": {
+    "close_object_on_left": 1,
+    "close_object_on_right": 1,
+    "look_into_object_in_front_of_object_on_left": 8,
+    "look_into_object_in_front_of_object_on_right": 6,
+    "look_into_object_on_left": 3,
+    "look_into_object_on_right": 1,
+    "open_object_on_left": 11,
+    "open_object_on_right": 10,
+    "pick_up_object_in_front_of_object_on_left": 8,
+    "pick_up_object_in_front_of_object_on_right": 8,
+    "pick_up_object_in_object_on_left": 11,
+    "pick_up_object_in_object_on_right": 4,
+    "place_object_into_object_on_left": 2,
+    "place_object_into_object_on_right": 3,
+    "place_object_on_top_of_object_on_left": 6,
+    "place_object_on_top_of_object_on_right": 16,
+    "push_object_on_object_on_right_to_object_on_left": 4
+  },
+  "selected_preconditions_by_action": {
+    "close_object_on_left": [
+      "gripper_empty()",
+      "on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "close_object_on_right": [
+      "gripper_empty()",
+      "not on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "look_into_object_in_front_of_object_on_left": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "on_left(?arg1)"
+    ],
+    "look_into_object_in_front_of_object_on_right": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "not on_left(?arg1)"
+    ],
+    "look_into_object_on_left": [
+      "gripper_empty()",
+      "on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "look_into_object_on_right": [
+      "gripper_empty()",
+      "not on_left(?arg0)",
+      "open(?arg0)"
+    ],
+    "open_object_on_left": [
+      "gripper_empty()",
+      "not in_front_of(?dep0,?arg0)",
+      "not open(?arg0)",
+      "on_left(?arg0)"
+    ],
+    "open_object_on_right": [
+      "gripper_empty()",
+      "not in_front_of(?dep0,?arg0)",
+      "not on_left(?arg0)",
+      "not open(?arg0)"
+    ],
+    "pick_up_object_in_front_of_object_on_left": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "on_left(?arg1)"
+    ],
+    "pick_up_object_in_front_of_object_on_right": [
+      "gripper_empty()",
+      "in_front_of(?arg0,?arg1)",
+      "not on_left(?arg1)",
+      "not on_top_of(?dep0,?arg1)"
+    ],
+    "pick_up_object_in_object_on_left": [
+      "gripper_empty()",
+      "in(?arg0,?arg1)",
+      "on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "pick_up_object_in_object_on_right": [
+      "gripper_empty()",
+      "in(?arg0,?arg1)",
+      "not on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "place_object_into_object_on_left": [
+      "gripper_holding(?arg0)",
+      "on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "place_object_into_object_on_right": [
+      "gripper_holding(?arg0)",
+      "not on_left(?arg1)",
+      "open(?arg1)"
+    ],
+    "place_object_on_top_of_object_on_left": [
+      "gripper_holding(?arg0)",
+      "on_left(?arg1)"
+    ],
+    "place_object_on_top_of_object_on_right": [
+      "gripper_holding(?arg0)",
+      "not on_left(?arg1)",
+      "not on_top_of(?dep0,?arg1)",
+      "not open(?arg1)"
+    ],
+    "push_object_on_object_on_right_to_object_on_left": [
+      "gripper_empty()",
+      "not on_left(?arg1)",
+      "not open(?arg1)",
+      "not open(?arg2)",
+      "on_left(?arg2)",
+      "on_top_of(?arg0,?arg1)"
+    ]
+  },
+  "candidate_stats_by_action": {
+    "close_object_on_left": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg0)",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg0)",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      }
+    ],
+    "close_object_on_right": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_left(?arg0)",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg0)",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      }
+    ],
+    "look_into_object_in_front_of_object_on_left": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "has_dark_liquid(?arg0)",
+        "occurrence_count": 4,
+        "eligible_example_count": 8,
+        "support": 0.5
+      },
+      {
+        "literal": "in_front_of(?arg0,?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_holding(?arg0)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not has_dark_liquid(?arg0)",
+        "occurrence_count": 4,
+        "eligible_example_count": 8,
+        "support": 0.5
+      },
+      {
+        "literal": "not in_front_of(?dep0,?dep1)",
+        "occurrence_count": 1,
+        "eligible_example_count": 6,
+        "support": 0.16666666666666666
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      }
+    ],
+    "look_into_object_in_front_of_object_on_right": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "has_dark_liquid(?arg0)",
+        "occurrence_count": 3,
+        "eligible_example_count": 6,
+        "support": 0.5
+      },
+      {
+        "literal": "in_front_of(?arg0,?arg1)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_holding(?arg0)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not has_dark_liquid(?arg0)",
+        "occurrence_count": 3,
+        "eligible_example_count": 6,
+        "support": 0.5
+      },
+      {
+        "literal": "not in_front_of(?dep0,?dep1)",
+        "occurrence_count": 1,
+        "eligible_example_count": 6,
+        "support": 0.16666666666666666
+      },
+      {
+        "literal": "not on_left(?arg1)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg1)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      }
+    ],
+    "look_into_object_on_left": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg0)",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg0)",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      }
+    ],
+    "look_into_object_on_right": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_left(?arg0)",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg0)",
+        "occurrence_count": 1,
+        "eligible_example_count": 1,
+        "support": 1.0
+      }
+    ],
+    "open_object_on_left": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      },
+      {
+        "literal": "not in_front_of(?dep0,?arg0)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg0)",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg0)",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      }
+    ],
+    "open_object_on_right": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 10,
+        "eligible_example_count": 10,
+        "support": 1.0
+      },
+      {
+        "literal": "not in_front_of(?dep0,?arg0)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_left(?arg0)",
+        "occurrence_count": 10,
+        "eligible_example_count": 10,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg0)",
+        "occurrence_count": 10,
+        "eligible_example_count": 10,
+        "support": 1.0
+      }
+    ],
+    "pick_up_object_in_front_of_object_on_left": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "has_dark_liquid(?arg0)",
+        "occurrence_count": 2,
+        "eligible_example_count": 8,
+        "support": 0.25
+      },
+      {
+        "literal": "in_front_of(?arg0,?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_holding(?arg0)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not has_dark_liquid(?arg0)",
+        "occurrence_count": 6,
+        "eligible_example_count": 8,
+        "support": 0.75
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?dep0,?dep1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      }
+    ],
+    "pick_up_object_in_front_of_object_on_right": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "has_dark_liquid(?arg0)",
+        "occurrence_count": 2,
+        "eligible_example_count": 8,
+        "support": 0.25
+      },
+      {
+        "literal": "in_front_of(?arg0,?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_holding(?arg0)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not has_dark_liquid(?arg0)",
+        "occurrence_count": 6,
+        "eligible_example_count": 8,
+        "support": 0.75
+      },
+      {
+        "literal": "not on_left(?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?dep0,?arg1)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg1)",
+        "occurrence_count": 8,
+        "eligible_example_count": 8,
+        "support": 1.0
+      }
+    ],
+    "pick_up_object_in_object_on_left": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      },
+      {
+        "literal": "in(?arg0,?arg1)",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_holding(?arg0)",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg1)",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg1)",
+        "occurrence_count": 11,
+        "eligible_example_count": 11,
+        "support": 1.0
+      }
+    ],
+    "pick_up_object_in_object_on_right": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "in(?arg0,?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_holding(?arg0)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_left(?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      }
+    ],
+    "place_object_into_object_on_left": [
+      {
+        "literal": "gripper_holding(?arg0)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_empty()",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "not in(?arg0,?arg1)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg1)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg1)",
+        "occurrence_count": 2,
+        "eligible_example_count": 2,
+        "support": 1.0
+      }
+    ],
+    "place_object_into_object_on_right": [
+      {
+        "literal": "gripper_holding(?arg0)",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_empty()",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      },
+      {
+        "literal": "not in(?arg0,?arg1)",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_left(?arg1)",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg1)",
+        "occurrence_count": 3,
+        "eligible_example_count": 3,
+        "support": 1.0
+      }
+    ],
+    "place_object_on_top_of_object_on_left": [
+      {
+        "literal": "gripper_holding(?arg0)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not gripper_empty()",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not in(?arg0,?arg1)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg1)",
+        "occurrence_count": 2,
+        "eligible_example_count": 6,
+        "support": 0.3333333333333333
+      },
+      {
+        "literal": "on_left(?arg1)",
+        "occurrence_count": 6,
+        "eligible_example_count": 6,
+        "support": 1.0
+      },
+      {
+        "literal": "open(?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 6,
+        "support": 0.6666666666666666
+      }
+    ],
+    "place_object_on_top_of_object_on_right": [
+      {
+        "literal": "gripper_holding(?arg0)",
+        "occurrence_count": 16,
+        "eligible_example_count": 16,
+        "support": 1.0
+      },
+      {
+        "literal": "has_dark_liquid(?arg0)",
+        "occurrence_count": 4,
+        "eligible_example_count": 16,
+        "support": 0.25
+      },
+      {
+        "literal": "not gripper_empty()",
+        "occurrence_count": 16,
+        "eligible_example_count": 16,
+        "support": 1.0
+      },
+      {
+        "literal": "not has_dark_liquid(?arg0)",
+        "occurrence_count": 12,
+        "eligible_example_count": 16,
+        "support": 0.75
+      },
+      {
+        "literal": "not in_front_of(?arg0,?arg1)",
+        "occurrence_count": 16,
+        "eligible_example_count": 16,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_left(?arg1)",
+        "occurrence_count": 16,
+        "eligible_example_count": 16,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg1)",
+        "occurrence_count": 16,
+        "eligible_example_count": 16,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?dep0,?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg1)",
+        "occurrence_count": 16,
+        "eligible_example_count": 16,
+        "support": 1.0
+      }
+    ],
+    "push_object_on_object_on_right_to_object_on_left": [
+      {
+        "literal": "gripper_empty()",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_left(?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not on_top_of(?arg0,?arg2)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "not open(?arg2)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "on_left(?arg2)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      },
+      {
+        "literal": "on_top_of(?arg0,?arg1)",
+        "occurrence_count": 4,
+        "eligible_example_count": 4,
+        "support": 1.0
+      }
+    ]
+  },
+  "selection_summaries_by_action": {
+    "close_object_on_left": "The drawer must be the left-side variant and currently open for closing to be applicable; gripper emptiness is not intrinsically required.",
+    "close_object_on_right": "The drawer must be the right-side variant and currently open for this closing action; gripper emptiness is not causally required.",
+    "look_into_object_in_front_of_object_on_left": "The cup must be in front of the referenced drawer, and the drawer’s left-side position distinguishes this observation schema from the right-side variant.",
+    "look_into_object_in_front_of_object_on_right": "The cup must be in front of the referenced drawer, and the drawer must be the right-side one to distinguish this observation schema from the left-side variant.",
+    "look_into_object_on_left": "The drawer must be the left-side target and open to permit looking into its interior; an empty gripper is not required for observation.",
+    "look_into_object_on_right": "Looking into the drawer requires it to be open; gripper availability is unnecessary, and right-side identity does not physically enable observation.",
+    "open_object_on_left": "Opening requires a free gripper, a currently closed drawer, and the left-side property that distinguishes this action variant; the unanchored clearance literal is not required.",
+    "open_object_on_right": "Opening requires a free gripper and a currently closed drawer; the right-action variant applies to a drawer that is not on the left. The dependent clearance literal is not universally applicable and is omitted.",
+    "pick_up_object_in_front_of_object_on_left": "Picking up requires a free gripper and the cup to be at the stated source relation; the drawer's left-side property distinguishes this schema from the right-side variant.",
+    "pick_up_object_in_front_of_object_on_right": "Picking up requires a free gripper and the cup to be in front of the referenced drawer; the drawer's non-left position distinguishes the right-side action variant.",
+    "pick_up_object_in_object_on_left": "Picking up the block requires a free gripper, the block to be inside the referenced drawer, the drawer to be the left-side variant, and the drawer to be open for access.",
+    "pick_up_object_in_object_on_right": "The gripper must be free, the block must be inside the referenced drawer, the drawer must be the right-side variant, and it must be open to access the block.",
+    "place_object_into_object_on_left": "The block must be held, and the destination must be the left drawer and open for insertion. Other candidates are redundant gripper state or nonessential absence relations.",
+    "place_object_into_object_on_right": "The block must be held, and the destination must be the open right-side drawer. Other negatives are redundant or merely describe the placement result before execution.",
+    "place_object_on_top_of_object_on_left": "The block must be held to place it, and the drawer must be the left-side destination specified by this action variant; the other literals are redundant or describe nonessential prior state.",
+    "place_object_on_top_of_object_on_right": "The cup must be held, the destination must be the right-side drawer, and its closed, clear top surface must be usable for placement.",
+    "push_object_on_object_on_right_to_object_on_left": "The box must start on the right drawer with a clear left destination; the named source/destination sides identify the transfer variant, both drawers must be closed to provide continuous usable top surfaces, and the gripper must be free to push."
+  },
+  "updated_action_schemas": [
+    {
+      "canonical_action_name": "close_object_on_left",
+      "action_category": "manipulation",
+      "parameter_count": 1,
+      "parameter_roles": [
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "on_left(?arg0)",
+        "open(?arg0)"
+      ],
+      "schema_description": "Manipulation actions learned from trajectories. close the {param_1} on the left",
+      "effect_branches": [
+        {
+          "effect_bucket": "close_object_on_left_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [],
+          "delta_del": [
+            "open(?arg0)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [],
+          "fixed_delta_del": [
+            "open(?arg0)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "close_object_on_right",
+      "action_category": "manipulation",
+      "parameter_count": 1,
+      "parameter_roles": [
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "not on_left(?arg0)",
+        "open(?arg0)"
+      ],
+      "schema_description": "close the {param_1} on the right",
+      "effect_branches": [
+        {
+          "effect_bucket": "close_object_on_right_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [],
+          "delta_del": [
+            "open(?arg0)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [],
+          "fixed_delta_del": [
+            "open(?arg0)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "look_into_object_in_front_of_object_on_left",
+      "action_category": "active_observation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "in_front_of(?arg0,?arg1)",
+        "on_left(?arg1)"
+      ],
+      "schema_description": "look into the {param_1} in front of the {param_2} on the left",
+      "effect_branches": []
+    },
+    {
+      "canonical_action_name": "look_into_object_in_front_of_object_on_right",
+      "action_category": "active_observation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "in_front_of(?arg0,?arg1)",
+        "not on_left(?arg1)"
+      ],
+      "schema_description": "look into the {param_1} in front of the {param_2} on the right",
+      "effect_branches": []
+    },
+    {
+      "canonical_action_name": "look_into_object_on_left",
+      "action_category": "active_observation",
+      "parameter_count": 1,
+      "parameter_roles": [
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "on_left(?arg0)",
+        "open(?arg0)"
+      ],
+      "schema_description": "look into the {param_1} on the left",
+      "effect_branches": []
+    },
+    {
+      "canonical_action_name": "look_into_object_on_right",
+      "action_category": "active_observation",
+      "parameter_count": 1,
+      "parameter_roles": [
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "not on_left(?arg0)",
+        "open(?arg0)"
+      ],
+      "schema_description": "look into the {param_1} on the right",
+      "effect_branches": []
+    },
+    {
+      "canonical_action_name": "open_object_on_left",
+      "action_category": "manipulation",
+      "parameter_count": 1,
+      "parameter_roles": [
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "not in_front_of(?dep0,?arg0)",
+        "not open(?arg0)",
+        "on_left(?arg0)"
+      ],
+      "schema_description": "open the {param_1} on the left",
+      "effect_branches": [
+        {
+          "effect_bucket": "open_object_on_left_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "open(?arg0)"
+          ],
+          "delta_del": [],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "open(?arg0)"
+          ],
+          "fixed_delta_del": [],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "open_object_on_right",
+      "action_category": "manipulation",
+      "parameter_count": 1,
+      "parameter_roles": [
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "not in_front_of(?dep0,?arg0)",
+        "not on_left(?arg0)",
+        "not open(?arg0)"
+      ],
+      "schema_description": "open the {param_1} on the right",
+      "effect_branches": [
+        {
+          "effect_bucket": "open_object_on_right_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "open(?arg0)"
+          ],
+          "delta_del": [],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "open(?arg0)"
+          ],
+          "fixed_delta_del": [],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "pick_up_object_in_front_of_object_on_left",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "in_front_of(?arg0,?arg1)",
+        "on_left(?arg1)"
+      ],
+      "schema_description": "pick up the {param_1} in front of the {param_2} on the left",
+      "effect_branches": [
+        {
+          "effect_bucket": "pick_up_object_in_front_of_object_on_left_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "delta_del": [
+            "gripper_empty()",
+            "in_front_of(?arg0,?arg1)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "fixed_delta_del": [
+            "gripper_empty()",
+            "in_front_of(?arg0,?arg1)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "pick_up_object_in_front_of_object_on_right",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "in_front_of(?arg0,?arg1)",
+        "not on_left(?arg1)",
+        "not on_top_of(?dep0,?arg1)"
+      ],
+      "schema_description": "pick up the {param_1} in front of the {param_2} on the right",
+      "effect_branches": [
+        {
+          "effect_bucket": "pick_up_object_in_front_of_object_on_right_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "delta_del": [
+            "gripper_empty()",
+            "in_front_of(?arg0,?arg1)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "fixed_delta_del": [
+            "gripper_empty()",
+            "in_front_of(?arg0,?arg1)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "pick_up_object_in_object_on_left",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "in(?arg0,?arg1)",
+        "on_left(?arg1)",
+        "open(?arg1)"
+      ],
+      "schema_description": "pick up the {param_1} in the {param_2} on the left",
+      "effect_branches": [
+        {
+          "effect_bucket": "pick_up_object_in_object_on_left_success",
+          "probability": 0.6363636363636364,
+          "success": true,
+          "delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "delta_del": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "fixed_delta_del": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        },
+        {
+          "effect_bucket": "pick_up_object_in_object_on_left_failure",
+          "probability": 0.36363636363636365,
+          "success": false,
+          "delta_add": [],
+          "delta_del": [],
+          "variant_rank": null,
+          "fixed_delta_add": [],
+          "fixed_delta_del": [],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "pick_up_object_in_object_on_right",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "in(?arg0,?arg1)",
+        "not on_left(?arg1)",
+        "open(?arg1)"
+      ],
+      "schema_description": "pick up the {param_1} in the {param_2} on the right",
+      "effect_branches": [
+        {
+          "effect_bucket": "pick_up_object_in_object_on_right_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "delta_del": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_holding(?arg0)"
+          ],
+          "fixed_delta_del": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "place_object_into_object_on_left",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_holding(?arg0)",
+        "on_left(?arg1)",
+        "open(?arg1)"
+      ],
+      "schema_description": "place the {param_1} into the {param_2} on the left",
+      "effect_branches": [
+        {
+          "effect_bucket": "place_object_into_object_on_left_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "fixed_delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "place_object_into_object_on_right",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_holding(?arg0)",
+        "not on_left(?arg1)",
+        "open(?arg1)"
+      ],
+      "schema_description": "place the {param_1} into the {param_2} on the right",
+      "effect_branches": [
+        {
+          "effect_bucket": "place_object_into_object_on_right_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_empty()",
+            "in(?arg0,?arg1)"
+          ],
+          "fixed_delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "place_object_on_top_of_object_on_left",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "block",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_holding(?arg0)",
+        "on_left(?arg1)"
+      ],
+      "schema_description": "place the {param_1} on the top of the {param_2} on the left",
+      "effect_branches": [
+        {
+          "effect_bucket": "place_object_on_top_of_object_on_left_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "gripper_empty()",
+            "on_top_of(?arg0,?arg1)"
+          ],
+          "delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_empty()",
+            "on_top_of(?arg0,?arg1)"
+          ],
+          "fixed_delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "place_object_on_top_of_object_on_right",
+      "action_category": "manipulation",
+      "parameter_count": 2,
+      "parameter_roles": [
+        "cup",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_holding(?arg0)",
+        "not on_left(?arg1)",
+        "not on_top_of(?dep0,?arg1)",
+        "not open(?arg1)"
+      ],
+      "schema_description": "place the {param_1} on the top of the {param_2} on the right",
+      "effect_branches": [
+        {
+          "effect_bucket": "place_object_on_top_of_object_on_right_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "gripper_empty()",
+            "on_top_of(?arg0,?arg1)"
+          ],
+          "delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "gripper_empty()",
+            "on_top_of(?arg0,?arg1)"
+          ],
+          "fixed_delta_del": [
+            "gripper_holding(?arg0)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    },
+    {
+      "canonical_action_name": "push_object_on_object_on_right_to_object_on_left",
+      "action_category": "manipulation",
+      "parameter_count": 3,
+      "parameter_roles": [
+        "box",
+        "drawer",
+        "drawer"
+      ],
+      "precondition_literals": [
+        "gripper_empty()",
+        "not on_left(?arg1)",
+        "not open(?arg1)",
+        "not open(?arg2)",
+        "on_left(?arg2)",
+        "on_top_of(?arg0,?arg1)"
+      ],
+      "schema_description": "push the {param_1} on the {param_2} on the right to the {param_3} on the left",
+      "effect_branches": [
+        {
+          "effect_bucket": "push_object_on_object_on_right_to_object_on_left_success",
+          "probability": 1.0,
+          "success": true,
+          "delta_add": [
+            "on_top_of(?arg0,?arg2)"
+          ],
+          "delta_del": [
+            "on_top_of(?arg0,?arg1)"
+          ],
+          "variant_rank": null,
+          "fixed_delta_add": [
+            "on_top_of(?arg0,?arg2)"
+          ],
+          "fixed_delta_del": [
+            "on_top_of(?arg0,?arg1)"
+          ],
+          "residual_delta_add": [],
+          "residual_delta_del": [],
+          "extra_pddl_effect_conjuncts": []
+        }
+      ]
+    }
+  ],
+  "rendered_action_schema_pddl": "(define (domain learned_action_schema_fragment)\n  (:requirements\n    :strips\n    :typing\n    :probabilistic-effects\n    :negative-preconditions\n    :universal-preconditions\n  )\n  (:types\n    movable_item fixed_item - object\n    containable_item - fixed_item\n    block box cup - movable_item\n    drawer - containable_item\n  )\n\n  (:predicates\n    ;; The gripper is not holding any object.\n    (gripper_empty)\n    ;; The gripper is currently holding the object.\n    (gripper_holding ?x0 - movable_item)\n    ;; The cup contains dark liquid.\n    (has_dark_liquid ?x0 - cup)\n    ;; The first object is inside the second object.\n    (in ?x0 - movable_item ?x1 - containable_item)\n    ;; The first object is positioned in front of the second object.\n    (in_front_of ?x0 - movable_item ?x1 - fixed_item)\n    ;; The drawer occupies the left-side position.\n    (on_left ?x0 - drawer)\n    ;; The first object rests on top of the second object.\n    (on_top_of ?x0 - movable_item ?x1 - fixed_item)\n    ;; The drawer is open.\n    (open ?x0 - drawer)\n  )\n\n  ;; Action schemas learned during consolidation.\n  ;; Manipulation actions learned from trajectories. close the {param_1} on the left\n  (:action close_object_on_left\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (on_left ?arg0)\n        (open ?arg0)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=[], del=['open(?arg0)']\n        ; bucket: close_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (not (open ?arg0)))\n      )\n  )\n\n  ;; close the {param_1} on the right\n  (:action close_object_on_right\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (on_left ?arg0))\n        (open ?arg0)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=[], del=['open(?arg0)']\n        ; bucket: close_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (not (open ?arg0)))\n      )\n  )\n\n  ;; look into the {param_1} in front of the {param_2} on the left\n  (:action look_into_object_in_front_of_object_on_left\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in_front_of ?arg0 ?arg1)\n        (on_left ?arg1)\n      )\n    :effect (and)\n  )\n\n  ;; look into the {param_1} in front of the {param_2} on the right\n  (:action look_into_object_in_front_of_object_on_right\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in_front_of ?arg0 ?arg1)\n        (not (on_left ?arg1))\n      )\n    :effect (and)\n  )\n\n  ;; look into the {param_1} on the left\n  (:action look_into_object_on_left\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (on_left ?arg0)\n        (open ?arg0)\n      )\n    :effect (and)\n  )\n\n  ;; look into the {param_1} on the right\n  (:action look_into_object_on_right\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (on_left ?arg0))\n        (open ?arg0)\n      )\n    :effect (and)\n  )\n\n  ;; open the {param_1} on the left\n  (:action open_object_on_left\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (open ?arg0))\n        (on_left ?arg0)\n        (forall (?dep0_0 - cup)\n          (and\n            (not (in_front_of ?dep0_0 ?arg0))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['open(?arg0)'], del=[]\n        ; bucket: open_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (open ?arg0))\n      )\n  )\n\n  ;; open the {param_1} on the right\n  (:action open_object_on_right\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (on_left ?arg0))\n        (not (open ?arg0))\n        (forall (?dep0_0 - cup)\n          (and\n            (not (in_front_of ?dep0_0 ?arg0))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['open(?arg0)'], del=[]\n        ; bucket: open_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (open ?arg0))\n      )\n  )\n\n  ;; pick up the {param_1} in front of the {param_2} on the left\n  (:action pick_up_object_in_front_of_object_on_left\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in_front_of ?arg0 ?arg1)\n        (on_left ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in_front_of(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_front_of_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in_front_of ?arg0 ?arg1)))\n      )\n  )\n\n  ;; pick up the {param_1} in front of the {param_2} on the right\n  (:action pick_up_object_in_front_of_object_on_right\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in_front_of ?arg0 ?arg1)\n        (not (on_left ?arg1))\n        (forall (?dep0_0 - box)\n          (and\n            (not (on_top_of ?dep0_0 ?arg1))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in_front_of(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_front_of_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in_front_of ?arg0 ?arg1)))\n      )\n  )\n\n  ;; pick up the {param_1} in the {param_2} on the left\n  (:action pick_up_object_in_object_on_left\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in ?arg0 ?arg1)\n        (on_left ?arg1)\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_object_on_left_success, success: true, variant_rank: 0\n        0.636364 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in ?arg0 ?arg1)))\n        ; bucket: pick_up_object_in_object_on_left_failure, success: false, variant_rank: 0\n        0.363636 (and)\n      )\n  )\n\n  ;; pick up the {param_1} in the {param_2} on the right\n  (:action pick_up_object_in_object_on_right\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in ?arg0 ?arg1)\n        (not (on_left ?arg1))\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in ?arg0 ?arg1)))\n      )\n  )\n\n  ;; place the {param_1} into the {param_2} on the left\n  (:action place_object_into_object_on_left\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (on_left ?arg1)\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'in(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_into_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (in ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; place the {param_1} into the {param_2} on the right\n  (:action place_object_into_object_on_right\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (not (on_left ?arg1))\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'in(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_into_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (in ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; place the {param_1} on the top of the {param_2} on the left\n  (:action place_object_on_top_of_object_on_left\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (on_left ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'on_top_of(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_on_top_of_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (on_top_of ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; place the {param_1} on the top of the {param_2} on the right\n  (:action place_object_on_top_of_object_on_right\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (not (on_left ?arg1))\n        (not (open ?arg1))\n        (forall (?dep0_0 - box)\n          (and\n            (not (on_top_of ?dep0_0 ?arg1))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'on_top_of(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_on_top_of_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (on_top_of ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; push the {param_1} on the {param_2} on the right to the {param_3} on the left\n  (:action push_object_on_object_on_right_to_object_on_left\n    :parameters (?arg0 - box ?arg1 - drawer ?arg2 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (on_left ?arg1))\n        (not (open ?arg1))\n        (not (open ?arg2))\n        (on_left ?arg2)\n        (on_top_of ?arg0 ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['on_top_of(?arg0,?arg2)'], del=['on_top_of(?arg0,?arg1)']\n        ; bucket: push_object_on_object_on_right_to_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (on_top_of ?arg0 ?arg2) (not (on_top_of ?arg0 ?arg1)))\n      )\n  )\n\n)\n",
+  "rendered_domain_pddl": "(define (domain learned_manipulation_fragment)\n    (:requirements\n    :strips\n    :typing\n    :probabilistic-effects\n    :negative-preconditions\n    :universal-preconditions\n  )\n    (:types\n    movable_item fixed_item - object\n    containable_item - fixed_item\n    block box cup - movable_item\n    drawer - containable_item\n  )\n\n      (:predicates\n    ;; The gripper is not holding any object.\n    (gripper_empty)\n    ;; The gripper is currently holding the object.\n    (gripper_holding ?x0 - movable_item)\n    ;; The cup contains dark liquid.\n    (has_dark_liquid ?x0 - cup)\n    ;; The first object is inside the second object.\n    (in ?x0 - movable_item ?x1 - containable_item)\n    ;; The first object is positioned in front of the second object.\n    (in_front_of ?x0 - movable_item ?x1 - fixed_item)\n    ;; The drawer occupies the left-side position.\n    (on_left ?x0 - drawer)\n    ;; The first object rests on top of the second object.\n    (on_top_of ?x0 - movable_item ?x1 - fixed_item)\n    ;; The drawer is open.\n    (open ?x0 - drawer)\n  )\n\n  ;; Manipulation actions learned from trajectories. close the {param_1} on the left\n  (:action close_object_on_left\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (on_left ?arg0)\n        (open ?arg0)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=[], del=['open(?arg0)']\n        ; bucket: close_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (not (open ?arg0)))\n      )\n  )\n\n  ;; close the {param_1} on the right\n  (:action close_object_on_right\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (on_left ?arg0))\n        (open ?arg0)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=[], del=['open(?arg0)']\n        ; bucket: close_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (not (open ?arg0)))\n      )\n  )\n\n  ;; open the {param_1} on the left\n  (:action open_object_on_left\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (open ?arg0))\n        (on_left ?arg0)\n        (forall (?dep0_0 - movable_item)\n          (and\n            (not (in_front_of ?dep0_0 ?arg0))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['open(?arg0)'], del=[]\n        ; bucket: open_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (open ?arg0))\n      )\n  )\n\n  ;; open the {param_1} on the right\n  (:action open_object_on_right\n    :parameters (?arg0 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (on_left ?arg0))\n        (not (open ?arg0))\n        (forall (?dep0_0 - movable_item)\n          (and\n            (not (in_front_of ?dep0_0 ?arg0))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['open(?arg0)'], del=[]\n        ; bucket: open_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (open ?arg0))\n      )\n  )\n\n  ;; pick up the {param_1} in front of the {param_2} on the left\n  (:action pick_up_object_in_front_of_object_on_left\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in_front_of ?arg0 ?arg1)\n        (on_left ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in_front_of(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_front_of_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in_front_of ?arg0 ?arg1)))\n      )\n  )\n\n  ;; pick up the {param_1} in front of the {param_2} on the right\n  (:action pick_up_object_in_front_of_object_on_right\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in_front_of ?arg0 ?arg1)\n        (not (on_left ?arg1))\n        (forall (?dep0_0 - movable_item)\n          (and\n            (not (on_top_of ?dep0_0 ?arg1))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in_front_of(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_front_of_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in_front_of ?arg0 ?arg1)))\n      )\n  )\n\n  ;; pick up the {param_1} in the {param_2} on the left\n  (:action pick_up_object_in_object_on_left\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in ?arg0 ?arg1)\n        (on_left ?arg1)\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_object_on_left_success, success: true, variant_rank: 0\n        0.636364 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in ?arg0 ?arg1)))\n        ; bucket: pick_up_object_in_object_on_left_failure, success: false, variant_rank: 0\n        0.363636 (and)\n      )\n  )\n\n  ;; pick up the {param_1} in the {param_2} on the right\n  (:action pick_up_object_in_object_on_right\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (in ?arg0 ?arg1)\n        (not (on_left ?arg1))\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_holding(?arg0)'], del=['gripper_empty()', 'in(?arg0,?arg1)']\n        ; bucket: pick_up_object_in_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_holding ?arg0) (not (gripper_empty)) (not (in ?arg0 ?arg1)))\n      )\n  )\n\n  ;; place the {param_1} into the {param_2} on the left\n  (:action place_object_into_object_on_left\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (on_left ?arg1)\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'in(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_into_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (in ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; place the {param_1} into the {param_2} on the right\n  (:action place_object_into_object_on_right\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (not (on_left ?arg1))\n        (open ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'in(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_into_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (in ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; place the {param_1} on the top of the {param_2} on the left\n  (:action place_object_on_top_of_object_on_left\n    :parameters (?arg0 - block ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (on_left ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'on_top_of(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_on_top_of_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (on_top_of ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; place the {param_1} on the top of the {param_2} on the right\n  (:action place_object_on_top_of_object_on_right\n    :parameters (?arg0 - cup ?arg1 - drawer)\n    :precondition\n      (and\n        (gripper_holding ?arg0)\n        (not (on_left ?arg1))\n        (not (open ?arg1))\n        (forall (?dep0_0 - movable_item)\n          (and\n            (not (on_top_of ?dep0_0 ?arg1))\n          )\n        )\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['gripper_empty()', 'on_top_of(?arg0,?arg1)'], del=['gripper_holding(?arg0)']\n        ; bucket: place_object_on_top_of_object_on_right_success, success: true, variant_rank: 0\n        1.000000 (and (gripper_empty) (on_top_of ?arg0 ?arg1) (not (gripper_holding ?arg0)))\n      )\n  )\n\n  ;; push the {param_1} on the {param_2} on the right to the {param_3} on the left\n  (:action push_object_on_object_on_right_to_object_on_left\n    :parameters (?arg0 - box ?arg1 - drawer ?arg2 - drawer)\n    :precondition\n      (and\n        (gripper_empty)\n        (not (on_left ?arg1))\n        (not (open ?arg1))\n        (not (open ?arg2))\n        (on_left ?arg2)\n        (on_top_of ?arg0 ?arg1)\n      )\n    :effect\n      (probabilistic\n        ; fixed: add=['on_top_of(?arg0,?arg2)'], del=['on_top_of(?arg0,?arg1)']\n        ; bucket: push_object_on_object_on_right_to_object_on_left_success, success: true, variant_rank: 0\n        1.000000 (and (on_top_of ?arg0 ?arg2) (not (on_top_of ?arg0 ?arg1)))\n      )\n  )\n\n  ;; Observation-action learning is not implemented yet.\n)\n",
+  "predicate_comments": {
+    "in": "The first object is inside the second object.",
+    "on_top_of": "The first object rests on top of the second object.",
+    "in_front_of": "The first object is positioned in front of the second object.",
+    "open": "The drawer is open.",
+    "on_left": "The drawer occupies the left-side position.",
+    "has_dark_liquid": "The cup contains dark liquid.",
+    "gripper_empty": "The gripper is not holding any object.",
+    "gripper_holding": "The gripper is currently holding the object.",
+    "gripper_empty)": "The gripper is not holding any object."
+  }
+}

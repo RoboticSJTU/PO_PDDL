@@ -1,0 +1,1903 @@
+{
+  "source_records": [
+    {
+      "episode_name": "episode0",
+      "instruction": "push the black box to the yellow drawer on the left, and place the pink cup on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)",
+        "on_top_of(black_box,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed and sits to the left of the closed green_drawer. The black_box rests on top of the green_drawer. The pink_cup stands in front of the yellow_drawer.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode0/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "black_box": "box",
+        "green_drawer": "drawer",
+        "yellow_drawer": "drawer",
+        "pink_cup": "cup"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode1",
+      "instruction": "push the black box to the yellow drawer on the left, and place the green cup on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)",
+        "on_top_of(black_box,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed and stands to the left of the green_drawer. The green_drawer is closed. The black_box rests on top of the green_drawer. The green_cup stands in front of the yellow_drawer.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode1/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "black_box": "box",
+        "green_drawer": "drawer",
+        "yellow_drawer": "drawer",
+        "green_cup": "cup"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode10",
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left, with the pink_cup standing in front of it. The green_drawer is closed on the right, with the green_cup standing in front of it. Both cup interiors are visible; the pink_cup contains dark liquid, while no dark liquid is visible in the green_cup.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode10/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode11",
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left, and the green_drawer is closed beside it on the right. The pink_cup stands in front of the yellow_drawer with its interior visible and no distinct contents apparent. The green_cup stands in front of the green_drawer; its visible interior has dark shading, but no distinct contents are clearly supported.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode11/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "green_cup": "cup"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode12",
+      "instruction": "place the pink cup on the top of the green drawer on the right, and open the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left, and the green_drawer is closed beside it on the right. The pink_cup sits upright in front of the yellow_drawer.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode12/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode13",
+      "instruction": "place the green cup on the top of the green drawer on the right, and open the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "scene_description": "The green_cup is upright in front of the yellow_drawer. The yellow_drawer is on the left and closed. The green_drawer is on the right and closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode13/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode14",
+      "instruction": "place the pink cup on the top of the green drawer on the right, and open the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "not open(green_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)",
+        "open(green_drawer)"
+      ],
+      "scene_description": "The green_drawer is closed. The pink_cup is upright on the surface in front of the green_drawer.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode14/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode15",
+      "instruction": "place the green cup on the top of the green drawer on the right, and open the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,green_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "not open(green_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)",
+        "open(green_drawer)"
+      ],
+      "scene_description": "The green_drawer is closed. The green_cup is upright on the surface in front of the green_drawer.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode15/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode17",
+      "instruction": "pick the blue block from the green drwer and place it into the the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in(blue_block,green_drawer)",
+        "not gripper_holding(blue_block)",
+        "not in(blue_block,yellow_drawer)",
+        "not open(green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "in(blue_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and closed. The green_drawer is immediately to its right and closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode17/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "blue_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode19",
+      "instruction": "pick the red block from the green drwer and place it into the the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in(red_block,green_drawer)",
+        "not gripper_holding(red_block)",
+        "not in(red_block,yellow_drawer)",
+        "not open(green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "in(red_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and closed. The green_drawer is directly to its right and closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode19/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "red_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode2",
+      "instruction": "push the black box to the yellow drawer on the left, and place the pink cup on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)",
+        "on_top_of(black_box,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed and positioned to the left of the closed green_drawer. The black_box rests on top of the green_drawer. The pink_cup stands upright in front of the green_drawer.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode2/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "black_box": "box",
+        "green_drawer": "drawer",
+        "yellow_drawer": "drawer",
+        "pink_cup": "cup"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode20",
+      "instruction": "pick up the red block and place the red block on the top of the yelllow drawer",
+      "init_facts": [
+        "gripper_empty()",
+        "in(red_block,green_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "not open(green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(red_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left, beside the closed green_drawer on the right.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode20/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_drawer": "drawer",
+        "red_block": "block",
+        "yellow_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode21",
+      "instruction": "pick up the blue block and place the blue block on the top of the yelllow drawer",
+      "init_facts": [
+        "gripper_empty()",
+        "in(blue_block,green_drawer)",
+        "not gripper_holding(blue_block)",
+        "not on_top_of(blue_block,yellow_drawer)",
+        "not open(green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(blue_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and closed. The green_drawer is directly to its right and closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode21/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_drawer": "drawer",
+        "blue_block": "block",
+        "yellow_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode23",
+      "instruction": "pick the blue block from the yellow drawer on the left and place it into the the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in(blue_block,yellow_drawer)",
+        "not gripper_holding(blue_block)",
+        "not in(blue_block,green_drawer)",
+        "not open(green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "in(blue_block,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left, beside the closed green_drawer on the right.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode23/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "blue_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode24",
+      "instruction": "pick up the blue block and place the blue block on the top of the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in(blue_block,yellow_drawer)",
+        "not gripper_holding(blue_block)",
+        "not on_top_of(blue_block,yellow_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(blue_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and is closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode24/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "blue_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode26",
+      "instruction": "pick the red block from the yellow drwer and place it into the the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not in(red_block,green_drawer)",
+        "not open(green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "in(red_block,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and closed. The green_drawer is immediately to its right and closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode26/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer",
+        "red_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode27",
+      "instruction": "pick up the red block and place the red block on the top of the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(red_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and is closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode27/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "red_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode28",
+      "instruction": "close the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "not open(yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer on the left is open, with its empty interior visible.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode28/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode29",
+      "instruction": "close the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "open(green_drawer)"
+      ],
+      "goal_facts": [
+        "not open(green_drawer)"
+      ],
+      "scene_description": "The green_drawer on the right is open, with its interior visible.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode29/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode3",
+      "instruction": "push the black box to the yellow drawer on the left, and place the green cup on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,green_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)",
+        "on_top_of(black_box,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left beside the closed green_drawer on the right. The black_box rests on top of the green_drawer. The green_cup stands in front of the green_drawer.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode3/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "black_box": "box",
+        "green_drawer": "drawer",
+        "yellow_drawer": "drawer",
+        "green_cup": "cup"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode30",
+      "instruction": "pick up the red block and place the red block on the top of the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(red_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is visible on the left and is closed. Its top surface is visible.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode30/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "yellow_drawer": "drawer",
+        "red_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode31",
+      "instruction": "pick the blue block from the yellow drawer on the left and place it into the the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in(blue_block,yellow_drawer)",
+        "not gripper_holding(blue_block)",
+        "not in(blue_block,green_drawer)",
+        "not open(green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "in(blue_block,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and closed. The green_drawer is immediately to its right and closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode31/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_drawer": "drawer",
+        "yellow_drawer": "drawer",
+        "blue_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode32",
+      "instruction": "pick up the red block and place the red block on the top of the yellow drawer on the left",
+      "init_facts": [
+        "gripper_empty()",
+        "in(red_block,yellow_drawer)",
+        "not gripper_holding(red_block)",
+        "not on_top_of(red_block,yellow_drawer)",
+        "not open(green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(red_block,yellow_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is on the left and the green_drawer is beside it on the right. Both drawers are closed.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode32/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_drawer": "drawer",
+        "yellow_drawer": "drawer",
+        "red_block": "block"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode4",
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)"
+      ],
+      "scene_description": "The green_drawer is on the right with its drawer closed, beside the yellow_drawer on the left with its drawer closed. The green_cup is in front of the yellow_drawer and contains visible dark liquid.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode4/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode5",
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left, beside the closed green_drawer on the right. The green_cup sits in front of the yellow_drawer, and the pink_cup sits in front of the green_drawer. Both cup interiors are visible; the pink_cup contains dark liquid.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode5/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "pink_cup": "cup",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode6",
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)"
+      ],
+      "scene_description": "The green_drawer is closed and stands to the right of the closed yellow_drawer. The green_cup is upright in front of the yellow_drawer; its interior is visible, with no distinct liquid surface apparent.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode6/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "yellow_drawer": "drawer",
+        "green_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode7",
+      "instruction": "place the cup without dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed on the left, and the green_drawer is closed on its right. The green_cup stands in front of the yellow_drawer. The pink_cup stands in front of the green_drawer and contains no visible dark liquid.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode7/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "pink_cup": "cup",
+        "green_drawer": "drawer",
+        "green_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode8",
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(green_cup,green_drawer)"
+      ],
+      "scene_description": "The closed green_drawer is on the right, with the green_cup positioned in front of it; the cup's visible interior appears dark. The closed yellow_drawer is on the left, with the pink_cup positioned in front of it.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode8/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "green_drawer": "drawer",
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    },
+    {
+      "episode_name": "episode9",
+      "instruction": "place the cup with dark liquid on the top of the green drawer on the right",
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "goal_facts": [
+        "on_top_of(pink_cup,green_drawer)"
+      ],
+      "scene_description": "The yellow_drawer is closed, with the pink_cup standing on the surface in front of it; dark liquid is visible inside the pink_cup. The green_drawer is closed, with the green_cup standing on the surface in front of it.",
+      "frame_paths": [
+        "original-run/domain/1_scene_description/episode9/frames/step_000/frame_0000_t00000000ms.jpg"
+      ],
+      "objects": {
+        "green_cup": "cup",
+        "green_drawer": "drawer",
+        "pink_cup": "cup",
+        "yellow_drawer": "drawer"
+      },
+      "camera_order_top_to_bottom": [
+        "cam_high",
+        "right"
+      ]
+    }
+  ],
+  "review_results": [
+    {
+      "episode_name": "episode0",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "All candidate assignments are visually supported: the pink cup shows no distinct dark liquid, and both movable objects are visibly outside the drawers.",
+        "raw_output": "{\n  \"summary\": \"All candidate assignments are visually supported: the pink cup shows no distinct dark liquid, and both movable objects are visibly outside the drawers.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup interior is visible, but there is no separate liquid surface, meniscus, material boundary, or texture indicating dark liquid.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(black_box,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is visibly resting on top of the closed green drawer, not inside it.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(black_box,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is visibly outside the closed yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly positioned in front of the drawers and outside the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly in front of, rather than inside, the closed yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode1",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "All five negative assignments are visually supported; the cup appears empty, and both objects are visibly outside the closed drawers.",
+        "raw_output": "{\n  \"summary\": \"All five negative assignments are visually supported; the cup appears empty, and both objects are visibly outside the closed drawers.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"not has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup's interior is visible and shows no separate dark liquid surface, meniscus, or material boundary.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(black_box,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is visibly resting on top of the closed green drawer, not inside it.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(black_box,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is visibly outside the yellow drawer and positioned atop the adjacent green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside and in front of the drawers, not inside the green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside and in front of the closed yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode10",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "All supplied assignments are visually assessable and agree with the image.",
+        "raw_output": "{\n  \"summary\": \"All supplied assignments are visually assessable and agree with the image.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": true,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": true,\n      \"rationale\": \"A distinct dark liquid surface is visible inside the pink cup.\"\n    },\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup's visible interior contains no distinct dark liquid surface.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside and in front of the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside the closed yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside and in front of the closed yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode11",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "ground_truth_value": true,
+            "rationale": "The green cup's visible interior has smooth dark shading, but no separate liquid surface, meniscus, material boundary, or texture discontinuity is visible."
+          }
+        ],
+        "summary": "Both cups are visibly outside the closed drawers. Neither cup shows distinct visual evidence of dark liquid.",
+        "raw_output": "{\n  \"summary\": \"Both cups are visibly outside the closed drawers. Neither cup shows distinct visual evidence of dark liquid.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup's visible interior has smooth dark shading, but no separate liquid surface, meniscus, material boundary, or texture discontinuity is visible.\"\n    },\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup's visible interior shows no distinct dark liquid.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly standing outside and in front of the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside the closed yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly standing outside and in front of the closed yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode12",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "All three grounded negative assignments are visually supported.",
+        "raw_output": "{\n  \"summary\": \"All three grounded negative assignments are visually supported.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup's visible interior contains no separately visible dark liquid, surface, meniscus, or material boundary.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside and in front of the drawers, not inside the green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside and in front of the yellow drawer, not inside it.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode13",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The green cup is visibly outside both drawers, and no distinct dark liquid is visible inside it.",
+        "raw_output": "{\n  \"summary\": \"The green cup is visibly outside both drawers, and no distinct dark liquid is visible inside it.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup interior is visible, with no separate dark liquid surface, boundary, or meniscus.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly standing in front of the drawers rather than inside the green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly standing in front of the drawers rather than inside the yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode14",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The pink cup is visibly outside the green drawer and contains no visible dark liquid.",
+        "raw_output": "{\n  \"summary\": \"The pink cup is visibly outside the green drawer and contains no visible dark liquid.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup's visible interior shows no separate dark liquid, surface, meniscus, or material boundary.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly positioned on the surface in front of the closed green drawer, not inside it.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode15",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The green cup is visibly outside the drawer, and its visible interior shows no distinct dark liquid.",
+        "raw_output": "{\n  \"summary\": \"The green cup is visibly outside the drawer, and its visible interior shows no distinct dark liquid.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup interior is visible and shows no separate dark material, surface, meniscus, or texture indicating dark liquid.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly upright on the surface in front of the closed green drawer, not inside it.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode17",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both drawers are closed, so their contents are not visually assessable.",
+        "raw_output": "{\n  \"summary\": \"Both drawers are closed, so their contents are not visually assessable.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, hiding its interior and preventing visual confirmation of the blue block.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, so its interior cannot be inspected to verify whether the blue block is absent.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode19",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both drawer interiors are hidden because the drawers are closed, so the red block's containment cannot be visually assessed.",
+        "raw_output": "{\n  \"summary\": \"Both drawer interiors are hidden because the drawers are closed, so the red block's containment cannot be visually assessed.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, and its interior and the red block are not visible.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, so its interior cannot be inspected to verify whether the red block is absent.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode2",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The pink cup shows no separately visible dark liquid, and neither object is inside either drawer.",
+        "raw_output": "{\n  \"summary\": \"The pink cup shows no separately visible dark liquid, and neither object is inside either drawer.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup opening and interior are visible, but there is no distinct liquid surface, meniscus, or material boundary; the pink coloration is consistent with the cup interior.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(black_box,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is visibly resting on top of the closed green drawer, not inside it.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(black_box,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is fully visible outside the yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly upright in front of the green drawer, not inside it.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is fully visible outside the yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode20",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both drawers are closed, so their interiors and the red block's containment are not visually assessable.",
+        "raw_output": "{\n  \"summary\": \"Both drawers are closed, so their interiors and the red block's containment are not visually assessable.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, hiding its interior and any red block it may contain.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, so its interior cannot be inspected to verify whether the red block is absent.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode21",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both drawers are closed, so their interiors and any contained blue block are not visible.",
+        "raw_output": "{\n  \"summary\": \"Both drawers are closed, so their interiors and any contained blue block are not visible.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, hiding its interior, and the blue block is not visible.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, so its interior cannot be inspected for the blue block.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode23",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both containment relations are not visually assessable because the drawers are closed and their interiors are hidden.",
+        "raw_output": "{\n  \"summary\": \"Both containment relations are not visually assessable because the drawers are closed and their interiors are hidden.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, so its interior and the asserted blue block are not visible.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, so its interior cannot be inspected to verify whether the blue block is absent.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode24",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The blue block's presence inside the closed yellow drawer cannot be visually assessed.",
+        "raw_output": "{\n  \"summary\": \"The blue block's presence inside the closed yellow drawer cannot be visually assessed.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, so its interior and any blue block potentially inside it are hidden from view.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode26",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both drawers are closed, so their interiors and the red block's containment are not visually assessable.",
+        "raw_output": "{\n  \"summary\": \"Both drawers are closed, so their interiors and the red block's containment are not visually assessable.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, hiding its interior and any contained block.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(red_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, so whether the red block is inside cannot be visually determined.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode27",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The closed yellow drawer prevents visual inspection of its contents.",
+        "raw_output": "{\n  \"summary\": \"The closed yellow drawer prevents visual inspection of its contents.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, so whether the red block is inside cannot be visually assessed.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode28",
+      "description_review": {
+        "should_review_with_vlm": false,
+        "suspect_contradictions": [],
+        "summary": "Skipped because this episode has no grounded assignments for the VLM-discovered uncertain predicates.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "No VLM-discovered uncertain predicates apply to this episode.",
+        "raw_output": null
+      }
+    },
+    {
+      "episode_name": "episode29",
+      "description_review": {
+        "should_review_with_vlm": false,
+        "suspect_contradictions": [],
+        "summary": "Skipped because this episode has no grounded assignments for the VLM-discovered uncertain predicates.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "No VLM-discovered uncertain predicates apply to this episode.",
+        "raw_output": null
+      }
+    },
+    {
+      "episode_name": "episode3",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The green cup shows no distinct dark liquid, and both the black box and green cup are visibly outside the closed drawers.",
+        "raw_output": "{\n  \"summary\": \"The green cup shows no distinct dark liquid, and both the black box and green cup are visibly outside the closed drawers.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"not has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup's visible interior is smoothly green with no separate dark liquid surface, boundary, or meniscus.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(black_box,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is visibly resting on top of the green drawer rather than inside it.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(black_box,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The black box is visibly outside the yellow drawer and positioned atop the adjacent green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly standing in front of the green drawer, not inside it.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside both drawers in the foreground.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode30",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The yellow drawer is closed, so its interior and any contents are not visible.",
+        "raw_output": "{\"summary\":\"The yellow drawer is closed, so its interior and any contents are not visible.\",\"observation_evaluations\":[{\"predicate_name\":\"in\",\"grounded_literal\":\"in(red_block,yellow_drawer)\",\"observed_value\":false,\"ground_truth_value\":true,\"visually_assessable\":false,\"rationale\":\"The yellow drawer is closed, hiding its interior; whether the red block is inside cannot be visually assessed.\"}]}"
+      }
+    },
+    {
+      "episode_name": "episode31",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both drawers are closed, so their interiors and the blue block's containment are not visually assessable.",
+        "raw_output": "{\n  \"summary\": \"Both drawers are closed, so their interiors and the blue block's containment are not visually assessable.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, hiding its interior and any blue block that may be inside.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(blue_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, so its interior cannot be inspected to confirm or refute the block's containment.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode32",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "Both drawers are closed, so their interiors and any possible contained red block are not visually observable.",
+        "raw_output": "{\n  \"summary\": \"Both drawers are closed, so their interiors and any possible contained red block are not visually observable.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": false,\n      \"rationale\": \"The yellow drawer is closed, hiding its interior, so whether the red block is inside cannot be visually assessed.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(red_block,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": false,\n      \"rationale\": \"The green drawer is closed, hiding its interior, so the absence of the red block inside cannot be visually confirmed.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode4",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "ground_truth_value": true,
+            "rationale": "The cup interior is visible, but it appears smoothly gray-green without a separate liquid surface, meniscus, boundary, or texture discontinuity."
+          }
+        ],
+        "summary": "The green cup is visibly outside both drawers, but no independently distinguishable dark liquid is visible inside it.",
+        "raw_output": "{\n  \"summary\": \"The green cup is visibly outside both drawers, but no independently distinguishable dark liquid is visible inside it.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup interior is visible, but it appears smoothly gray-green without a separate liquid surface, meniscus, boundary, or texture discontinuity.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly positioned in front of the drawers and is not inside the green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly positioned outside and in front of the yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode5",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": false,
+            "ground_truth_value": true,
+            "rationale": "The visible pink interior has smooth coloration but no separate liquid surface, meniscus, material boundary, or texture discontinuity."
+          }
+        ],
+        "summary": "Both cups are visibly outside the drawers. The pink cup’s interior is smoothly colored without an independently visible liquid surface, boundary, meniscus, or texture, so dark liquid is not visually observed.",
+        "raw_output": "{\n  \"summary\": \"Both cups are visibly outside the drawers. The pink cup’s interior is smoothly colored without an independently visible liquid surface, boundary, meniscus, or texture, so dark liquid is not visually observed.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": true,\n      \"rationale\": \"The visible pink interior has smooth coloration but no separate liquid surface, meniscus, material boundary, or texture discontinuity.\"\n    },\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup's visible interior shows no independently distinguishable dark liquid.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly positioned outside and in front of the drawers.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside the closed yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside and in front of the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside the yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode6",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [],
+        "summary": "The visible green cup has no distinct dark liquid and is outside both closed drawers, matching all supplied ground-truth assignments.",
+        "raw_output": "{\n  \"summary\": \"The visible green cup has no distinct dark liquid and is outside both closed drawers, matching all supplied ground-truth assignments.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The cup's interior is visible, but no separate dark liquid surface, meniscus, or material boundary is apparent.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly positioned in front of, rather than inside, the closed yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode7",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "ground_truth_value": true,
+            "rationale": "The green cup's visible interior is smoothly shaded, with no separate liquid surface, meniscus, or material boundary."
+          }
+        ],
+        "summary": "No separately visible dark liquid is evident in either cup, and both cups are visibly outside both drawers.",
+        "raw_output": "{\n  \"summary\": \"No separately visible dark liquid is evident in either cup, and both cups are visibly outside both drawers.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup's visible interior is smoothly shaded, with no separate liquid surface, meniscus, or material boundary.\"\n    },\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup's interior is visible, but no distinct dark liquid surface or boundary is present.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly positioned in front of the drawers rather than inside the green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside and in front of the yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside and in front of the green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside the yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode8",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(green_cup)",
+            "observed_value": false,
+            "ground_truth_value": true,
+            "rationale": "The green cup's visible interior is darkly shaded, but no separate liquid surface, meniscus, material boundary, or texture discontinuity is visible."
+          }
+        ],
+        "summary": "Both cups are visibly outside the closed drawers. No independently visible liquid surface, meniscus, or material boundary establishes dark liquid in either cup.",
+        "raw_output": "{\n  \"summary\": \"Both cups are visibly outside the closed drawers. No independently visible liquid surface, meniscus, or material boundary establishes dark liquid in either cup.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup's visible interior is darkly shaded, but no separate liquid surface, meniscus, material boundary, or texture discontinuity is visible.\"\n    },\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"not has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup's visible interior shows no independently identifiable dark liquid.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside and in front of the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside the closed yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"not in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside and in front of the closed yellow drawer.\"\n    }\n  ]\n}"
+      }
+    },
+    {
+      "episode_name": "episode9",
+      "description_review": {
+        "should_review_with_vlm": true,
+        "suspect_contradictions": [],
+        "summary": "Text-only gating disabled; the VLM independently reviews all grounded predicate assignments.",
+        "raw_output": null
+      },
+      "vlm_confirmation": {
+        "confirmed_contradictions": [
+          {
+            "predicate_name": "has_dark_liquid",
+            "grounded_literal": "has_dark_liquid(pink_cup)",
+            "observed_value": false,
+            "ground_truth_value": true,
+            "rationale": "The pink cup's visible interior is smoothly pink, with no distinct liquid surface, meniscus, material boundary, or dark contents."
+          }
+        ],
+        "summary": "Neither cup visibly contains dark liquid, and both cups are visibly outside both closed drawers.",
+        "raw_output": "{\n  \"summary\": \"Neither cup visibly contains dark liquid, and both cups are visibly outside both closed drawers.\",\n  \"observation_evaluations\": [\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(pink_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": true,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup's visible interior is smoothly pink, with no distinct liquid surface, meniscus, material boundary, or dark contents.\"\n    },\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"grounded_literal\": \"has_dark_liquid(green_cup)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup's visible interior shows no distinct dark liquid.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside and in front of the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(green_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The green cup is visibly outside the closed yellow drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,green_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside the closed green drawer.\"\n    },\n    {\n      \"predicate_name\": \"in\",\n      \"grounded_literal\": \"in(pink_cup,yellow_drawer)\",\n      \"observed_value\": false,\n      \"ground_truth_value\": false,\n      \"visually_assessable\": true,\n      \"rationale\": \"The pink cup is visibly outside and in front of the closed yellow drawer.\"\n    }\n  ]\n}"
+      }
+    }
+  ],
+  "seed_examples": [
+    {
+      "episode_name": "episode11",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": true,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "contradiction_seed"
+    },
+    {
+      "episode_name": "episode4",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": true,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "contradiction_seed"
+    },
+    {
+      "episode_name": "episode5",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": true,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "contradiction_seed"
+    },
+    {
+      "episode_name": "episode7",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": true,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "contradiction_seed"
+    },
+    {
+      "episode_name": "episode8",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": true,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "contradiction_seed"
+    },
+    {
+      "episode_name": "episode9",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": true,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "contradiction_seed"
+    }
+  ],
+  "conditions": [
+    {
+      "predicate_name": "has_dark_liquid",
+      "argument_types": [
+        "cup"
+      ],
+      "target_literal_template": "has_dark_liquid(?obs0)",
+      "condition_literals": []
+    }
+  ],
+  "expanded_examples": [
+    {
+      "episode_name": "episode0",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode1",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode10",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode10",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": true,
+      "observed_value": true,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode11",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode12",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode13",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode14",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "not open(green_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode15",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,green_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "not open(green_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode2",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode3",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,green_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(black_box,yellow_drawer)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)",
+        "on_top_of(black_box,green_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode5",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode6",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "in_front_of(green_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode7",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,yellow_drawer)",
+        "in_front_of(pink_cup,green_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode8",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(pink_cup)",
+      "argument_values": [
+        "pink_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(green_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(green_cup)",
+        "not on_top_of(green_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    },
+    {
+      "episode_name": "episode9",
+      "predicate_name": "has_dark_liquid",
+      "grounded_literal": "has_dark_liquid(green_cup)",
+      "argument_values": [
+        "green_cup"
+      ],
+      "argument_types": [
+        "cup"
+      ],
+      "ground_truth_value": false,
+      "observed_value": false,
+      "init_facts": [
+        "gripper_empty()",
+        "has_dark_liquid(pink_cup)",
+        "in_front_of(green_cup,green_drawer)",
+        "in_front_of(pink_cup,yellow_drawer)",
+        "not gripper_holding(pink_cup)",
+        "not on_top_of(pink_cup,green_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "source_kind": "expanded_correct_observation"
+    }
+  ],
+  "schemas": [
+    {
+      "predicate_name": "has_dark_liquid",
+      "observable_name": "obs_has_dark_liquid",
+      "parameter_types": [
+        "cup"
+      ],
+      "target_literal_template": "has_dark_liquid(?obs0)",
+      "condition_literals": [],
+      "last_action_false_conditions": [
+        "(forall (?m - last_action_marker ?x0 - object) (not (last_action_1_param ?m ?x0)))",
+        "(forall (?m - last_action_marker ?x0 - object ?x1 - object) (not (last_action_2_param ?m ?x0 ?x1)))",
+        "(forall (?m - last_action_marker ?x0 - object ?x1 - object ?x2 - object) (not (last_action_3_param ?m ?x0 ?x1 ?x2)))"
+      ],
+      "true_rule_name": "init_obs_has_dark_liquid_true",
+      "false_rule_name": "init_obs_has_dark_liquid_false",
+      "total_ground_truth_true": 7,
+      "observed_true_when_ground_truth_true": 1,
+      "observed_false_when_ground_truth_true": 6,
+      "prob_observable_true_given_ground_truth_true": 0.14285714285714285,
+      "prob_observable_false_given_ground_truth_true": 0.8571428571428571,
+      "total_ground_truth_false": 15,
+      "observed_true_when_ground_truth_false": 0,
+      "observed_false_when_ground_truth_false": 15,
+      "prob_observable_true_given_ground_truth_false": 0.0,
+      "prob_observable_false_given_ground_truth_false": 1.0
+    }
+  ],
+  "predicate_inventory": [
+    {
+      "predicate_name": "in",
+      "parameter_types": [
+        "movable_item",
+        "containable_item"
+      ],
+      "comment": "The movable item is inside the containable item.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "on_top_of",
+      "parameter_types": [
+        "movable_item",
+        "fixed_item"
+      ],
+      "comment": "The movable item rests on top of the fixed item.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "in_front_of",
+      "parameter_types": [
+        "movable_item",
+        "fixed_item"
+      ],
+      "comment": "The movable item is in front of the fixed item.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "open",
+      "parameter_types": [
+        "drawer"
+      ],
+      "comment": "The drawer is open.",
+      "predicate_kind": "state"
+    },
+    {
+      "predicate_name": "on_left",
+      "parameter_types": [
+        "drawer"
+      ],
+      "comment": "The drawer occupies the left-side position.",
+      "predicate_kind": "feature",
+      "is_static_feature": true
+    },
+    {
+      "predicate_name": "has_dark_liquid",
+      "parameter_types": [
+        "cup"
+      ],
+      "comment": "The cup contains dark liquid.",
+      "predicate_kind": "feature",
+      "is_static_feature": true
+    }
+  ],
+  "predicate_comments": {
+    "in": "The first object is inside the second object.",
+    "on_top_of": "The first object rests on top of the second object.",
+    "in_front_of": "The first object is positioned in front of the second object.",
+    "open": "The drawer is open.",
+    "on_left": "The drawer occupies the left-side position.",
+    "has_dark_liquid": "The cup contains dark liquid.",
+    "gripper_empty)": "The gripper is not holding any object."
+  },
+  "rendered_module_text": ";; Init observation domain module learned from initial scene descriptions\n(:observables\n  (obs-nothing)\n  (obs_has_dark_liquid ?arg0 - cup)\n)\n\n;; init observation / predicate=has_dark_liquid\n(:observation init_obs_has_dark_liquid_true\n  :parameters (?obs0 - cup)\n  :condition (and (has_dark_liquid ?obs0) (forall (?m - last_action_marker ?x0 - object) (not (last_action_1_param ?m ?x0))) (forall (?m - last_action_marker ?x0 - object ?x1 - object) (not (last_action_2_param ?m ?x0 ?x1))) (forall (?m - last_action_marker ?x0 - object ?x1 - object ?x2 - object) (not (last_action_3_param ?m ?x0 ?x1 ?x2))))\n  :distribution (probabilistic\n      0.142857 (obs_has_dark_liquid ?obs0)\n      0.857143 (not (obs_has_dark_liquid ?obs0))\n    )\n)\n(:observation init_obs_has_dark_liquid_false\n  :parameters (?obs0 - cup)\n  :condition (and (not (has_dark_liquid ?obs0)) (forall (?m - last_action_marker ?x0 - object) (not (last_action_1_param ?m ?x0))) (forall (?m - last_action_marker ?x0 - object ?x1 - object) (not (last_action_2_param ?m ?x0 ?x1))) (forall (?m - last_action_marker ?x0 - object ?x1 - object ?x2 - object) (not (last_action_3_param ?m ?x0 ?x1 ?x2))))\n  :distribution (probabilistic\n      0.000000 (obs_has_dark_liquid ?obs0)\n      1.000000 (not (obs_has_dark_liquid ?obs0))\n    )\n)\n",
+  "uncertain_predicate_discovery": {
+    "predicate_names": [
+      "in",
+      "has_dark_liquid"
+    ],
+    "rationale_by_predicate": {
+      "in": "A block may be inside a closed drawer and therefore completely hidden in the initial view, despite containment being task-relevant.",
+      "has_dark_liquid": "Dark liquid must be identified from the cup interior, but visibility, shadows, viewing angle, and occlusion can make its presence ambiguous or misread."
+    },
+    "summary": "Uncertainty concerns hidden drawer contents and visually ambiguous dark liquid, not ordinary spatial localization.",
+    "raw_output": "{\n  \"observation_uncertain_predicates\": [\n    {\n      \"predicate_name\": \"in\",\n      \"rationale\": \"A block may be inside a closed drawer and therefore completely hidden in the initial view, despite containment being task-relevant.\"\n    },\n    {\n      \"predicate_name\": \"has_dark_liquid\",\n      \"rationale\": \"Dark liquid must be identified from the cup interior, but visibility, shadows, viewing angle, and occlusion can make its presence ambiguous or misread.\"\n    }\n  ],\n  \"summary\": \"Uncertainty concerns hidden drawer contents and visually ambiguous dark liquid, not ordinary spatial localization.\"\n}"
+  }
+}

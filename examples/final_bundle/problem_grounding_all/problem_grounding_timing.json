@@ -1,0 +1,26 @@
+{
+  "stage_name": "problem_grounding",
+  "started_at_utc": "2026-08-20T11:11:06.823924+00:00",
+  "finished_at_utc": "2026-08-20T11:11:07.017881+00:00",
+  "elapsed_seconds": 0.19396816997323185,
+  "mode": "run",
+  "metadata": {
+    "episode_count": 29,
+    "llm_usage": {
+      "total_calls": 0,
+      "llm_calls": 0,
+      "vlm_calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "llm_usage": {
+    "total_calls": 0,
+    "llm_calls": 0,
+    "vlm_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 0
+  }
+}

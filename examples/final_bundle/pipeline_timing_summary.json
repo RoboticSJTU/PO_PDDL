@@ -1,0 +1,343 @@
+{
+  "started_at_utc": "2026-08-20T11:11:06.175449+00:00",
+  "finished_at_utc": "2026-08-20T11:11:08.144688+00:00",
+  "total_elapsed_seconds": 1.9633053180295974,
+  "stage_count": 12,
+  "llm_usage_summary": {
+    "total_calls": 374,
+    "llm_calls": 314,
+    "vlm_calls": 60,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 0
+  },
+  "stages": [
+    {
+      "stage_name": "pre_scene_action_parsing",
+      "started_at_utc": "2026-08-20T11:11:06.175449+00:00",
+      "finished_at_utc": "2026-08-20T11:11:06.205831+00:00",
+      "elapsed_seconds": 0.03039388300385326,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "llm_usage": {
+          "total_calls": 1,
+          "llm_calls": 1,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 1,
+        "llm_calls": 1,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/0_pre_scene_action_parsing/pre_scene_action_parsing_timing.json"
+    },
+    {
+      "stage_name": "scene_description",
+      "started_at_utc": "2026-08-20T11:11:06.205896+00:00",
+      "finished_at_utc": "2026-08-20T11:11:06.207051+00:00",
+      "elapsed_seconds": 0.0011635549599304795,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "llm_usage": {
+          "total_calls": 0,
+          "llm_calls": 0,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 0,
+        "llm_calls": 0,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/1_scene_description/scene_description_timing.json"
+    },
+    {
+      "stage_name": "manipulation_domain_learning",
+      "started_at_utc": "2026-08-20T11:11:06.207117+00:00",
+      "finished_at_utc": "2026-08-20T11:11:06.672023+00:00",
+      "elapsed_seconds": 0.46491760201752186,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "llm_usage": {
+          "total_calls": 196,
+          "llm_calls": 182,
+          "vlm_calls": 14,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 196,
+        "llm_calls": 182,
+        "vlm_calls": 14,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/2_manipulation_domain_learning/manipulation_domain_learning_timing.json"
+    },
+    {
+      "stage_name": "predicate_type_repair",
+      "started_at_utc": "2026-08-20T11:11:06.672203+00:00",
+      "finished_at_utc": "2026-08-20T11:11:06.798879+00:00",
+      "elapsed_seconds": 0.1266861039912328,
+      "mode": "run",
+      "metadata": {
+        "changed": false,
+        "llm_usage": {
+          "total_calls": 0,
+          "llm_calls": 0,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 0,
+        "llm_calls": 0,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/3b_predicate_type_repair/predicate_type_repair_timing.json"
+    },
+    {
+      "stage_name": "grounding_effect_repair",
+      "started_at_utc": "2026-08-20T11:11:06.798954+00:00",
+      "finished_at_utc": "2026-08-20T11:11:06.822602+00:00",
+      "elapsed_seconds": 0.023658895050175488,
+      "mode": "run",
+      "metadata": {
+        "changed": true,
+        "llm_usage": {
+          "total_calls": 0,
+          "llm_calls": 0,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 0,
+        "llm_calls": 0,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/3c_grounding_effect_repair/grounding_effect_repair_timing.json"
+    },
+    {
+      "stage_name": "problem_grounding",
+      "started_at_utc": "2026-08-20T11:11:06.823924+00:00",
+      "finished_at_utc": "2026-08-20T11:11:07.017881+00:00",
+      "elapsed_seconds": 0.19396816997323185,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "llm_usage": {
+          "total_calls": 0,
+          "llm_calls": 0,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 0,
+        "llm_calls": 0,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/4_problem_grounding_all/problem_grounding_timing.json"
+    },
+    {
+      "stage_name": "precondition_learning",
+      "started_at_utc": "2026-08-20T11:11:07.017939+00:00",
+      "finished_at_utc": "2026-08-20T11:11:07.112546+00:00",
+      "elapsed_seconds": 0.0946183119667694,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "llm_usage": {
+          "total_calls": 17,
+          "llm_calls": 17,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 17,
+        "llm_calls": 17,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/4b_precondition_learning/precondition_learning_timing.json"
+    },
+    {
+      "stage_name": "passive_observation_learning",
+      "started_at_utc": "2026-08-20T11:11:07.114575+00:00",
+      "finished_at_utc": "2026-08-20T11:11:07.201160+00:00",
+      "elapsed_seconds": 0.08659513003658503,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "has_inputs": true,
+        "llm_usage": {
+          "total_calls": 96,
+          "llm_calls": 96,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 96,
+        "llm_calls": 96,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/5_passive_observation_learning/passive_observation_learning_timing.json"
+    },
+    {
+      "stage_name": "init_observation_learning",
+      "started_at_utc": "2026-08-20T11:11:07.201219+00:00",
+      "finished_at_utc": "2026-08-20T11:11:07.317668+00:00",
+      "elapsed_seconds": 0.11645853507798165,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "has_inputs": true,
+        "llm_usage": {
+          "total_calls": 28,
+          "llm_calls": 0,
+          "vlm_calls": 28,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 28,
+        "llm_calls": 0,
+        "vlm_calls": 28,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/5b_init_observation_learning/init_observation_learning_timing.json"
+    },
+    {
+      "stage_name": "active_observation_learning",
+      "started_at_utc": "2026-08-20T11:11:07.317724+00:00",
+      "finished_at_utc": "2026-08-20T11:11:08.088126+00:00",
+      "elapsed_seconds": 0.770412300946191,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "has_inputs": true,
+        "llm_usage": {
+          "total_calls": 36,
+          "llm_calls": 18,
+          "vlm_calls": 18,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 36,
+        "llm_calls": 18,
+        "vlm_calls": 18,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/5c_active_observation_learning/active_observation_learning_timing.json"
+    },
+    {
+      "stage_name": "merged_domain",
+      "started_at_utc": "2026-08-20T11:11:08.090222+00:00",
+      "finished_at_utc": "2026-08-20T11:11:08.113800+00:00",
+      "elapsed_seconds": 0.023586108000017703,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "llm_usage": {
+          "total_calls": 0,
+          "llm_calls": 0,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 0,
+        "llm_calls": 0,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/6_merged_domain/merged_domain_timing.json"
+    },
+    {
+      "stage_name": "final_bundle",
+      "started_at_utc": "2026-08-20T11:11:08.113850+00:00",
+      "finished_at_utc": "2026-08-20T11:11:08.144688+00:00",
+      "elapsed_seconds": 0.030846723006106913,
+      "mode": "run",
+      "metadata": {
+        "episode_count": 29,
+        "llm_usage": {
+          "total_calls": 0,
+          "llm_calls": 0,
+          "vlm_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "llm_usage": {
+        "total_calls": 0,
+        "llm_calls": 0,
+        "vlm_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "timing_file": "original-run/domain/7_final_bundle/final_bundle_timing.json"
+    }
+  ]
+}

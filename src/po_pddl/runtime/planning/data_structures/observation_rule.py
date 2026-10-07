@@ -13,6 +13,7 @@ class ObservationRule:
 
     name: str
     distribution: list[Observable] = field(default_factory=list)
+    last_action: str | None = None
 
     def to_pddl_str(self) -> str:
         """Render this observation rule in PDDL-like syntax."""
@@ -22,4 +23,4 @@ class ObservationRule:
         return self.to_pddl_str()
 
     def __hash__(self) -> int:
-        return hash((self.name, tuple(self.distribution)))
+        return hash((self.name, tuple(self.distribution), self.last_action))

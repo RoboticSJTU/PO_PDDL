@@ -1,0 +1,24 @@
+{
+  "goal_satisfied": true,
+  "issue_count": 0,
+  "issues": [],
+  "steps": [
+    {
+      "step_index": 1,
+      "action_name": "close_object_on_left",
+      "effect_bucket": "close_object_on_left_success",
+      "status": "applied",
+      "state_before": [
+        "gripper_empty()",
+        "on_left(yellow_drawer)",
+        "open(yellow_drawer)"
+      ],
+      "state_after": [
+        "gripper_empty()",
+        "not open(yellow_drawer)",
+        "on_left(yellow_drawer)"
+      ],
+      "failed_preconditions": []
+    }
+  ]
+}

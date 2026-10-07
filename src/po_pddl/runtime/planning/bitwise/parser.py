@@ -57,6 +57,7 @@ class BitwiseModelSkeleton(BitwisePOMDPModelBase):
     observation_rule_condition_checks: list["BitwiseGoalCheck"] = field(default_factory=list, repr=False)
     observation_rule_distributions: list[list["BitwiseObservationBranch"]] = field(default_factory=list, repr=False)
     observation_rule_skip_before_for_active_perception: list[bool] = field(default_factory=list, repr=False)
+    observation_rule_allowed_action_ids: list[frozenset[int] | None] = field(default_factory=list, repr=False)
     action_is_active_perception: list[bool] = field(default_factory=list, repr=False)
     default_policy_rule_condition_checks: list["BitwiseGoalCheck"] = field(default_factory=list, repr=False)
     default_policy_rule_action_ids: list[int] = field(default_factory=list, repr=False)
@@ -78,6 +79,7 @@ class BitwiseModelSkeleton(BitwisePOMDPModelBase):
             if draw <= cumulative:
                 return idx
         return len(cleaned) - 1
+
 
     def check_action_precondition(self, action: int, state: int) -> bool:
         if action < 0 or action >= len(self.action_precondition_checks):
@@ -186,6 +188,13 @@ class BitwiseModelSkeleton(BitwisePOMDPModelBase):
             raise ValueError(f"Unknown grounded observation rule id: {observation_rule}")
         if self.should_skip_observation_rule_before_check(observation_rule, current_action):
             return False
+        if observation_rule < len(self.observation_rule_allowed_action_ids):
+            allowed = self.observation_rule_allowed_action_ids[observation_rule]
+            if allowed is not None:
+                if current_action is None and allowed:
+                    return False
+                if current_action is not None and current_action not in allowed:
+                    return False
         return evaluate_goal_check(self.observation_rule_condition_checks[observation_rule], state)
 
     def observe_with_rule(
@@ -906,6 +915,18 @@ def build_bitwise_model_from_parsed(
         observation_rule_distributions=observation_rule_distributions,
         observation_rule_skip_before_for_active_perception=[
             observation_rule.name.startswith("before_")
+            for observation_rule in model.observation_rules
+        ],
+        observation_rule_allowed_action_ids=[
+            None
+            if observation_rule.last_action is None
+            else frozenset()
+            if observation_rule.last_action == "init"
+            else frozenset(
+                index
+                for index, action in enumerate(model.actions)
+                if action.name == observation_rule.last_action
+            )
             for observation_rule in model.observation_rules
         ],
         action_is_active_perception=[
@@ -2380,6 +2401,18 @@ def build_bitwise_model_skeleton_from_module(
         observation_rule_distributions=observation_rule_distributions,
         observation_rule_skip_before_for_active_perception=[
             observation_rule.name.startswith("before_")
+            for observation_rule in model.observation_rules
+        ],
+        observation_rule_allowed_action_ids=[
+            None
+            if observation_rule.last_action is None
+            else frozenset()
+            if observation_rule.last_action == "init"
+            else frozenset(
+                index
+                for index, action in enumerate(model.actions)
+                if action.name == observation_rule.last_action
+            )
             for observation_rule in model.observation_rules
         ],
         action_is_active_perception=[
