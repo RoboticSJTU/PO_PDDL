@@ -24,16 +24,31 @@ SCHEMA_FRAGMENT = ROOT / "examples/final_bundle/manipulation_domain/precondition
 if SCHEMA_FRAGMENT.exists():
     DOMAINS.append(SCHEMA_FRAGMENT)
 
+PROBLEM = """
+(define (problem two-cup-clearance)
+  (:domain learned_manipulation_fragment)
+  (:objects
+    black_box - box
+    green_cup pink_cup - cup
+    green_drawer yellow_drawer - drawer)
+  (:init
+    (gripper_empty)
+    (in_front_of green_cup green_drawer)
+    (in_front_of pink_cup yellow_drawer)
+    (on_left yellow_drawer)
+    (on_top_of black_box green_drawer))
+  (:goal (and (open green_drawer) (open yellow_drawer))))
+"""
+
 
 @lru_cache(maxsize=None)
 def _compile_domain(domain_path):
     domain_text = domain_path.read_text(encoding="utf-8")
     assert lint_domain_text(domain_text).ok
     domain = parse_domain(domain_text)
-    problem = parse_problem((ROOT / "example_problem/problem_online.pddl").read_text(encoding="utf-8"))
+    problem = parse_problem(PROBLEM)
     # Some shipped intermediate domains use a different fragment name.
     problem.domain_name = domain.domain_name
-    problem.goal = ["and", ["open", "green_drawer"], ["open", "yellow_drawer"]]
     domain, problem, _ = _specialize_last_action_domain_and_problem(domain, problem, None)
     plan = build_codegen_plan_from_parsed(domain, problem)
     metadata = SimpleNamespace(
