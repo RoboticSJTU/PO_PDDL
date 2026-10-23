@@ -246,8 +246,7 @@
     "precondition_literals": [
       "gripper_empty()",
       "in_front_of(?arg0,?arg1)",
-      "not on_left(?arg1)",
-      "not on_top_of(?dep0,?arg1)"
+      "not on_left(?arg1)"
     ],
     "schema_description": "pick up the {param_1} in front of the {param_2} on the right",
     "effect_branches": [
@@ -501,7 +500,6 @@
     "precondition_literals": [
       "gripper_holding(?arg0)",
       "not on_left(?arg1)",
-      "not on_top_of(?dep0,?arg1)",
       "not open(?arg1)"
     ],
     "schema_description": "place the {param_1} on the top of the {param_2} on the right",

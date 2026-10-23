@@ -161,11 +161,6 @@
         (gripper_empty)
         (in_front_of ?arg0 ?arg1)
         (not (on_left ?arg1))
-        (forall (?dep0_0 - movable_item)
-          (and
-            (not (on_top_of ?dep0_0 ?arg1))
-          )
-        )
       )
     :effect
       (probabilistic
@@ -271,11 +266,6 @@
         (gripper_holding ?arg0)
         (not (on_left ?arg1))
         (not (open ?arg1))
-        (forall (?dep0_0 - movable_item)
-          (and
-            (not (on_top_of ?dep0_0 ?arg1))
-          )
-        )
       )
     :effect
       (probabilistic
