@@ -88,11 +88,16 @@ def test_two_cups_can_clear_drawers_with_an_occupied_top(domain_path, right_firs
         cups.reverse()
     for side, cup, source in cups:
         pickup = action_id(f"pick_up_object_in_front_of_object_on_{side}", cup, source)
+        wrong_side = "left" if side == "right" else "right"
+        wrong_pickup = action_id(f"pick_up_object_in_front_of_object_on_{wrong_side}", cup, source)
         place = action_id("place_object_on_top_of_object_on_right", cup, "green_drawer")
         assert not model.check_action_precondition(place, state)
+        assert not model.check_action_precondition(wrong_pickup, state)
         assert model.check_action_precondition(pickup, state)
         state, _ = model.forward_action(pickup, state)
         assert not model.check_action_precondition(pickup, state)
+        wrong_place = action_id("place_object_on_top_of_object_on_right", cup, "yellow_drawer")
+        assert not model.check_action_precondition(wrong_place, state)
         assert model.check_action_precondition(place, state)
         state, _ = model.forward_action(place, state)
 
