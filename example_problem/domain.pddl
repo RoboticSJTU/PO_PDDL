@@ -50,6 +50,8 @@
     (in ?x0 - movable_item ?x1 - drawer)
     ;; The first object is positioned in front of the second object.
     (in_front_of ?x0 - movable_item ?x1 - fixed_item)
+    ;; The drawer occupies the left-side position.
+    (on_left ?x0 - drawer)
     ;; The first object rests on top of the second object.
     (on_top_of ?x0 - movable_item ?x1 - fixed_item)
     ;; The drawer is open.
@@ -68,7 +70,7 @@
   (:action close_object_on_left
     :parameters (?arg0 - drawer)
     :precondition
-      (and (gripper_empty) (open ?arg0))
+      (and (gripper_empty) (on_left ?arg0) (open ?arg0))
     :effect
       (and
         (decrease (total-reward) 22.9)
@@ -83,7 +85,7 @@
   (:action close_object_on_right
     :parameters (?arg0 - drawer)
     :precondition
-      (and (gripper_empty) (open ?arg0))
+      (and (gripper_empty) (not (on_left ?arg0)) (open ?arg0))
     :effect
       (and
         (decrease (total-reward) 22.9)
@@ -98,7 +100,7 @@
   (:action open_object_on_left
     :parameters (?arg0 - drawer)
     :precondition
-      (and (gripper_empty) (not (open ?arg0)) (forall (?dep0_0 - movable_item) (and (not (in_front_of ?dep0_0 ?arg0)))))
+      (and (gripper_empty) (not (open ?arg0)) (on_left ?arg0) (forall (?dep0_0 - movable_item) (and (not (in_front_of ?dep0_0 ?arg0)))))
     :effect
       (and
         (decrease (total-reward) 25.645455)
@@ -113,7 +115,7 @@
   (:action open_object_on_right
     :parameters (?arg0 - drawer)
     :precondition
-      (and (gripper_empty) (not (open ?arg0)) (forall (?dep0_0 - movable_item) (and (not (in_front_of ?dep0_0 ?arg0)))))
+      (and (gripper_empty) (not (on_left ?arg0)) (not (open ?arg0)) (forall (?dep0_0 - movable_item) (and (not (in_front_of ?dep0_0 ?arg0)))))
     :effect
       (and
         (decrease (total-reward) 24.52)
@@ -128,7 +130,7 @@
   (:action pick_up_object_in_front_of_object_on_left
     :parameters (?arg0 - cup ?arg1 - drawer)
     :precondition
-      (and (gripper_empty) (in_front_of ?arg0 ?arg1))
+      (and (gripper_empty) (in_front_of ?arg0 ?arg1) (on_left ?arg1))
     :effect
       (and
         (decrease (total-reward) 22.5625)
@@ -143,7 +145,7 @@
   (:action pick_up_object_in_front_of_object_on_right
     :parameters (?arg0 - cup ?arg1 - drawer)
     :precondition
-      (and (gripper_empty) (in_front_of ?arg0 ?arg1))
+      (and (gripper_empty) (in_front_of ?arg0 ?arg1) (not (on_left ?arg1)))
     :effect
       (and
         (decrease (total-reward) 22.35)
@@ -158,7 +160,7 @@
   (:action pick_up_object_in_object_on_left
     :parameters (?arg0 - block ?arg1 - drawer)
     :precondition
-      (and (gripper_empty) (in ?arg0 ?arg1) (open ?arg1))
+      (and (gripper_empty) (in ?arg0 ?arg1) (on_left ?arg1) (open ?arg1))
     :effect
       (and
         (decrease (total-reward) 23.536364)
@@ -175,7 +177,7 @@
   (:action pick_up_object_in_object_on_right
     :parameters (?arg0 - block ?arg1 - drawer)
     :precondition
-      (and (gripper_empty) (in ?arg0 ?arg1) (open ?arg1))
+      (and (gripper_empty) (in ?arg0 ?arg1) (not (on_left ?arg1)) (open ?arg1))
     :effect
       (and
         (decrease (total-reward) 23.475)
@@ -190,7 +192,7 @@
   (:action place_object_into_object_on_left
     :parameters (?arg0 - block ?arg1 - drawer)
     :precondition
-      (and (gripper_holding ?arg0) (open ?arg1))
+      (and (gripper_holding ?arg0) (on_left ?arg1) (open ?arg1))
     :effect
       (and
         (decrease (total-reward) 20.85)
@@ -205,7 +207,7 @@
   (:action place_object_into_object_on_right
     :parameters (?arg0 - block ?arg1 - drawer)
     :precondition
-      (and (gripper_holding ?arg0) (open ?arg1))
+      (and (gripper_holding ?arg0) (not (on_left ?arg1)) (open ?arg1))
     :effect
       (and
         (decrease (total-reward) 22.666667)
@@ -220,7 +222,7 @@
   (:action place_object_on_top_of_object_on_left
     :parameters (?arg0 - block ?arg1 - drawer)
     :precondition
-      (and (gripper_holding ?arg0))
+      (and (gripper_holding ?arg0) (on_left ?arg1))
     :effect
       (and
         (decrease (total-reward) 20.65)
@@ -235,7 +237,7 @@
   (:action place_object_on_top_of_object_on_right
     :parameters (?arg0 - cup ?arg1 - drawer)
     :precondition
-      (and (gripper_holding ?arg0) (not (open ?arg1)))
+      (and (gripper_holding ?arg0) (not (on_left ?arg1)) (not (open ?arg1)))
     :effect
       (and
         (decrease (total-reward) 24.13125)
@@ -250,7 +252,7 @@
   (:action push_object_on_object_on_right_to_object_on_left
     :parameters (?arg0 - box ?arg1 - drawer ?arg2 - drawer)
     :precondition
-      (and (gripper_empty) (not (open ?arg1)) (not (open ?arg2)) (on_top_of ?arg0 ?arg1))
+      (and (gripper_empty) (not (on_left ?arg1)) (not (open ?arg1)) (not (open ?arg2)) (on_left ?arg2) (on_top_of ?arg0 ?arg1))
     :effect
       (and
         (decrease (total-reward) 21.925)
@@ -265,7 +267,7 @@
   (:action look_into_object_in_front_of_object_on_left
     :parameters (?arg0 - cup ?arg1 - drawer)
     :precondition
-      (and (gripper_empty) (in_front_of ?arg0 ?arg1))
+      (and (gripper_empty) (in_front_of ?arg0 ?arg1) (on_left ?arg1))
     :effect
       (and
         (decrease (total-reward) 15)
@@ -279,7 +281,7 @@
   (:action look_into_object_in_front_of_object_on_right
     :parameters (?arg0 - cup ?arg1 - drawer)
     :precondition
-      (and (gripper_empty) (in_front_of ?arg0 ?arg1))
+      (and (gripper_empty) (in_front_of ?arg0 ?arg1) (not (on_left ?arg1)))
     :effect
       (and
         (decrease (total-reward) 15)
@@ -293,7 +295,7 @@
   (:action look_into_object_on_left
     :parameters (?arg0 - drawer)
     :precondition
-      (and (gripper_empty) (open ?arg0))
+      (and (gripper_empty) (on_left ?arg0) (open ?arg0))
     :effect
       (and
         (decrease (total-reward) 15)
@@ -307,7 +309,7 @@
   (:action look_into_object_on_right
     :parameters (?arg0 - drawer)
     :precondition
-      (and (gripper_empty) (open ?arg0))
+      (and (gripper_empty) (not (on_left ?arg0)) (open ?arg0))
     :effect
       (and
         (decrease (total-reward) 15)
