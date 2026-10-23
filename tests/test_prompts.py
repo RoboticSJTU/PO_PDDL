@@ -35,6 +35,7 @@ def test_precondition_prompt_preserves_static_action_qualifiers() -> None:
 
     assert "static property of an action parameter" in prompt
     assert "otherwise equivalent action variant" in prompt
+    assert "global top-clearance requirement" in prompt
 
 
 def test_problem_openness_prompts_use_operational_access_threshold() -> None:

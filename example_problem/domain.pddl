@@ -143,7 +143,7 @@
   (:action pick_up_object_in_front_of_object_on_right
     :parameters (?arg0 - cup ?arg1 - drawer)
     :precondition
-      (and (gripper_empty) (in_front_of ?arg0 ?arg1) (forall (?dep0_0 - movable_item) (and (not (on_top_of ?dep0_0 ?arg1)))))
+      (and (gripper_empty) (in_front_of ?arg0 ?arg1))
     :effect
       (and
         (decrease (total-reward) 22.35)
@@ -235,7 +235,7 @@
   (:action place_object_on_top_of_object_on_right
     :parameters (?arg0 - cup ?arg1 - drawer)
     :precondition
-      (and (gripper_holding ?arg0) (not (open ?arg1)) (forall (?dep0_0 - movable_item) (and (not (on_top_of ?dep0_0 ?arg1)))))
+      (and (gripper_holding ?arg0) (not (open ?arg1)))
     :effect
       (and
         (decrease (total-reward) 24.13125)
