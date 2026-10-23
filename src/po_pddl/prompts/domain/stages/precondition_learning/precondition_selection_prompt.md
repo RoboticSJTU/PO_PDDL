@@ -36,9 +36,13 @@ Rules:
 - Negated candidates with dependent variables represent possible quantified clearance constraints.
   For these candidates, `eligible_example_count` counts demonstrations in which an earlier observed
   transition removed a matching grounded fact; it is causal-order evidence rather than ordinary
-  state frequency. Select the candidate when it is universally supported within those eligible
-  demonstrations and its relation is anchored to this action's manipulated object, destination,
-  access path, or required workspace. Reject unanchored scene-wide absences.
+  state frequency. Universal support and an action-argument anchor establish eligibility,
+  not necessity: select it only when the removed fact actually obstructed the manipulated
+  object, destination, access path, or required workspace. Reject unrelated scene-wide absences.
+- An empty support in a demonstration does not establish a global top-clearance requirement.
+  For example, `not on_top_of(?dep0,?arg1)` must not block picking up an object in front of
+  that support or placing another object on it unless the evidence establishes a capacity
+  limit or a physical obstruction. Keep genuine access-path and capacity constraints.
 - Do not require both a state and redundant aliases/complements of that state.
 - Do not use an effect's intended result as a precondition unless repeat application is genuinely
   invalid.

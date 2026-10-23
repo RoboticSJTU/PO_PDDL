@@ -148,34 +148,9 @@ def retain_identity_anchored_preconditions(
             and any(argument.startswith("?arg") for argument in arguments)
         )
 
-    held_arguments = {
-        arguments[0]
-        for literal in selected_literals
-        for negated, predicate_name, arguments in [parse_symbolic_literal(literal)]
-        if not negated and predicate_name == "gripper_holding" and len(arguments) == 1
-    }
-
-    def is_redundant_held_item_location_absence(literal: str) -> bool:
-        """Holding an item already establishes that its previous location was cleared."""
-        negated, _predicate_name, arguments = parse_symbolic_literal(literal)
-        action_arguments = [argument for argument in arguments if argument.startswith("?arg")]
-        return (
-            negated
-            and len(action_arguments) == 1
-            and action_arguments[0] in held_arguments
-            and arguments
-            and arguments[0] == action_arguments[0]
-        )
-
-    # Dependency candidates are eligible only when a demonstrated earlier
-    # transition removed a matching fact. Requiring an action-argument anchor
-    # keeps that causal evidence local instead of turning scene-wide absences
-    # into global gates.
-    causal_dependency_literals = [
-        literal
-        for literal in universally_supported_literals
-        if is_supported_dependency_shape(literal) and not is_redundant_held_item_location_absence(literal)
-    ]
+    # Prior deletions establish candidate eligibility, not necessity.  Respect
+    # the semantic selector's decision rather than forcing every anchored
+    # dependency into the final schema from demonstration order alone.
     mandatory_resource_literals = []
     for literal in universally_supported_literals:
         negated, _predicate_name, arguments = parse_symbolic_literal(literal)
@@ -184,9 +159,7 @@ def retain_identity_anchored_preconditions(
 
     selected_literals = [
         literal
-        for literal in dict.fromkeys(
-            [*selected_literals, *mandatory_resource_literals, *causal_dependency_literals]
-        )
+        for literal in dict.fromkeys([*selected_literals, *mandatory_resource_literals])
         if not is_redundant_noop_check(literal)
         and (not is_dependent_literal(literal) or is_supported_dependency_shape(literal))
     ]

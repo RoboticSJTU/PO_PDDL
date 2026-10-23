@@ -16,7 +16,7 @@ def test_unanchored_dependency_literal_is_not_forced() -> None:
     assert selected == ["gripper_empty()"]
 
 
-def test_anchored_causal_dependency_literal_is_retained() -> None:
+def test_rejected_anchored_dependency_literal_is_not_forced() -> None:
     selected = retain_identity_anchored_preconditions(
         action_name="place_item",
         universally_supported_literals=[
@@ -26,7 +26,7 @@ def test_anchored_causal_dependency_literal_is_retained() -> None:
         selected_literals=[],
     )
 
-    assert selected == ["gripper_empty()", "not occupied_by(?dep0,?arg1)"]
+    assert selected == ["gripper_empty()"]
 
 
 def test_selector_can_keep_direct_dependent_clearance_constraint() -> None:
@@ -63,10 +63,27 @@ def test_holding_item_keeps_destination_clearance_for_another_object() -> None:
             "gripper_holding(?arg0)",
             "not occupied_by(?dep0,?arg1)",
         ],
-        selected_literals=["gripper_holding(?arg0)"],
+        selected_literals=["gripper_holding(?arg0)", "not occupied_by(?dep0,?arg1)"],
     )
 
     assert selected == ["gripper_holding(?arg0)", "not occupied_by(?dep0,?arg1)"]
+
+
+def test_top_occupancy_is_not_learned_as_a_global_clearance_gate() -> None:
+    selected = retain_identity_anchored_preconditions(
+        action_name="place_object_on_top_of_object_on_right",
+        universally_supported_literals=[
+            "gripper_holding(?arg0)",
+            "not on_left(?arg1)",
+            "not on_top_of(?dep0,?arg1)",
+        ],
+        selected_literals=[
+            "gripper_holding(?arg0)",
+            "not on_left(?arg1)",
+        ],
+    )
+
+    assert selected == ["gripper_holding(?arg0)", "not on_left(?arg1)"]
 
 
 def test_positive_zero_arity_resource_is_still_enforced() -> None:
